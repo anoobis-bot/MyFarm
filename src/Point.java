@@ -2,6 +2,12 @@ public class Point
 {
     private int xCoordinate, yCoordinate;
 
+    Point()
+    {
+        xCoordinate = 0;
+        yCoordinate = 0;
+    }
+
     public int getXCoordinate()
     {
         return xCoordinate;

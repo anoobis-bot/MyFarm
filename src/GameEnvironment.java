@@ -7,7 +7,7 @@ public class GameEnvironment
     {
         this.xSize = xSize;
         this.ySize = ySize;
-        this.systemDay = 0;
+        this.systemDay = 1;
     }
 
     public int advanceTime()
