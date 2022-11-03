@@ -8,12 +8,12 @@ public enum ToolAttributes
     PICKAXE("Pickaxe", 50, 15, false, false),
     SHOVEL("Shovel", 7, 2, false, false);
 
-    String toolName;
-    int costUsage;
-    double expUsage;
+    public final String toolName;
+    public final int costUsage;
+    public final double expUsage;
 
-    boolean requiredRocksClear;
-    boolean requiredPlowed;
+    public final boolean requiredRocksClear;
+    public final boolean requiredPlowed;
 
     ToolAttributes(String toolName, int costUsage, double expUsage, boolean requiredPlowed, boolean requiredRocksClear)
     {

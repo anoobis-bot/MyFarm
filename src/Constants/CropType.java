@@ -6,8 +6,8 @@ public enum CropType
     FLOWER("Flower", 0),
     FRUIT_TREE("Fruit Tree", 1);
 
-    String typeName;
-    int paddingRequired;
+    public final String typeName;
+    public final int paddingRequired;
 
     CropType(String typeName, int paddingRequired)
     {

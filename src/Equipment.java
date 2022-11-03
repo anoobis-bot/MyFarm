@@ -1,3 +1,5 @@
+import Constants.ToolAttributes;
+
 public class Equipment
 {
     private String toolName;
