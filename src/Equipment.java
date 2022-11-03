@@ -8,6 +8,32 @@ public class Equipment
     private boolean requiredPlowed;
     private boolean requiredRocksClear;
 
+
+    public void setTool(ToolAttributes tool)
+    {
+        this.toolName = tool.toolName;
+        this.usageCost = tool.costUsage;
+        this.requiredPlowed = tool.requiredPlowed;
+        this.requiredRocksClear = tool.requiredRocksClear;
+    }
+
+    public String getToolName() {
+        return toolName;
+    }
+
+    public float getUsageCost() {
+        return usageCost;
+    }
+
+    public boolean isRequiredPlowed() {
+        return requiredPlowed;
+    }
+
+    public boolean isRequiredRocksClear() {
+        return requiredRocksClear;
+    }
+
+
     public boolean verifyUsage_Mny(float objCoin)
     {
         if (objCoin >= this.usageCost)
