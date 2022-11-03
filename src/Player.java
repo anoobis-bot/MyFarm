@@ -23,15 +23,40 @@ public class Player
         this.tool.setTool(ToolAttributes.PLOW);
     }
 
+    public double getFarmerExp()
+    {
+        return farmerExp;
+    }
+
+    public int getFarmerLvl()
+    {
+        return farmerLvl;
+    }
+
+    public int getObjCoin()
+    {
+        return objCoin;
+    }
+
+    public Point getPoint()
+    {
+        return point;
+    }
+
+    public FarmerType getFarmerType()
+    {
+        return farmerType;
+    }
+
     public void changeTool(ToolAttributes tool)
     {
         this.tool.setTool(tool);
     }
 
-    public boolean useTool(Land[][] landMatrix)
-    {
-        return true;
-    }
+    //    public boolean useTool(Land[][] landMatrix)
+//    {
+//        return true;
+//    }
 
 
 
