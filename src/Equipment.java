@@ -6,7 +6,7 @@ public class Equipment
     private float usageCost;
 
     private boolean requiredPlowed;
-    private boolean requiredNoRocks;
+    private boolean requiredRocksClear;
 
     public boolean verifyUsage_Mny(float objCoin)
     {
@@ -18,6 +18,11 @@ public class Equipment
 
     public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
     {
+        if (this.requiredRocksClear && hasRocks)
+            return false;
+        else if (this.requiredPlowed && !(isPlowed))
+            return false;
+
         return true;
     }
 }
