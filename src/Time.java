@@ -4,7 +4,7 @@ public class Time
 
     Time()
     {
-        systemDay = 0;
+        this.systemDay = 0;
     }
 
     public int advanceTime()
