@@ -48,6 +48,11 @@ public class Player
         return farmerType;
     }
 
+    public Equipment getTool()
+    {
+        return tool;
+    }
+
     public void changeTool(ToolAttributes tool)
     {
         this.tool.setTool(tool);
