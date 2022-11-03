@@ -28,7 +28,7 @@ public enum SeedAttributes
 
 
     public final String seedName;
-    public final CropType CropType;
+    public final CropType cropType;
 
     public final int hrvstDays;
 
@@ -49,7 +49,7 @@ public enum SeedAttributes
                    int baseSellPiece, double expYield)
     {
         this.seedName = seedName;
-        this.CropType = cropType;
+        this.cropType = cropType;
         this.hrvstDays = hrvstDays;
         this.waterNeeds = waterNeeds;
         this.waterBonus = waterBonus;
