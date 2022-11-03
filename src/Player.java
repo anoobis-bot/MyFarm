@@ -9,6 +9,7 @@ public class Player
     private Point point;
     private Equipment tool;
 
+
     Player(int objCoin, double farmerExp, int farmerLvl)
     {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);

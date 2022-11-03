@@ -5,7 +5,7 @@ public class Driver
     public static void main(String[] args)
     {
         GameEnvironment game = new GameEnvironment(2, 3);
-        Player player = new Player(1000, 0, 0);
+        Player player = new Player(100, 0, 0);
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
 
         Display display = new Display(player, landMatrix, game);
