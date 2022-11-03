@@ -3,7 +3,7 @@ public class GameEnvironment
     private int systemDay;
     private final int xSize, ySize;
 
-    GameEnvironment(int xSize, int ySize)
+    GameEnvironment(int ySize, int xSize)
     {
         this.xSize = xSize;
         this.ySize = ySize;

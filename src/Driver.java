@@ -4,15 +4,17 @@ public class Driver
     {
         GameEnvironment game = new GameEnvironment(2, 3);
         Player player = new Player(1000, 0, 0);
-        Land[][] landFarm = new Land[game.getYSize()][game.getXSize()];
+        Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
 
-        Display display = new Display(player, landFarm, game);
+        Display display = new Display(player, landMatrix, game);
 
-        for (int y = 0; y < game.getXSize(); y++)
+        int xSize = game.getXSize();
+        int ySize = game.getYSize();
+        for (int y = 0; y < ySize; y++)
         {
-            for (int x = 0; x < game.getYSize(); x++)
+            for (int x = 0; x < xSize; x++)
             {
-                landFarm[y][x] = new Land();
+                landMatrix[y][x] = new Land();
             }
         }
         display.render();
