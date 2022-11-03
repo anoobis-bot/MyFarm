@@ -4,10 +4,7 @@ public class Equipment
 {
     private String toolName;
     private float usageCost;
-
-    private boolean requiredPlowed;
-    private boolean requiredRocksClear;
-
+    private boolean requiredPlowed, requiredRocksClear;
 
     public void setTool(ToolAttributes tool)
     {

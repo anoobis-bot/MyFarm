@@ -1,8 +1,7 @@
 public class GameEnvironment
 {
     private int systemDay;
-    private final int xSize;
-    private final int ySize;
+    private final int xSize, ySize;
 
     GameEnvironment(int xSize, int ySize)
     {

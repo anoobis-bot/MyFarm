@@ -5,17 +5,8 @@ public class Seed
 {
     private String seedName;
     private CropType cropType;
-    private int hrvstDays;
-    private int waterNeeds;
-    private int fertilizerNeeds;
-    private int producedQtyMin;
-    private int producedQtyMax;
-    private int seedCost;
-    private int baseSellPrice;
+    private int hrvstDays, waterNeeds, fertilizerNeeds, producedQtyMin, producedQtyMax, seedCost, baseSellPrice, ageInDays;
     private double expYield;
-
-    private int ageInDays;
-
     Seed(SeedAttributes seed)
     {
         this.seedName = seed.seedName;
@@ -31,7 +22,6 @@ public class Seed
 
         this.ageInDays = 0;
     }
-
     public String getSeedName() {
         return seedName;
     }

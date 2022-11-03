@@ -3,8 +3,7 @@ import Constants.SeedAttributes;
 public class Land
 {
     private Seed crop;
-    private int amtWater;
-    private int amtFertilizer;
+    private int amtWater, amtFertilizer;
 
     Land()
     {

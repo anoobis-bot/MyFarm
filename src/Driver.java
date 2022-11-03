@@ -15,7 +15,6 @@ public class Driver
                 landFarm[y][x] = new Land();
             }
         }
-
         display.render();
     }
 }

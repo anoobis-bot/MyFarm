@@ -1,7 +1,6 @@
 public class Point
 {
-    private int xCoordinate;
-    private int yCoordinate;
+    private int xCoordinate, yCoordinate;
 
     public int getXCoordinate()
     {
