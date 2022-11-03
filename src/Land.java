@@ -12,6 +12,8 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
+        this.isPlowed = false;
+        this.hasRocks = false;
     }
 
     public void setSeed(SeedAttributes seed)
