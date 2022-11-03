@@ -4,7 +4,7 @@ public class GameEnvironment
     private final int xSize;
     private final int ySize;
 
-    GameEnvironment(int xSize, int ySize)
+    GameEnvironment(int ySize, int xSize)
     {
         this.xSize = xSize;
         this.ySize = ySize;
