@@ -54,13 +54,14 @@ public class Display
 
         System.out.print("\n");
 
+        int currOption = 0;
         String playerToolName = player.getTool().getToolName();
         for (ToolAttributes currTool : ToolAttributes.values())
         {
-            if (currTool.toolName.equals(playerToolName))
-                System.out.print("~");
-            else
-                System.out.print(" ");
+            System.out.print("[");
+            System.out.print(currOption + 1);
+            currOption++;
+            System.out.print("]");
 
             System.out.print(currTool.toolName);
             System.out.print(" ");
@@ -71,10 +72,10 @@ public class Display
         String selectedSeed = player.getTool().getToolName();
         for (SeedAttributes currSeed : SeedAttributes.values())
         {
-            if (currSeed.seedName.equals(playerToolName))
-                System.out.print("~");
-            else
-                System.out.print(" ");
+            System.out.print("[");
+            System.out.print(currOption + 1);
+            currOption++;
+            System.out.print("]");
 
             System.out.print(currSeed.seedName);
             System.out.print(" ");
