@@ -1,5 +1,6 @@
 import Constants.FarmerTypeAttributes;
 import Constants.ToolAttributes;
+import Constants.SeedAttributes;
 
 public class Player {
     private FarmerType farmerType;
