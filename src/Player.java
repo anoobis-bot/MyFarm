@@ -100,18 +100,18 @@ public class Player {
      */
     public boolean plantSeed(Land[][] landMatrix)
     {
-        if (!(landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks()))
+        // if the land is plowed or there are no rocks
+        if (seed.verifyUsage_Lnd(landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
+                                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].isPlowed()))
         {
-            if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].isPlowed())
+            // if the player has enough money
+            if (seed.verifyUsage_Mny(this.objCoin))
             {
-                if (this.objCoin >= seed.getSeedCost())
-                {
-                    if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() == null)
-                    {
-                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);
-                        this.objCoin = this.objCoin - seed.getSeedCost();
-                        return true;
-                    }
+                // if the land is not populated with seed
+                if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() == null) {
+                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);   // plant the seed
+                    this.objCoin = this.objCoin - seed.getSeedCost();   // subtract the cost
+                    return true;
                 }
             }
         }

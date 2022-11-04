@@ -78,8 +78,23 @@ public class Seed
         return ageInDays;
     }
 
+    // Increments seed age
     public void incrementAgeInDays()
     {
         this.ageInDays++;
+    }
+
+    // these methods below are the ones to be used if the seed is plantable
+    public boolean verifyUsage_Mny(float objCoin)
+    {
+        return objCoin >= this.seedCost;
+    }
+
+    public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
+    {
+        if (hasRocks || !isPlowed)
+            return false;
+
+        return true;
     }
 }
