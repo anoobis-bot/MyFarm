@@ -39,6 +39,8 @@ public class Display
 
                 if (landMatrix[y][x].hasRocks())
                     System.out.print("R");
+                else if (landMatrix[y][x].getCurrentSeed() != null)
+                    System.out.print(landMatrix[y][x].getCurrentSeed().getSeedName().charAt(0));
                 else if (landMatrix[y][x].isPlowed())
                     System.out.print("P");
 //               else if (landMatrix[y][x].isWithered())

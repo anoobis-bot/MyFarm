@@ -51,16 +51,18 @@ public class Driver
             }
             else if (userInput <= toolPopulation + seedPopulation + actionsPopulation)
             {
-                if (userInput == toolPopulation + seedPopulation + 1)
+                if (userInput == toolPopulation + seedPopulation + PlayerActions.PLANT.ordinal() + 1)
                     player.plantSeed(landMatrix);
-                else if (userInput == toolPopulation + seedPopulation + 2)
+                else if (userInput == toolPopulation + seedPopulation + PlayerActions.USE_TOOL.ordinal() + 1)
                     // TODO code for using tool
                     ;
-                else if (userInput == toolPopulation + seedPopulation + 3)
+                else if (userInput == toolPopulation + seedPopulation + PlayerActions.NEXT_DAY.ordinal() + 1)
                 {
                     game.advanceTime();
-                    for (int y = 0; y < ySize; y++) {
-                        for (int x = 0; x < xSize; x++) {
+                    for (int y = 0; y < ySize; y++)
+                    {
+                        for (int x = 0; x < xSize; x++)
+                        {
                             if (landMatrix[y][x].getCurrentSeed() != null)
                                 landMatrix[y][x].getCurrentSeed().incrementAgeInDays();
                         }
@@ -70,7 +72,7 @@ public class Driver
 
             System.out.print("\n\n");
 
-            player.subtractCoin(); // loopbreaker lang(pansamantala)
+//            player.subtractCoin(); // loopbreaker lang(pansamantala)
 
         }while (player.getObjCoin() > 0 || !withered); // ||
     }

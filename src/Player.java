@@ -77,8 +77,12 @@ public class Player {
             {
                 if (this.objCoin >= seed.getSeedCost())
                 {
-                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);
-                    return true;
+                    if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() == null)
+                    {
+                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);
+                        this.objCoin = this.objCoin - seed.getSeedCost();
+                        return true;
+                    }
                 }
             }
         }
