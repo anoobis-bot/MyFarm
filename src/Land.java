@@ -3,10 +3,8 @@ import Constants.SeedAttributes;
 public class Land
 {
     private Seed crop;
-    private int amtWater;
-    private int amtFertilizer;
-    private boolean isPlowed;
-    private boolean hasRocks;
+    private int amtWater, amtFertilizer;
+    private boolean isPlowed, hasRocks;
 
     Land()
     {
