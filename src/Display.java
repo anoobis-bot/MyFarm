@@ -1,7 +1,6 @@
+import Constants.PlayerActions;
 import Constants.SeedAttributes;
 import Constants.ToolAttributes;
-
-import javax.tools.Tool;
 
 public class Display
 {
@@ -9,7 +8,7 @@ public class Display
     private Land[][] landMatrix;
     private GameEnvironment game;
 
-    public Display(Player player, Land[][] landMatrix, GameEnvironment game)
+    Display(Player player, Land[][] landMatrix, GameEnvironment game)
     {
         this.player = player;
         this.landMatrix = landMatrix;
@@ -42,8 +41,8 @@ public class Display
                     System.out.print("R");
                 else if (landMatrix[y][x].isPlowed())
                     System.out.print("P");
-               else if (landMatrix[y][x].isWithered())
-                    System.out.print("W");
+//               else if (landMatrix[y][x].isWithered())
+//                    System.out.print("W");
                 else
                 System.out.print("L");
 
@@ -55,33 +54,49 @@ public class Display
         System.out.print("\n");
 
         int currOption = 0;
-        String playerToolName = player.getTool().getToolName();
         for (ToolAttributes currTool : ToolAttributes.values())
         {
             System.out.print("[");
-            System.out.print(currOption + 1);
+            if (currTool.toolName == player.getTool().getToolName())
+                System.out.print("*");
+            else
+                System.out.print(currOption + 1);
             currOption++;
             System.out.print("]");
 
             System.out.print(currTool.toolName);
-            System.out.print(" ");
+            System.out.print("  ");
         }
-
         System.out.print("\n");
 
-        String selectedSeed = player.getTool().getToolName();
         for (SeedAttributes currSeed : SeedAttributes.values())
+        {
+            System.out.print("[");
+            if (currSeed.seedName == player.getSeed().getSeedName())
+                System.out.print("*");
+            else
+                System.out.print(currOption + 1);
+            currOption++;
+            System.out.print("]");
+
+            System.out.print(currSeed.seedName);
+            System.out.print("  ");
+        }
+        System.out.print("\n");
+
+        for (PlayerActions currAction : PlayerActions.values())
         {
             System.out.print("[");
             System.out.print(currOption + 1);
             currOption++;
             System.out.print("]");
 
-            System.out.print(currSeed.seedName);
+            System.out.print(currAction.actionName);
             System.out.print(" ");
         }
 
         System.out.print("\n----------------------------------------------------------------\n");
+        System.out.print("Enter an input: ");
 
     }
 }

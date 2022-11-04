@@ -19,6 +19,7 @@ public class Player {
         this.point = new Point();
         this.tool = new Equipment();
         this.tool.setTool(ToolAttributes.PLOW);
+        this.grabSeed(SeedAttributes.TURNIP);
     }
 
     public double getFarmerExp() {
@@ -59,7 +60,12 @@ public class Player {
         return objCoin;
     }
 
-    public void setSeed(SeedAttributes seed)
+    public Seed getSeed()
+    {
+        return seed;
+    }
+
+    public void grabSeed(SeedAttributes seed)
     {
         this.seed = new Seed(seed);
     }
