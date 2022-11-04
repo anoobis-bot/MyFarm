@@ -1,7 +1,13 @@
+/*
+    This enum contains the different tools in the game. Each field contains the constant values associated with
+    the tool
+ */
+
 package Constants;
 
 public enum ToolAttributes
 {
+    // <TOOL_NAME>(toolName, costUsage, expUsage, requiredPlowed, requiredRocksClear
     PLOW("Plow", 0, 0.5, false, true),
     WATERING_CAN("Watering Can", 0, 0.5, true, true),
     FERTILIZER("Fertilizer", 10, 4, true, true),

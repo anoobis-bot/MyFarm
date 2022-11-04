@@ -1,3 +1,7 @@
+/*
+    This class contains the equipment for the game
+ */
+
 import Constants.CropType;
 import Constants.SeedAttributes;
 
@@ -9,7 +13,13 @@ public class Seed
     private int ageInDays;
     private final double expYield;
     private boolean withered;
-    Seed(SeedAttributes seed)
+
+    /*
+        When the user decides to change tool, a new object is instantiated with it constructor
+        That is why it is not necessary to have setter methods
+        @param seed input an enum field from SeedAttributes
+     */
+    public Seed(SeedAttributes seed)
     {
         this.seedName = seed.seedName;
         this.cropType = seed.cropType;

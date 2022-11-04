@@ -1,3 +1,6 @@
+/*
+    This class contains the equipment for the game
+ */
 import Constants.ToolAttributes;
 
 public class Equipment
@@ -6,6 +9,10 @@ public class Equipment
     private float usageCost;
     private boolean requiredPlowed, requiredRocksClear;
 
+    /*
+        These value are based on the constant enum values from ToolAttributes
+        @param tool  input an enum field from ToolAttributes
+    */
     public void setTool(ToolAttributes tool)
     {
         this.toolName = tool.toolName;
@@ -14,6 +21,7 @@ public class Equipment
         this.requiredRocksClear = tool.requiredRocksClear;
     }
 
+    // getters
     public String getToolName() {
         return toolName;
     }
@@ -30,7 +38,7 @@ public class Equipment
         return requiredRocksClear;
     }
 
-
+    // these methods below are the ones to be used if the tool is usable
     public boolean verifyUsage_Mny(float objCoin)
     {
         return objCoin >= this.usageCost;

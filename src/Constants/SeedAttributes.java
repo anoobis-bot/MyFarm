@@ -1,7 +1,14 @@
+/*
+    This enum contains the different seeds in the game. Each field contains the constant values associated with
+    the seed
+ */
+
 package Constants;
 
 public enum SeedAttributes
 {
+    // <SEED_NAME>(seedName, cropType, hrvstDays, waterNeeds, waterBonus, fertilizerNeeds,
+    //              fertilizerBonus, producedQtyMin, producedQtyMax, seedCost, baseSellPrice, expYield)
     TURNIP("Turnip", Constants.CropType.ROOT_CROP, 2, 1, 2, 0,
             1, 1, 2, 5, 6, 5),
 

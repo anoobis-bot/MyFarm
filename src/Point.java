@@ -1,13 +1,18 @@
+/*
+    This class is the pointer to which it points which element land the player is pointing to
+ */
+
 public class Point
 {
     private int xCoordinate, yCoordinate;
 
-    Point()
+    public Point()
     {
         xCoordinate = 0;
         yCoordinate = 0;
     }
 
+    // Getters and setters
     public int getXCoordinate()
     {
         return xCoordinate;

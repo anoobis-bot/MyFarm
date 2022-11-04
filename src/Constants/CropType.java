@@ -1,3 +1,9 @@
+/*
+    This enum contains the type of crops available in the game.
+    They are distinguished mainly from their required free space
+    (padding) when planting the seeds.
+ */
+
 package Constants;
 
 public enum CropType

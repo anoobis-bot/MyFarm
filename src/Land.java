@@ -1,3 +1,6 @@
+/*
+    This class is the blueprint for the land object in the game.
+ */
 
 public class Land
 {
@@ -5,7 +8,10 @@ public class Land
     private int amtWater, amtFertilizer, dayPlanted;
     private boolean isPlowed, hasRocks, isWithered;
 
-    Land()
+    /*
+        Initializes all land with 0 water, fertilizer, not plowed, and has no tocks
+     */
+    public Land()
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
@@ -14,11 +20,16 @@ public class Land
         this.isWithered = false;
     }
 
+    /*
+        *plants* the seed into the land via aggregation.
+        @param seed  put here the seed object from the player.
+     */
     public void setSeed(Seed seed)
     {
         this.crop = seed;
     }
 
+    // Getters
     public Seed getCurrentSeed()
     {
         return this.crop;
@@ -52,16 +63,18 @@ public class Land
             return isWithered;
     }
 
+    // Increments on how many times the land has been watered
     public void waterLand()
     {
         this.amtWater++;
     }
-
+    // Increments on how many times the land has been fertilized
     public void fertilizeLand()
     {
         this.amtFertilizer++;
     }
 
+    // resets how many times the land has been watered and fertilized to 0
     public void resetValues()
     {
         this.amtWater = 0;

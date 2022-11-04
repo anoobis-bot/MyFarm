@@ -1,3 +1,8 @@
+/*
+    This enum class contains the different farmer types in the game.
+    The fields contain the constant values (benefits) each farmer type has
+ */
+
 package Constants;
 
 public enum FarmerTypeAttributes
