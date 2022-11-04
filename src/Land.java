@@ -15,9 +15,9 @@ public class Land
         this.isWithered = false;
     }
 
-    public void setSeed(SeedAttributes seed)
+    public void setSeed(Seed seed)
     {
-        this.crop = new Seed(seed);
+        this.crop = seed;
     }
 
     public Seed getCurrentSeed()
