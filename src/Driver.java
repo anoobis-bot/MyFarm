@@ -53,11 +53,22 @@ public class Driver
             {
                 if (userInput == toolPopulation + seedPopulation + 1)
                     player.plantSeed(landMatrix);
+                else if (userInput == toolPopulation + seedPopulation + 2)
+                    // TODO code for using tool
+                    ;
+                else if (userInput == toolPopulation + seedPopulation + 3)
+                {
+                    game.advanceTime();
+                    for (int y = 0; y < ySize; y++) {
+                        for (int x = 0; x < xSize; x++) {
+                            if (landMatrix[y][x].getCurrentSeed() != null)
+                                landMatrix[y][x].getCurrentSeed().incrementAgeInDays();
+                        }
+                    }
+                }
             }
 
             System.out.print("\n\n");
-
-            game.advanceTime();
 
             player.subtractCoin(); // loopbreaker lang(pansamantala)
 

@@ -66,4 +66,9 @@ public class Seed
     public int getAgeInDays() {
         return ageInDays;
     }
+
+    public void incrementAgeInDays()
+    {
+        this.ageInDays++;
+    }
 }
