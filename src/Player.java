@@ -1,20 +1,15 @@
 import Constants.FarmerTypeAttributes;
-import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 
-public class Player
-{
+public class Player {
     private FarmerType farmerType;
     private double farmerExp;
-    private int farmerLvl;
-    private int objCoin;
-
+    private int farmerLvl, objCoin;
     private Point point;
     private Equipment tool;
     private Seed seed;
 
-    Player(int objCoin, double farmerExp, int farmerLvl)
-    {
+    Player(int objCoin, double farmerExp, int farmerLvl) {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
         this.objCoin = objCoin;
         this.farmerExp = farmerExp;
@@ -25,38 +20,31 @@ public class Player
         this.tool.setTool(ToolAttributes.PLOW);
     }
 
-    public double getFarmerExp()
-    {
+    public double getFarmerExp() {
         return farmerExp;
     }
 
-    public int getFarmerLvl()
-    {
+    public int getFarmerLvl() {
         return farmerLvl;
     }
 
-    public int getObjCoin()
-    {
+    public int getObjCoin() {
         return objCoin;
     }
 
-    public Point getPoint()
-    {
+    public Point getPoint() {
         return point;
     }
 
-    public FarmerType getFarmerType()
-    {
+    public FarmerType getFarmerType() {
         return farmerType;
     }
 
-    public Equipment getTool()
-    {
+    public Equipment getTool() {
         return tool;
     }
 
-    public void changeTool(ToolAttributes tool)
-    {
+    public void changeTool(ToolAttributes tool) {
         this.tool.setTool(tool);
     }
 
@@ -65,6 +53,10 @@ public class Player
 //        return true;
 //    }
 
+    public int subtractCoin() {
+        this.objCoin--;
+        return objCoin;
+    }
 
     public void setSeed(SeedAttributes seed)
     {

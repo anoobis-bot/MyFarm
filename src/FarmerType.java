@@ -3,10 +3,7 @@ import Constants.FarmerTypeAttributes;
 public class FarmerType
 {
     private String nameType;
-    private int bonusCoin;
-    private int seedReductionCost;
-    private int bonusLimitIncrease;
-    private int bonusFertilizeIncrease;
+    private int bonusCoin, seedReductionCost, bonusLimitIncrease, bonusFertilizeIncrease;
 
     FarmerType(FarmerTypeAttributes farmerAttributes)
     {

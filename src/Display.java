@@ -18,11 +18,12 @@ public class Display
 
     public void render()
     {
-        System.out.println("Day " + game.getCurrentDay());
-
-        System.out.print(player.getFarmerType().getNameType());
-        System.out.print(" - Level " + player.getFarmerLvl());
-        System.out.print("\n\n");
+        System.out.println("Day " + game.getCurrentDay() + " "
+                        + player.getFarmerType().getNameType());
+        System.out.println("Level " + player.getFarmerLvl()
+                        + " - Exp " + player.getFarmerExp());
+        System.out.println("Object Coin: " + player.getObjCoin());
+        System.out.print("\n");
 
         int xSize = game.getXSize();
         int ySize = game.getYSize();
@@ -41,8 +42,10 @@ public class Display
                     System.out.print("R");
                 else if (landMatrix[y][x].isPlowed())
                     System.out.print("P");
-                else
-                    System.out.print("L");
+               /* else if (landMatrix[y][x].)
+                    System.out.print("W");
+                */else
+                System.out.print("L");
 
                 System.out.print(" ");
             }
@@ -63,7 +66,6 @@ public class Display
             System.out.print(" ");
         }
 
-
         System.out.print("\n");
 
         String selectedSeed = player.getTool().getToolName();
@@ -77,6 +79,8 @@ public class Display
             System.out.print(currSeed.seedName);
             System.out.print(" ");
         }
+
+        System.out.print("\n----------------------------------------------------------------\n");
 
     }
 }
