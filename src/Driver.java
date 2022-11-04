@@ -1,5 +1,7 @@
 import Constants.ToolAttributes;
 
+import java.awt.event.KeyEvent;
+
 public class Driver
 {
     public static void main(String[] args)
@@ -13,18 +15,21 @@ public class Driver
         int xSize = game.getXSize();
         int ySize = game.getYSize();
 
-        do {
+        boolean withered = false;
+
+        do
+        {
             for (int y = 0; y < ySize; y++)
-            {
-                for (int x = 0; x < xSize; x++)
-                {
+                for (int x = 0; x < xSize; x++) {
                     landMatrix[y][x] = new Land();
+                    if (landMatrix[y][x].isWithered())
+                        withered = true;
                 }
-            }
             display.render();
             game.advanceTime();
-            player.subtractCoin(); // loopbreaker lang(pansamantala)
-        }while (player.getObjCoin() > 0); // ||
 
+            player.subtractCoin(); // loopbreaker lang(pansamantala)
+
+        }while (player.getObjCoin() > 0 || !withered); // ||
     }
 }

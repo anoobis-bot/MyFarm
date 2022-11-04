@@ -7,6 +7,7 @@ public class Seed
     private CropType cropType;
     private int hrvstDays, waterNeeds, fertilizerNeeds, producedQtyMin, producedQtyMax, seedCost, baseSellPrice, ageInDays;
     private double expYield;
+    private boolean withered;
     Seed(SeedAttributes seed)
     {
         this.seedName = seed.seedName;
@@ -21,6 +22,7 @@ public class Seed
         this.expYield = seed.expYield;
 
         this.ageInDays = 0;
+        this.withered = false;
     }
     public String getSeedName() {
         return seedName;
@@ -30,9 +32,8 @@ public class Seed
         return cropType;
     }
 
-    public int getHrvstDays() {
-        return hrvstDays;
-    }
+    public int getHrvstDays() {return hrvstDays; }
+    public boolean getWitherStat() {return withered; }
 
     public int getWaterNeeds() {
         return waterNeeds;
