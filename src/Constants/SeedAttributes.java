@@ -29,19 +29,8 @@ public enum SeedAttributes
 
     public final String seedName;
     public final CropType cropType;
-
-    public final int hrvstDays;
-
-    public final int waterNeeds;
-    public final int waterBonus;
-    public final int fertilizerNeeds;
-    public final int fertilizerBonus;
-
-    public final int producedQtyMin;
-    public final int producedQtyMax;
-
-    public final int seedCost;
-    public final int baseSellPiece;
+    public final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds,
+            fertilizerBonus,producedQtyMin, producedQtyMax, seedCost, baseSellPiece;
     public final double expYield;
 
     SeedAttributes(String seedName, CropType cropType, int hrvstDays, int waterNeeds, int waterBonus,

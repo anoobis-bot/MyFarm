@@ -3,8 +3,8 @@ import Constants.SeedAttributes;
 public class Land
 {
     private Seed crop;
-    private int amtWater, amtFertilizer;
-    private boolean isPlowed, hasRocks;
+    private int amtWater, amtFertilizer, dayPlanted;
+    private boolean isPlowed, hasRocks, isWithered;
 
     Land()
     {
@@ -12,6 +12,7 @@ public class Land
         this.amtFertilizer = 0;
         this.isPlowed = false;
         this.hasRocks = false;
+        this.isWithered = false;
     }
 
     public void setSeed(Seed seed)
@@ -42,6 +43,14 @@ public class Land
     public boolean hasRocks()
     {
         return hasRocks;
+    }
+
+    public boolean isWithered()
+    {
+        if(crop.getWitherStat())
+            return isWithered = true;
+        else
+            return isWithered;
     }
 
     public void waterLand()

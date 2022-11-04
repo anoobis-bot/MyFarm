@@ -42,9 +42,9 @@ public class Display
                     System.out.print("R");
                 else if (landMatrix[y][x].isPlowed())
                     System.out.print("P");
-               /* else if (landMatrix[y][x].)
+               else if (landMatrix[y][x].isWithered())
                     System.out.print("W");
-                */else
+                else
                 System.out.print("L");
 
                 System.out.print(" ");
