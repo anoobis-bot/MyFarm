@@ -1,10 +1,11 @@
+import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 
 public class Driver
 {
     public static void main(String[] args)
     {
-        GameEnvironment game = new GameEnvironment(2, 3);
+        GameEnvironment game = new GameEnvironment(1, 1);
         Player player = new Player(100, 0, 0);
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
 

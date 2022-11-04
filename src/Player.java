@@ -1,4 +1,5 @@
 import Constants.FarmerTypeAttributes;
+import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 
 public class Player
@@ -10,7 +11,7 @@ public class Player
 
     private Point point;
     private Equipment tool;
-
+    private Seed seed;
 
     Player(int objCoin, double farmerExp, int farmerLvl)
     {
@@ -63,6 +64,28 @@ public class Player
 //    {
 //        return true;
 //    }
+
+
+    public void setSeed(SeedAttributes seed)
+    {
+        this.seed = new Seed(seed);
+    }
+    public boolean plantSeed(Land[][] landMatrix)
+    {
+        if (!(landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks()))
+        {
+            if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].isPlowed())
+            {
+                if (this.objCoin >= seed.getSeedCost())
+                {
+                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 
 

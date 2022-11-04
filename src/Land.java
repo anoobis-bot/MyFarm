@@ -16,9 +16,9 @@ public class Land
         this.hasRocks = false;
     }
 
-    public void setSeed(SeedAttributes seed)
+    public void setSeed(Seed seed)
     {
-        this.crop = new Seed(seed);
+        this.crop = seed;
     }
 
     public Seed getCurrentSeed()
