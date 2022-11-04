@@ -1,4 +1,3 @@
-import Constants.SeedAttributes;
 
 public class Land
 {

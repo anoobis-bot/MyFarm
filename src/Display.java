@@ -4,9 +4,9 @@ import Constants.ToolAttributes;
 
 public class Display
 {
-    private Player player;
-    private Land[][] landMatrix;
-    private GameEnvironment game;
+    private final Player player;
+    private final Land[][] landMatrix;
+    private final GameEnvironment game;
 
     Display(Player player, Land[][] landMatrix, GameEnvironment game)
     {
@@ -59,7 +59,7 @@ public class Display
         for (ToolAttributes currTool : ToolAttributes.values())
         {
             System.out.print("[");
-            if (currTool.toolName == player.getTool().getToolName())
+            if (currTool.toolName.equals(player.getTool().getToolName()))
                 System.out.print("*");
             else
                 System.out.print(currOption + 1);
@@ -74,7 +74,7 @@ public class Display
         for (SeedAttributes currSeed : SeedAttributes.values())
         {
             System.out.print("[");
-            if (currSeed.seedName == player.getSeed().getSeedName())
+            if (currSeed.seedName.equals(player.getSeed().getSeedName()))
                 System.out.print("*");
             else
                 System.out.print(currOption + 1);

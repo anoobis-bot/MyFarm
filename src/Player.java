@@ -6,7 +6,7 @@ public class Player {
     private FarmerType farmerType;
     private double farmerExp;
     private int farmerLvl, objCoin;
-    private Point point;
+    private final Point point;
     private Equipment tool;
     private Seed seed;
 

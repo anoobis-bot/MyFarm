@@ -3,10 +3,11 @@ import Constants.SeedAttributes;
 
 public class Seed
 {
-    private String seedName;
-    private CropType cropType;
-    private int hrvstDays, waterNeeds, fertilizerNeeds, producedQtyMin, producedQtyMax, seedCost, baseSellPrice, ageInDays;
-    private double expYield;
+    private final String seedName;
+    private final CropType cropType;
+    private final int hrvstDays, waterNeeds, fertilizerNeeds, producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
+    private int ageInDays;
+    private final double expYield;
     private boolean withered;
     Seed(SeedAttributes seed)
     {

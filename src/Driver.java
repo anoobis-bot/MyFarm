@@ -9,7 +9,7 @@ public class Driver
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
-        int userInput = -1;
+        int userInput;
 
         int toolPopulation = ToolAttributes.values().length;
         int seedPopulation = SeedAttributes.values().length;
