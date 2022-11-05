@@ -51,7 +51,10 @@ public class Driver
             // getting user input
             userInput = input.nextInt();
             // if the user's input are the number range for tools
-            if (userInput > 0 && userInput <= toolPopulation)
+            if (userInput <= 0)
+                // TODO catch error when user enters 0 or negative input
+                ;
+            else if (userInput <= toolPopulation)
             {
                 player.changeTool(ToolAttributes.values()[userInput - 1]);
             }
