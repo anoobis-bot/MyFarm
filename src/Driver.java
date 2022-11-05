@@ -50,10 +50,11 @@ public class Driver
 
             // getting user input
             userInput = input.nextInt();
-            // if the user's input are the number range for tools
+            // Catch user error, 0 and negative numbers are not in range of possible inputs
             if (userInput <= 0)
                 // TODO catch error when user enters 0 or negative input
                 ;
+            // if the user's input are the number range for tools
             else if (userInput <= toolPopulation)
             {
                 player.changeTool(ToolAttributes.values()[userInput - 1]);
@@ -76,16 +77,7 @@ public class Driver
                 // if the user decided to proceed to next day
                 else if (userInput == toolPopulation + seedPopulation + PlayerActions.NEXT_DAY.ordinal() + 1)
                 {
-                    game.advanceTime();
-                    // Checks each land object if it has a seed, then increment its age
-                    for (int y = 0; y < ySize; y++)
-                    {
-                        for (int x = 0; x < xSize; x++)
-                        {
-                            if (landMatrix[y][x].getCurrentSeed() != null)
-                                landMatrix[y][x].getCurrentSeed().incrementAgeInDays();
-                        }
-                    }
+                    game.advanceTime(landMatrix);
                 }
             }
 

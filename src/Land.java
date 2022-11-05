@@ -15,7 +15,7 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.isPlowed = false;
+        this.isPlowed = true;
         this.hasRocks = false;
         this.isWithered = false;
     }
