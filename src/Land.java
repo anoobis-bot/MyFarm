@@ -5,7 +5,6 @@
 public class Land
 {
     private Seed crop;
-    private GameEnvironment game;
     private int amtWater, reqWater, amtFertilizer;
     private boolean isPlowed, hasRocks, isWithered;
 

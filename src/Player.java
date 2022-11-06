@@ -12,7 +12,7 @@ public class Player {
     // The relationship of player with the objects below is composition
     private FarmerType farmerType;
     private final Point point;
-    private Equipment tool;
+    private final Equipment tool;
     private Seed seed;
 
     /*
@@ -79,18 +79,21 @@ public class Player {
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand();
                     farmerExp += 0.5;
                 break;
+
             case "Watering Can":
-                if(hasSeed){
+                if(Plowed){
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand();
-                    //player can receive exp at most on seed's max water limit
+
                     if (seed.getWaterBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater())
                     {
-                        farmerExp += 0.5;
+                        if (hasSeed)
+                            farmerExp += 0.5;
                         System.out.println("Successfully Watered");
                     } else
-                        System.out.println("Max Water Reached");
+                        System.out.println("Can't use watering can");
                 }else System.out.println("Can't use on land without seed");
                 break;
+
             case "Fertilizer":
                 if(hasSeed){
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand();
@@ -103,6 +106,7 @@ public class Player {
                         System.out.println("Can't use Fertilizer");
                 }else System.out.println("Can't use on land without seed");
                 break;
+
             default:
                 System.out.println("Coming Soon!");
                 break;
@@ -124,7 +128,7 @@ public class Player {
         @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
         @return true if a plant is planted. False if a seed is not planted
      */
-    public boolean plantSeed(Land[][] landMatrix)
+    public void plantSeed(Land[][] landMatrix)
     {
         // if the land is plowed or there are no rocks
         if (seed.verifyUsage_Lnd(landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
@@ -138,13 +142,13 @@ public class Player {
                 {
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);   // plant the seed
                     this.objCoin = this.objCoin - seed.getSeedCost();   // subtract the cost
-
-                    return true;
                 }
             }
         }
-        return false;
     }
+    /*
+    * This method resets all variables in the class
+    * */
     public void resetValue()
     {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
