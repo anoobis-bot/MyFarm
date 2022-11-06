@@ -104,19 +104,18 @@ public class Driver
                 }
                 System.out.print("\n\n");
             }while (player.getObjCoin() > 0);
-
             System.out.println("Game Over!");
-            System.out.println("restart game? [y/n]");
 
+            /* This asks the player for restart option or quit game */
+            System.out.println("restart game? [y/n]");
             Scanner s = new Scanner(System.in);
-            switch (s.next().charAt(0)){
+            switch (s.next().charAt(0))
+            {
                 case 'Y':
                 case 'y':
-                    for (int y = 0; y < ySize; y++) {
-                        for (int x = 0; x < xSize; x++) {
+                    for (int y = 0; y < ySize; y++)
+                        for (int x = 0; x < xSize; x++)
                             landMatrix[y][x].resetValues();
-                        }
-                    }
                     break;
                 case 'N':
                 case 'n':
