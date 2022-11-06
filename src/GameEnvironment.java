@@ -26,17 +26,11 @@ public class GameEnvironment
     public int advanceTime(Land[][] landMatrix)
     {
         this.systemDay++;
-
         // Checks each land object if it has a seed, then increment its age
         for (int y = 0; y < ySize; y++)
-        {
             for (int x = 0; x < xSize; x++)
-            {
                 if (landMatrix[y][x].getCurrentSeed() != null)
                     landMatrix[y][x].getCurrentSeed().incrementAgeInDays();
-            }
-        }
-
         return this.systemDay;
     }
 

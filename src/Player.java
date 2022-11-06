@@ -14,6 +14,7 @@ public class Player {
     private final Point point;
     private Equipment tool;
     private Seed seed;
+    private GameEnvironment game;
 
     /*
         Initialize the object coin, farmerExp, and farmerLvl
@@ -21,12 +22,11 @@ public class Player {
         @param farmerExp how much is the starting experience
         @param farmerLvl what is the starting level of the farmer
      */
-    public Player(int objCoin, double farmerExp, int farmerLvl) {
+    public Player(int objCoin, double farmerExp) {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
         this.objCoin = objCoin;
         this.farmerExp = farmerExp;
-        this.farmerLvl = farmerLvl;
-
+        this.farmerLvl = (int) (farmerExp / 100);
         this.point = new Point();
         this.tool = new Equipment();
         // The default tool is plow and the default seed that the player is holding is turnip
@@ -68,7 +68,7 @@ public class Player {
     public boolean useTool(Land[][] landMatrix)
     {
         boolean hasRocks = landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
-                hasSeed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasSeed(),
+                hasSeed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() != null,
                 Plowed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].isPlowed();
 
         switch (tool.getToolName()){
@@ -130,16 +130,25 @@ public class Player {
             if (seed.verifyUsage_Mny(this.objCoin))
             {
                 // if the land is not populated with seed
-                if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() == null) {
+                if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() == null)
+                {
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);   // plant the seed
                     this.objCoin = this.objCoin - seed.getSeedCost();   // subtract the cost
+
                     return true;
                 }
             }
         }
         return false;
     }
+    public void resetValue()
+    {
+        this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
+        this.objCoin = 100;
+        this.farmerExp = 0.0;
+        this.farmerLvl = 0;
 
-
-
+        this.tool.setTool(ToolAttributes.PLOW);
+        this.grabSeed(SeedAttributes.TURNIP);
+    }
 }

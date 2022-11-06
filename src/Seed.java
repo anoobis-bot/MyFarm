@@ -93,9 +93,6 @@ public class Seed
 
     public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
     {
-        if (hasRocks || !isPlowed)
-            return false;
-
-        return true;
+        return !hasRocks && isPlowed;
     }
 }

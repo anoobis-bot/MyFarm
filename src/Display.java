@@ -58,13 +58,13 @@ public class Display
                 // Prints the land tile based on its status (e.g. plowed, has rocks, has a particular crop)
                 if (landMatrix[y][x].hasRocks())
                     System.out.print("R");
+                else if (landMatrix[y][x].isWithered() && landMatrix[y][x].getCurrentSeed() != null)
+                    System.out.print("W");
+                // Prints the first letter of the crop
                 else if (landMatrix[y][x].getCurrentSeed() != null)
-                    // Prints the first letter of the crop
                     System.out.print(landMatrix[y][x].getCurrentSeed().getSeedName().charAt(0));
                 else if (landMatrix[y][x].isPlowed())
                     System.out.print("P");
-               else if (landMatrix[y][x].isWithered() && landMatrix[y][x].hasSeed())
-                    System.out.print("W");
                 else
                 System.out.print("L");  // Land that has nothing. not plowed, no seeds, no rocks.
 
@@ -125,7 +125,6 @@ public class Display
         }
 
         System.out.print("\n----------------------------------------------------------------\n");
-        System.out.print("Enter an input: ");
 
     }
 }
