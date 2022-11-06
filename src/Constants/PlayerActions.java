@@ -10,6 +10,7 @@ public enum PlayerActions
 {
     PLANT("Plant"),
     USE_TOOL("Use Tool"),
+    HARVEST("Harvest"),
     NEXT_DAY("Next Day"),
     UPGRADE_STATUS("Upgrade Status");
 

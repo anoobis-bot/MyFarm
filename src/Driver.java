@@ -74,6 +74,10 @@ public class Driver
                 else if (userInput == toolPopulation + seedPopulation + PlayerActions.USE_TOOL.ordinal() + 1)
                     // TODO code for using tool
                     ;
+                // if the user decided to harvest
+                else if (userInput == toolPopulation + seedPopulation + PlayerActions.HARVEST.ordinal() + 1)
+                    // TODO code for harvesting
+                    ;
                 // if the user decided to proceed to next day
                 else if (userInput == toolPopulation + seedPopulation + PlayerActions.NEXT_DAY.ordinal() + 1)
                 {
