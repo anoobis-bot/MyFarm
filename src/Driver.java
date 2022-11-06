@@ -65,17 +65,17 @@ public class Driver
                 // if the user's input are the number range for player actions
                 else if (userInput <= toolPopulation + seedPopulation + actionsPopulation) {
                     // if the user decided to plant seed
-                    if (userInput == 14)
+                    if (userInput == toolPopulation + seedPopulation + PlayerActions.PLANT.ordinal() + 1)
                         player.plantSeed(landMatrix);
                         // if the user decided to use tool
-                    else if (userInput == 15)
+                    else if (userInput == toolPopulation + seedPopulation + PlayerActions.USE_TOOL.ordinal() + 1)
                         player.useTool(landMatrix);
                         // if the user decided to harvest
-                    else if (userInput == 16)
+                    else if (userInput == toolPopulation + seedPopulation + PlayerActions.HARVEST.ordinal() + 1)
                         // TODO code for harvesting
                         ;
                         // if the user decided to proceed to next day
-                    else if (userInput == 17) {
+                    else if (userInput == toolPopulation + seedPopulation + PlayerActions.NEXT_DAY.ordinal() + 1) {
                         game.advanceTime(landMatrix);
 
                         int wthrdCnt = 0; //count for withered crops
@@ -98,7 +98,7 @@ public class Driver
                         }
                     }
                     // if the user decided to upgrade status
-                    else if (userInput == 18) {
+                    else if (userInput == toolPopulation + seedPopulation + PlayerActions.UPGRADE_STATUS.ordinal() + 1) {
 
                     }
                 }
