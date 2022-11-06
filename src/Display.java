@@ -63,8 +63,8 @@ public class Display
                     System.out.print(landMatrix[y][x].getCurrentSeed().getSeedName().charAt(0));
                 else if (landMatrix[y][x].isPlowed())
                     System.out.print("P");
-//               else if (landMatrix[y][x].isWithered())
-//                    System.out.print("W");
+               else if (landMatrix[y][x].isWithered() && landMatrix[y][x].hasSeed())
+                    System.out.print("W");
                 else
                 System.out.print("L");  // Land that has nothing. not plowed, no seeds, no rocks.
 

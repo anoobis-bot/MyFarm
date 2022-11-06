@@ -76,12 +76,23 @@ public class Player {
                 if (hasRocks){ System.out.println("Can't use on rocks!"); }
                 else if (hasSeed) { System.out.println("Can't use on land with seed!"); }
                 else if (Plowed) { System.out.println("Plowed already");}
-                else landMatrix[point.getYCoordinate()][point.getXCoordinate()].setPlow(true);
+                else
+                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand();
+                    farmerExp += 0.5;
                 break;
             case "Watering Can":
-                System.out.println("test2");
+                if(hasSeed){
+                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand();
+                    //player can receive exp at most on seed's max water limit
+                    if (seed.getWaterBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater())
+                        farmerExp += 0.5;
+                }else System.out.println("Can't use on land without seed");
+                System.out.println("test3");
                 break;
             case "Fertilizer":
+                if(hasSeed){
+
+                }else System.out.println("Can't use on land without seed");
                 System.out.println("test3");
                 break;
             case "Pickaxe":

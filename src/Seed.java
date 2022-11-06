@@ -9,10 +9,9 @@ public class Seed
 {
     private final String seedName;
     private final CropType cropType;
-    private final int hrvstDays, waterNeeds, fertilizerNeeds, producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
+    private final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds, producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
     private int ageInDays;
     private final double expYield;
-    private boolean withered;
 
     /*
         When the user decides to change tool, a new object is instantiated with it constructor
@@ -25,6 +24,7 @@ public class Seed
         this.cropType = seed.cropType;
         this.hrvstDays = seed.hrvstDays;
         this.waterNeeds = seed.waterNeeds;
+        this.waterBonus = seed.waterBonus;
         this.fertilizerNeeds = seed.fertilizerNeeds;
         this.producedQtyMin = seed.producedQtyMin;
         this.producedQtyMax = seed.producedQtyMax;
@@ -33,7 +33,6 @@ public class Seed
         this.expYield = seed.expYield;
 
         this.ageInDays = 0;
-        this.withered = false;
     }
     public String getSeedName() {
         return seedName;
@@ -44,10 +43,12 @@ public class Seed
     }
 
     public int getHrvstDays() {return hrvstDays; }
-    public boolean getWitherStat() {return withered; }
 
     public int getWaterNeeds() {
         return waterNeeds;
+    }
+    public int getWaterBonus() {
+        return waterBonus;
     }
 
     public int getFertilizerNeeds() {

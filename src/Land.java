@@ -5,7 +5,7 @@
 public class Land
 {
     private Seed crop;
-    private int amtWater, amtFertilizer;
+    private int amtWater, reqWater, amtFertilizer;
     private boolean isPlowed, hasRocks, isWithered, hasSeed;
 
     /*
@@ -15,6 +15,7 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
+        this.reqWater = 0;
         this.isPlowed = false;
         this.hasRocks = false;
         this.hasSeed = false;
@@ -28,12 +29,8 @@ public class Land
     public void setSeed(Seed seed)
     {
         this.crop = seed;
+        this.reqWater = seed.getWaterNeeds();
         this.hasSeed = true;
-    }
-
-    public void setPlow(boolean plowed)
-    {
-        this.isPlowed = plowed;
     }
 
     // Getters
@@ -46,7 +43,10 @@ public class Land
     {
         return amtWater;
     }
-
+    public int getReqWater()
+    {
+        return reqWater;
+    }
     public int getAmtFertilizer()
     {
         return amtFertilizer;
@@ -67,13 +67,7 @@ public class Land
         return hasSeed;
     }
 
-    public boolean isWithered()
-    {
-        if(crop.getWitherStat())
-            return isWithered = true;
-        else
-            return isWithered;
-    }
+    public boolean isWithered(){ return isWithered = true; }
 
     // Increments on how many times the land has been watered
     public void waterLand()
@@ -85,10 +79,13 @@ public class Land
     {
         this.amtFertilizer++;
     }
+    // Plow land
+    public void plowLand() { this.isPlowed = true; }
 
     // resets how many times the land has been watered and fertilized to 0
     public void resetValues()
     {
+        this.isPlowed = false;
         this.amtWater = 0;
         this.amtFertilizer = 0;
     }
