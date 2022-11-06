@@ -12,12 +12,12 @@ public class Driver
 {
     public static void main(String[] args)
     {
-        // Initializing the input, player, game, and land, and display objects
+        /* Initializing the input, player, game, and land, and display objects */
         Scanner input = new Scanner(System.in);
         int userInput;
 
         GameEnvironment game = new GameEnvironment(1, 1);
-        Player player = new Player(10, 0, 0);
+        Player player = new Player(100, 0, 0);
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
 
         Display display = new Display(player, landMatrix, game);
@@ -29,7 +29,6 @@ public class Driver
 
         int xSize = game.getXSize();
         int ySize = game.getYSize();
-
         boolean withered = false;
 
         // initializing land object in each element of landMatrix[][]
@@ -39,21 +38,22 @@ public class Driver
             }
         }
 
-        // Start of game loop until game over
+        /* Start of game loop until game over*/
         do
         {
-//            if (landMatrix[player.getPoint().getYCoordinate()][player.getPoint().getXCoordinate()].isWithered())
-//                withered = true;
-
-            // Render to console
             display.render();
 
             // getting user input
             userInput = input.nextInt();
-            // Catch user error, 0 and negative numbers are not in range of possible inputs
-            if (userInput <= 0)
-                // TODO catch error when user enters 0 or negative input
-                ;
+            // Catch user error, negative numbers & greater than options are not in range of possible inputs
+            if (userInput < 0 || userInput > 18)
+                System.out.println("Incorrect Input");
+            // Option to close the program
+            if (userInput == 0)
+            {
+                System.out.println("Program closed");
+                break;
+            }
             // if the user's input are the number range for tools
             else if (userInput <= toolPopulation)
             {
@@ -72,8 +72,7 @@ public class Driver
                     player.plantSeed(landMatrix);
                 // if the user decided to use tool
                 else if (userInput == toolPopulation + seedPopulation + PlayerActions.USE_TOOL.ordinal() + 1)
-                    // TODO code for using tool
-                    ;
+                    player.useTool(landMatrix);
                 // if the user decided to harvest
                 else if (userInput == toolPopulation + seedPopulation + PlayerActions.HARVEST.ordinal() + 1)
                     // TODO code for harvesting

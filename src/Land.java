@@ -5,8 +5,8 @@
 public class Land
 {
     private Seed crop;
-    private int amtWater, amtFertilizer, dayPlanted;
-    private boolean isPlowed, hasRocks, isWithered;
+    private int amtWater, amtFertilizer;
+    private boolean isPlowed, hasRocks, isWithered, hasSeed;
 
     /*
         Initializes all land with 0 water, fertilizer, not plowed, and has no tocks
@@ -15,8 +15,9 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.isPlowed = true;
+        this.isPlowed = false;
         this.hasRocks = false;
+        this.hasSeed = false;
         this.isWithered = false;
     }
 
@@ -27,6 +28,12 @@ public class Land
     public void setSeed(Seed seed)
     {
         this.crop = seed;
+        this.hasSeed = true;
+    }
+
+    public void setPlow(boolean plowed)
+    {
+        this.isPlowed = plowed;
     }
 
     // Getters
@@ -53,6 +60,11 @@ public class Land
     public boolean hasRocks()
     {
         return hasRocks;
+    }
+
+    public boolean hasSeed()
+    {
+        return hasSeed;
     }
 
     public boolean isWithered()

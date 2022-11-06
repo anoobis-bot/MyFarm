@@ -63,36 +63,47 @@ public class Player {
         Changes the tool the player is holding
         @param tool input from one of the enum field of ToolAttributes
      */
-    public void changeTool(ToolAttributes tool) {
-        this.tool.setTool(tool);
-    }
+    public void changeTool(ToolAttributes tool) { this.tool.setTool(tool); }
 
-    //    public boolean useTool(Land[][] landMatrix)
-//    {
-//        return true;
-//    }
+    public boolean useTool(Land[][] landMatrix)
+    {
+        boolean hasRocks = landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
+                hasSeed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasSeed(),
+                Plowed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].isPlowed();
 
-    public int subtractCoin() {
-        this.objCoin--;
-        return objCoin;
+        switch (tool.getToolName()){
+            case "Plow":
+                if (hasRocks){ System.out.println("Can't use on rocks!"); }
+                else if (hasSeed) { System.out.println("Can't use on land with seed!"); }
+                else if (Plowed) { System.out.println("Plowed already");}
+                else landMatrix[point.getYCoordinate()][point.getXCoordinate()].setPlow(true);
+                break;
+            case "Watering Can":
+                System.out.println("test2");
+                break;
+            case "Fertilizer":
+                System.out.println("test3");
+                break;
+            case "Pickaxe":
+                System.out.println("test4");
+                break;
+            case "Shovel":
+                System.out.println("Coming Soon!");
+                break;
+        }
+        return true;
     }
 
     /*
         @return Seed. returns the seed object
      */
-    public Seed getSeed()
-    {
-        return seed;
-    }
+    public Seed getSeed(){ return seed; }
 
     /*
         Changes the seed the player is holding
         @param seed input from one of the enum field of SeedAttributes
      */
-    public void grabSeed(SeedAttributes seed)
-    {
-        this.seed = new Seed(seed);
-    }
+    public void grabSeed(SeedAttributes seed){ this.seed = new Seed(seed); }
 
     /*
         @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
@@ -115,7 +126,6 @@ public class Player {
                 }
             }
         }
-
         return false;
     }
 
