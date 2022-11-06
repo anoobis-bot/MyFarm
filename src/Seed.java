@@ -9,7 +9,7 @@ public class Seed
 {
     private final String seedName;
     private final CropType cropType;
-    private final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds, producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
+    private final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus, producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
     private int ageInDays;
     private final double expYield;
 
@@ -26,6 +26,7 @@ public class Seed
         this.waterNeeds = seed.waterNeeds;
         this.waterBonus = seed.waterBonus;
         this.fertilizerNeeds = seed.fertilizerNeeds;
+        this.fertilizerBonus = seed.fertilizerBonus;
         this.producedQtyMin = seed.producedQtyMin;
         this.producedQtyMax = seed.producedQtyMax;
         this.seedCost = seed.seedCost;
@@ -53,6 +54,10 @@ public class Seed
 
     public int getFertilizerNeeds() {
         return fertilizerNeeds;
+    }
+    public int getFertilizerBonus()
+    {
+        return fertilizerBonus;
     }
 
     public int getProducedQtyMin() {
@@ -85,7 +90,7 @@ public class Seed
         this.ageInDays++;
     }
 
-    // these methods below are the ones to be used if the seed is plantable
+    // these methods below are the ones to be used if the seed is plant-able
     public boolean verifyUsage_Mny(float objCoin)
     {
         return objCoin >= this.seedCost;

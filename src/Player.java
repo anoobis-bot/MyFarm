@@ -14,7 +14,6 @@ public class Player {
     private final Point point;
     private Equipment tool;
     private Seed seed;
-    private GameEnvironment game;
 
     /*
         Initialize the object coin, farmerExp, and farmerLvl
@@ -65,7 +64,7 @@ public class Player {
      */
     public void changeTool(ToolAttributes tool) { this.tool.setTool(tool); }
 
-    public boolean useTool(Land[][] landMatrix)
+    public void useTool(Land[][] landMatrix)
     {
         boolean hasRocks = landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
                 hasSeed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() != null,
@@ -85,24 +84,29 @@ public class Player {
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand();
                     //player can receive exp at most on seed's max water limit
                     if (seed.getWaterBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater())
+                    {
                         farmerExp += 0.5;
+                        System.out.println("Successfully Watered");
+                    } else
+                        System.out.println("Max Water Reached");
                 }else System.out.println("Can't use on land without seed");
-                System.out.println("test3");
                 break;
             case "Fertilizer":
                 if(hasSeed){
+                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand();
 
+                    if ((seed.getFertilizerBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer()) && objCoin > 10){
+                        farmerExp += 4;
+                        objCoin -= 10;
+                        System.out.println("Successfully Fertilized");
+                    }else
+                        System.out.println("Can't use Fertilizer");
                 }else System.out.println("Can't use on land without seed");
-                System.out.println("test3");
                 break;
-            case "Pickaxe":
-                System.out.println("test4");
-                break;
-            case "Shovel":
+            default:
                 System.out.println("Coming Soon!");
                 break;
         }
-        return true;
     }
 
     /*

@@ -98,7 +98,6 @@ public class Driver
 
                                 if (landMatrix[y][x].isWithered())
                                     wthrdCnt++;
-
                                 landMatrix[y][x].newDayReset();
                             }
                     }
