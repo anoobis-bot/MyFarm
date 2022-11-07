@@ -7,6 +7,7 @@ public class Equipment
 {
     private String toolName;
     private float usageCost;
+    private double expGain;
     private boolean requiredPlowed, requiredRocksClear;
 
     /*
@@ -17,6 +18,7 @@ public class Equipment
     {
         this.toolName = tool.toolName;
         this.usageCost = tool.costUsage;
+        this.expGain = tool.expUsage;
         this.requiredPlowed = tool.requiredPlowed;
         this.requiredRocksClear = tool.requiredRocksClear;
     }
@@ -28,6 +30,11 @@ public class Equipment
 
     public float getUsageCost() {
         return usageCost;
+    }
+
+    public double getExpGain()
+    {
+        return expGain;
     }
 
     public boolean isRequiredPlowed() {

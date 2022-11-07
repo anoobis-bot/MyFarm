@@ -22,13 +22,15 @@ public class Player {
         @param farmerExp how much is the starting experience
         @param farmerLvl what is the starting level of the farmer
      */
-    public Player(int objCoin, double farmerExp) {
+    public Player(int objCoin, double farmerExp)
+    {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
         this.objCoin = objCoin;
         this.farmerExp = farmerExp;
         this.farmerLvl = (int) (farmerExp / 100);
         this.point = new Point();
         this.tool = new Equipment();
+
         // The default tool is plow and the default seed that the player is holding is turnip
         this.tool.setTool(ToolAttributes.PLOW);
         this.grabSeed(SeedAttributes.TURNIP);
@@ -67,7 +69,45 @@ public class Player {
 
     public void useTool(Land[][] landMatrix)
     {
-        boolean hasRocks = landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
+        if(tool.verifyUsage_Mny(this.objCoin) &&
+                tool.verifyUsage_Lnd(landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
+                landMatrix[point.getYCoordinate()][point.getXCoordinate()].isPlowed()))
+        {
+            switch (tool.getToolName()) {
+                case "Plow":
+                    if (!tool.isRequiredRocksClear())
+                        System.out.println("clear rocks to plow");
+                    else
+                    {
+                        this.objCoin -= tool.getUsageCost();
+                    this.farmerExp += tool.getExpGain();
+                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand();
+                    }
+                    break;
+                case "Watering Can":
+                    if (!tool.isRequiredPlowed())
+                        System.out.println("plow land first to use tool");
+                    else{
+                        this.objCoin -= tool.getUsageCost();
+                        this.farmerExp += tool.getExpGain();
+                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand();
+                    }
+                    break;
+                case "Fertilizer":
+                    if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() != null)
+                        System.out.println("clear rocks to plow");
+                    else
+                    {
+                        this.objCoin -= tool.getUsageCost();
+                        this.farmerExp += tool.getExpGain();
+                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand();
+                    }
+                    break;
+                default:
+                    System.out.println("Coming Soon!");
+            }
+        }
+    /*  boolean hasRocks = landMatrix[point.getYCoordinate()][point.getXCoordinate()].hasRocks(),
                 hasSeed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() != null,
                 Plowed = landMatrix[point.getYCoordinate()][point.getXCoordinate()].isPlowed();
 
@@ -113,6 +153,7 @@ public class Player {
                 System.out.println("Coming Soon!");
                 break;
         }
+    */
     }
 
     /*
@@ -142,10 +183,10 @@ public class Player {
                 if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() == null)
                 {
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);   // plant the seed
-                    this.objCoin = this.objCoin - seed.getSeedCost();   // subtract the cost
-                }
-            }
-        }
+                    this.objCoin -= seed.getSeedCost();   // subtract the cost
+                } else System.out.println("Land has seed already");
+            } else System.out.println("Not enough object coin to use");
+        }else System.out.println("Land is not yet plowed");
     }
 
     public void harvestSeed(Land[][] landMatrix)
