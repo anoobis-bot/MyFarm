@@ -5,6 +5,7 @@
 import Constants.FarmerTypeAttributes;
 import Constants.ToolAttributes;
 import Constants.SeedAttributes;
+import java.lang.Math;
 
 public class Player {
     private double farmerExp;
@@ -146,15 +147,30 @@ public class Player {
             }
         }
     }
-    public void setObjCoin(double value)
+
+    public void harvestSeed(Land[][] landMatrix)
     {
-        this.objCoin += value;
+        int produced;
+        double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
+        if (seed.getHrvstDays() == seed.getAgeInDays())
+        {
+            produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
+            int i = seed.getBaseSellPrice() + getFarmerType().getBonusCoin();
+            harvestTotal = produced * 0.2 * (i);
+            waterBonus = harvestTotal * 0.2 *(landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() - 1);
+            fertilizerBonus = harvestTotal * 0.5 * landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer();
+            finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
+            System.out.println(finalHarvestPrice);
+            objCoin += finalHarvestPrice;
+
+            landMatrix[point.getYCoordinate()][point.getXCoordinate()].resetValues();
+        }
     }
 
     /*
       This method resets all variables in the class
     */
-    public void resetValue()
+    public void resetPlayer()
     {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
         this.objCoin = 100;

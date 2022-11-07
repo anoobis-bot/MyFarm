@@ -7,7 +7,6 @@ import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 
 import java.util.Scanner;
-import java.lang.Math;
 
 public class Driver
 {
@@ -85,26 +84,7 @@ public class Driver
                         player.useTool(landMatrix);
                         // if the user decided to harvest
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.HARVEST.ordinal() + 1)
-                        for (int y = 0; y < ySize; y++)
-                            for (int x = 0; x < xSize; x++)
-                            {
-                                Seed seed = landMatrix[y][x].getCurrentSeed();
-                                int produced;
-                                double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
-                                if (seed.getHrvstDays() == seed.getAgeInDays())
-                                {
-                                    produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
-                                    int i = seed.getBaseSellPrice() + player.getFarmerType().getBonusCoin();
-                                    harvestTotal = produced * 0.2 * (i);
-                                    waterBonus = harvestTotal * 0.2 *(landMatrix[y][x].getAmtWater() - 1);
-                                    fertilizerBonus = harvestTotal * 0.5 * landMatrix[y][x].getAmtFertilizer();
-                                    finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
-                                    System.out.println(finalHarvestPrice);
-                                    player.setObjCoin(finalHarvestPrice);
-
-                                    landMatrix[y][x].resetValues();
-                                }
-                            }
+                        player.harvestSeed(landMatrix);
                         // if the user decided to proceed to next day
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.NEXT_DAY.ordinal() + 1) {
                         game.advanceTime(landMatrix);
@@ -143,7 +123,7 @@ public class Driver
                     for (int y = 0; y < ySize; y++)
                         for (int x = 0; x < xSize; x++)
                             landMatrix[y][x].resetValues();
-                    player.resetValue();
+                    player.resetPlayer();
                 }
                 case 'N', 'n' -> close = true;
                 default -> System.out.println("wrong input");
