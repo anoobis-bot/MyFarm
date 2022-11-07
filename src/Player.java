@@ -76,14 +76,13 @@ public class Player {
         {
             switch (tool.getToolName()) {
                 case "Plow":
-                    if (tool.isRequiredRocksClear())
+                    if (tool.isRequiredRocksClear() && landMatrix[point.getYCoordinate()][point.getXCoordinate()] == null)
                     {
                         this.objCoin -= tool.getUsageCost();
                         this.farmerExp += tool.getExpGain();
                         landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand();
-
                     }else
-                        System.out.println("clear rocks to plow");
+                        System.out.println("Can't use plow tool");
                     break;
                 case "Watering Can":
                     if (tool.isRequiredPlowed() && landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() != null)
@@ -200,7 +199,7 @@ public class Player {
             waterBonus = harvestTotal * 0.2 *(landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() - 1);
             fertilizerBonus = harvestTotal * 0.5 * landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer();
             finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
-            System.out.println(finalHarvestPrice + "Products Produced: " + produced);
+            System.out.println("Products Produced: " + produced);
             objCoin += finalHarvestPrice;
 
             landMatrix[point.getYCoordinate()][point.getXCoordinate()].resetValues();
