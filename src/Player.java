@@ -155,16 +155,16 @@ public class Player {
         if (seed.getHrvstDays() == seed.getAgeInDays())
         {
             produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
-            int i = seed.getBaseSellPrice() + getFarmerType().getBonusCoin();
-            harvestTotal = produced * 0.2 * (i);
+            harvestTotal = produced * 0.2 * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
             waterBonus = harvestTotal * 0.2 *(landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() - 1);
             fertilizerBonus = harvestTotal * 0.5 * landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer();
             finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
-            System.out.println(finalHarvestPrice);
+            System.out.println(finalHarvestPrice + "\n" + produced);
             objCoin += finalHarvestPrice;
 
             landMatrix[point.getYCoordinate()][point.getXCoordinate()].resetValues();
-        }
+        } else
+            System.out.println("Cannot Harvest");
     }
 
     /*

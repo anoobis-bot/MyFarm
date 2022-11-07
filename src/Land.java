@@ -5,7 +5,7 @@
 public class Land
 {
     private Seed crop;
-    private int amtWater, reqWater, amtFertilizer;
+    private int amtWater, amtFertilizer;
     private boolean isPlowed, hasRocks, isWithered;
 
     /*
@@ -15,7 +15,6 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.reqWater = 0;
         this.isPlowed = false;
         this.hasRocks = false;
         this.isWithered = false;
@@ -28,7 +27,6 @@ public class Land
     public void setSeed(Seed seed)
     {
         this.crop = seed;
-        this.reqWater = seed.getWaterNeeds();
     }
 
     public void setWithered()
@@ -44,10 +42,6 @@ public class Land
     public int getAmtWater()
     {
         return amtWater;
-    }
-    public int getReqWater()
-    {
-        return reqWater;
     }
     public int getAmtFertilizer()
     {
@@ -94,9 +88,10 @@ public class Land
     // resets how many times the land has been watered and fertilized to 0
     public void resetValues()
     {
+        this.crop.deleteSeed();
+
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.reqWater = 0;
         this.isPlowed = false;
         this.hasRocks = false;
         this.isWithered = false;

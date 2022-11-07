@@ -94,14 +94,15 @@ public class Driver
                         for (int y = 0; y < ySize; y++)
                             for (int x = 0; x < xSize; x++)
                             {
-                                if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getReqWater()
-                                        && landMatrix[y][x].getAmtFertilizer() >= landMatrix[y][x].getCurrentSeed().getFertilizerNeeds()
+                                if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
+                                        && landMatrix[y][x].getAmtFertilizer() < landMatrix[y][x].getCurrentSeed().getFertilizerNeeds()
                                         && landMatrix[y][x].getCurrentSeed().getAgeInDays() > 0)
                                         || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
                                     landMatrix[y][x].setWithered();
 
                                 if (landMatrix[y][x].isWithered())
                                     wthrdCnt++;
+
                                 landMatrix[y][x].newDayReset();
                             }
                     }

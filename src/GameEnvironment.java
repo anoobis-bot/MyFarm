@@ -33,17 +33,15 @@ public class GameEnvironment
                     landMatrix[y][x].getCurrentSeed().incrementAgeInDays();
     }
 
-    // Getters
+    // Get methods
     public int getCurrentDay()
     {
         return this.systemDay;
     }
-
     public int getXSize()
     {
         return xSize;
     }
-
     public int getYSize()
     {
         return ySize;

@@ -9,7 +9,8 @@ public class Seed
 {
     private final String seedName;
     private final CropType cropType;
-    private final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus, producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
+    private final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
+            producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
     private int ageInDays;
     private final double expYield;
 
@@ -35,23 +36,21 @@ public class Seed
 
         this.ageInDays = 0;
     }
+
+    /* get methods */
     public String getSeedName() {
         return seedName;
     }
-
     public CropType getCropType() {
         return cropType;
-    }
-
+    } //MCO2 use
     public int getHrvstDays() {return hrvstDays; }
-
     public int getWaterNeeds() {
         return waterNeeds;
     }
     public int getWaterBonus() {
         return waterBonus;
     }
-
     public int getFertilizerNeeds() {
         return fertilizerNeeds;
     }
@@ -59,27 +58,21 @@ public class Seed
     {
         return fertilizerBonus;
     }
-
     public int getProducedQtyMin() {
         return producedQtyMin;
     }
-
     public int getProducedQtyMax() {
         return producedQtyMax;
     }
-
     public int getSeedCost() {
         return seedCost;
     }
-
     public int getBaseSellPrice() {
         return baseSellPrice;
     }
-
     public double getExpYield() {
         return expYield;
-    }
-
+    } //MCO2 use
     public int getAgeInDays() {
         return ageInDays;
     }
@@ -95,9 +88,14 @@ public class Seed
     {
         return objCoin >= this.seedCost;
     }
-
     public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
     {
         return !hasRocks && isPlowed;
+    }
+
+    // a method that deletes the seed in this land
+    public void deleteSeed()
+    {
+        this.ageInDays = 0;
     }
 }
