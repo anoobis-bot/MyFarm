@@ -75,33 +75,32 @@ public class Player {
         {
             switch (tool.getToolName()) {
                 case "Plow":
-                    if (!tool.isRequiredRocksClear())
-                        System.out.println("clear rocks to plow");
-                    else
+                    if (tool.isRequiredRocksClear())
                     {
                         this.objCoin -= tool.getUsageCost();
-                    this.farmerExp += tool.getExpGain();
-                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand();
-                    }
+                        this.farmerExp += tool.getExpGain();
+                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand();
+
+                    }else
+                        System.out.println("clear rocks to plow");
                     break;
                 case "Watering Can":
                     if (!tool.isRequiredPlowed())
-                        System.out.println("plow land first to use tool");
-                    else{
+                    {
                         this.objCoin -= tool.getUsageCost();
                         this.farmerExp += tool.getExpGain();
                         landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand();
-                    }
+                    }else
+                        System.out.println("plow land first to use tool");
                     break;
                 case "Fertilizer":
                     if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() != null)
-                        System.out.println("clear rocks to plow");
-                    else
                     {
                         this.objCoin -= tool.getUsageCost();
                         this.farmerExp += tool.getExpGain();
                         landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand();
-                    }
+                    } else
+                        System.out.println("clear rocks to plow");
                     break;
                 default:
                     System.out.println("Coming Soon!");
