@@ -9,7 +9,8 @@ import java.lang.Math;
 
 public class Player {
     private double farmerExp;
-    private int farmerLvl, objCoin;
+    private int farmerLvl;
+    private double objCoin;
     // The relationship of player with the objects below is composition
     private FarmerType farmerType;
     private final Point point;
@@ -45,7 +46,7 @@ public class Player {
         return farmerLvl;
     }
 
-    public int getObjCoin() {
+    public double getObjCoin() {
         return objCoin;
     }
 
@@ -195,7 +196,7 @@ public class Player {
         if (seed.getHrvstDays() == seed.getAgeInDays())
         {
             produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
-            harvestTotal = produced * 0.2 * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
+            harvestTotal = produced * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
             waterBonus = harvestTotal * 0.2 *(landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() - 1);
             fertilizerBonus = harvestTotal * 0.5 * landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer();
             finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;

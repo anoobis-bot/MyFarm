@@ -84,7 +84,7 @@ public class Seed
     }
 
     // these methods below are the ones to be used if the seed is plant-able
-    public boolean verifyUsage_Mny(float objCoin)
+    public boolean verifyUsage_Mny(double objCoin)
     {
         return objCoin >= this.seedCost;
     }

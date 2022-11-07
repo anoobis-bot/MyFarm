@@ -46,7 +46,7 @@ public class Equipment
     }
 
     // these methods below are the ones to be used if the tool is usable
-    public boolean verifyUsage_Mny(float objCoin)
+    public boolean verifyUsage_Mny(double objCoin)
     {
         return objCoin >= this.usageCost;
     }
