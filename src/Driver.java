@@ -93,15 +93,18 @@ public class Driver
                         for (int y = 0; y < ySize; y++)
                             for (int x = 0; x < xSize; x++)
                             {
-                                if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
-                                        && landMatrix[y][x].getCurrentSeed().getAgeInDays() > 0)
-                                        || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
-                                    landMatrix[y][x].setWithered();
+                                if (landMatrix[y][x].getCurrentSeed()!=null)
+                                {
+                                    if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
+                                            && landMatrix[y][x].getCurrentSeed().getAgeInDays() > 0)
+                                            || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
+                                        landMatrix[y][x].setWithered();
 
-                                if (landMatrix[y][x].isWithered())
-                                    wthrdCnt++;
+                                    if (landMatrix[y][x].isWithered())
+                                        wthrdCnt++;
 
-                                landMatrix[y][x].newDayReset();
+                                    landMatrix[y][x].newDayReset();
+                                }
                             }
                     }
                     // if the user decided to upgrade status
