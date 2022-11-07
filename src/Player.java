@@ -167,7 +167,9 @@ public class Player {
         int produced;
         double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
 
-        if (seed.getHrvstDays() == seed.getAgeInDays())
+        if (landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed().getHrvstDays() == landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed().getAgeInDays()
+                && landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed().getWaterNeeds()
+                && landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed().getFertilizerNeeds())
         {
             produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
             harvestTotal = produced * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
