@@ -50,7 +50,6 @@ public class Equipment
     {
         return objCoin >= this.usageCost;
     }
-
     public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
     {
         if (this.requiredRocksClear && hasRocks)

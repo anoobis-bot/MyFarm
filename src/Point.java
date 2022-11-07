@@ -4,7 +4,7 @@
 
 public class Point
 {
-    private int xCoordinate, yCoordinate;
+    private final int xCoordinate, yCoordinate;
 
     public Point()
     {
@@ -12,21 +12,27 @@ public class Point
         yCoordinate = 0;
     }
 
-    // Getters and setters
+    /*
+        Get methods
+    */
     public int getXCoordinate()
     {
         return xCoordinate;
     }
-    public void moveXCoordinate(int xCoordinate)
-    {
-        this.xCoordinate = xCoordinate;
-    }//MCO2 use
     public int getYCoordinate()
     {
         return yCoordinate;
     }
+
+    /*
+        MCO2 use
+
+    public void moveXCoordinate(int xCoordinate)
+    {
+        this.xCoordinate = xCoordinate;
+    }
     public void moveYCoordinate(int yCoordinate)
     {
         this.yCoordinate = yCoordinate;
-    }//MCO2 use
+    }*/
 }

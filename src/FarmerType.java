@@ -39,13 +39,13 @@ public class FarmerType
 
     public int getSeedReductionCost() {
         return seedReductionCost;
-    } //MCO2
+    }
 
-    public int getBonusLimitIncrease() {
+    public int getBonusWaterLimitIncrease() {
         return bonusLimitIncrease;
-    } //MCO2
+    }
 
     public int getBonusFertilizeIncrease() {
         return bonusFertilizeIncrease;
-    } //MCO2
+    }
 }

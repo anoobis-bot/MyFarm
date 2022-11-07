@@ -34,7 +34,9 @@ public class Land
         this.isWithered = true;
     }
 
-    // Getters
+    /*
+        Get methods
+    */
     public Seed getCurrentSeed()
     {
         return this.crop;
@@ -47,17 +49,14 @@ public class Land
     {
         return amtFertilizer;
     }
-
     public boolean isPlowed()
     {
         return isPlowed;
     }
-
     public boolean hasRocks()
     {
         return hasRocks;
     }
-
     public boolean isWithered()
     {
         return isWithered;
@@ -68,11 +67,13 @@ public class Land
     {
         this.amtWater++;
     }
+
     // Increments on how many times the land has been fertilized
     public void fertilizeLand()
     {
         this.amtFertilizer++;
     }
+
     // Plow land
     public void plowLand()
     {

@@ -11,19 +11,18 @@ public class Driver
 {
     public static void main(String[] args)
     {
+        /* Start of game loop until closed */
         boolean close = false;
-        /* Start of game loop until game over*/
         do
         {
-            /* Initializing the input, player, game, and land, and display objects */
+            /* Initializing EVERY NEW GAME the input, player, game, and land, and display objects */
             Scanner input = new Scanner(System.in);
-            int wthrdCnt = 0; //count for withered crops
+            int wthrdCnt = 0; //count for withered crops (FOR MCO1)
             int userInput;
 
             GameEnvironment game = new GameEnvironment(1, 1);
-            Player player = new Player(301, 0);
+            Player player = new Player(100, 0);
             Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
-
             Display display = new Display(player, landMatrix, game);
 
             // To lessen cpu usage, these value are already assigned. This will be used when asking for input
@@ -39,6 +38,7 @@ public class Driver
                 for (int x = 0; x < xSize; x++)
                     landMatrix[y][x] = new Land();
 
+            /* loops until game over */
             do {
                 display.render();
 
@@ -54,7 +54,7 @@ public class Driver
                 userInput = input.nextInt();
 
                 // Catch user error, negative numbers & greater than options are not in range of possible inputs
-                if (userInput < 0 || userInput > 18)
+                if (userInput < 0 || userInput > toolPopulation + seedPopulation + PlayerActions.UPGRADE_STATUS.ordinal() + 1)
                     System.out.println("Incorrect Input");
                 // Option to close the program
                 else if (userInput == 0)
@@ -65,26 +65,27 @@ public class Driver
                 }
                 // if the user's input are the number range for tools
                 else if (userInput <= toolPopulation)
-                {
                     player.changeTool(ToolAttributes.values()[userInput - 1]);
-                }
+
                 // if the user's input are the number range for seeds
                 else if (userInput <= toolPopulation + seedPopulation)
-                {
                     player.grabSeed(SeedAttributes.values()[userInput - toolPopulation - 1]);
-                }
+
                 // if the user's input are the number range for player actions
                 else if (userInput <= toolPopulation + seedPopulation + actionsPopulation)
                 {
                         // if the user decided to plant seed
                     if (userInput == toolPopulation + seedPopulation + PlayerActions.PLANT.ordinal() + 1)
                         player.plantSeed(landMatrix);
+
                         // if the user decided to use tool
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.USE_TOOL.ordinal() + 1)
                         player.useTool(landMatrix);
+
                         // if the user decided to harvest
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.HARVEST.ordinal() + 1)
                         player.harvestSeed(landMatrix);
+
                         // if the user decided to proceed to next day
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.NEXT_DAY.ordinal() + 1) {
                         game.advanceTime(landMatrix);
@@ -96,7 +97,8 @@ public class Driver
                                 if (landMatrix[y][x].getCurrentSeed()!=null)
                                 {
                                     if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
-                                            && landMatrix[y][x].getCurrentSeed().getAgeInDays()   == landMatrix[y][x].getCurrentSeed().getHrvstDays()+1)
+                                            &&landMatrix[y][x].getAmtFertilizer() < landMatrix[y][x].getCurrentSeed().getFertilizerNeeds()
+                                            && landMatrix[y][x].getCurrentSeed().getAgeInDays() == landMatrix[y][x].getCurrentSeed().getHrvstDays()+1)
                                             || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
                                         landMatrix[y][x].setWithered();
 
@@ -105,26 +107,30 @@ public class Driver
                                 }
                             }
                     }
-                    // if the user decided to upgrade status
+
+                    // Options to upgrade farmer type
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.UPGRADE_STATUS.ordinal() + 1) {
                         Scanner sc = new Scanner(System.in);
-                        if (player.getObjCoin() >= 200){
-                            System.out .println("Type: [1] to register farmer");
-                            if (player.getObjCoin() >= 300){
-                                System.out .print(" [2] to register as Distinguished farmer");
-                                if (player.getObjCoin() >= 400)
-                                    System.out .print(" [3] to register as Legendary farmer");
-                            }
-                               player.setFarmerType(sc.nextInt());
-                        } else
-                            System.out.println("Not Enough Object Coins to register.");
 
+                        if (player.getObjCoin() >= 200 && player.getFarmerLvl() >= 5) {
+                            System.out.println("Type: [1] to register farmer");
+                            if (player.getObjCoin() >= 300 && player.getFarmerLvl() >= 10) {
+                                System.out.println("      [2] to register as Distinguished farmer");
+                                if (player.getObjCoin() >= 400 && player.getFarmerLvl() >= 15)
+                                    System.out.println("      [3] to register as Legendary farmer");
+                            }
+                            player.setFarmerType(sc.nextInt());
+
+                        } else if (player.getFarmerLvl() < 5)
+                            System.out.println("Level not yet reached to register.");
+                        else if(player.getObjCoin() < 200)
+                            System.out.println("Not Enough Object Coins to register.");
                     }
                 }
                 System.out.print("\n\n");
 
             }while (player.getObjCoin() > 0 || wthrdCnt >= 1);
-            System.out.println("Game Over!");
+                System.out.println("Game Over!");
 
             if (!close)
             {

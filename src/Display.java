@@ -44,6 +44,7 @@ public class Display
         // gets the current pointer position
         int xPointer = player.getPoint().getXCoordinate();
         int yPointer = player.getPoint().getYCoordinate();
+
         // Prints the land tiles
         for (int y = 0; y < ySize; y++)
         {
@@ -123,9 +124,8 @@ public class Display
             System.out.print(currAction.actionName);
             System.out.print(" ");
         }
+
         System.out.print("[0] Quit Planting");
-
         System.out.print("\n----------------------------------------------------------------\n");
-
     }
 }
