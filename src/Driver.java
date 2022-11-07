@@ -96,7 +96,7 @@ public class Driver
                                 if (landMatrix[y][x].getCurrentSeed()!=null)
                                 {
                                     if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
-                                            && landMatrix[y][x].getCurrentSeed().getAgeInDays() == landMatrix[y][x].getCurrentSeed().getHrvstDays())
+                                            && landMatrix[y][x].getCurrentSeed().getAgeInDays()   == landMatrix[y][x].getCurrentSeed().getHrvstDays()+1)
                                             || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
                                         landMatrix[y][x].setWithered();
 

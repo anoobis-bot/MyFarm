@@ -86,7 +86,7 @@ public class Player {
                         System.out.println("clear rocks to plow");
                     break;
                 case "Watering Can":
-                    if (tool.isRequiredPlowed())
+                    if (tool.isRequiredPlowed() && landMatrix[point.getYCoordinate()][point.getXCoordinate()].getCurrentSeed() != null)
                     {
                         this.objCoin -= tool.getUsageCost();
                         this.farmerExp += tool.getExpGain();
