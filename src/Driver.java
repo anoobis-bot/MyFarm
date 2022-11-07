@@ -7,6 +7,7 @@ import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 
 import java.util.Scanner;
+import java.lang.Math;
 
 public class Driver
 {
@@ -36,11 +37,9 @@ public class Driver
             int ySize = game.getYSize();
 
             // initializing land object in each element of landMatrix[][]
-            for (int y = 0; y < ySize; y++) {
-                for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++)
+                for (int x = 0; x < xSize; x++)
                     landMatrix[y][x] = new Land();
-                }
-            }
 
             do {
                 display.render();
@@ -55,25 +54,30 @@ public class Driver
                 // getting user input
                 System.out.print("Enter an input: ");
                 userInput = input.nextInt();
+
                 // Catch user error, negative numbers & greater than options are not in range of possible inputs
                 if (userInput < 0 || userInput > 18)
                     System.out.println("Incorrect Input");
                 // Option to close the program
-                else if (userInput == 0) {
+                else if (userInput == 0)
+                {
                     System.out.println("Program closed");
                     break;
                 }
                 // if the user's input are the number range for tools
-                else if (userInput <= toolPopulation) {
+                else if (userInput <= toolPopulation)
+                {
                     player.changeTool(ToolAttributes.values()[userInput - 1]);
                 }
                 // if the user's input are the number range for seeds
-                else if (userInput <= toolPopulation + seedPopulation) {
+                else if (userInput <= toolPopulation + seedPopulation)
+                {
                     player.grabSeed(SeedAttributes.values()[userInput - toolPopulation - 1]);
                 }
                 // if the user's input are the number range for player actions
-                else if (userInput <= toolPopulation + seedPopulation + actionsPopulation) {
-                    // if the user decided to plant seed
+                else if (userInput <= toolPopulation + seedPopulation + actionsPopulation)
+                {
+                        // if the user decided to plant seed
                     if (userInput == toolPopulation + seedPopulation + PlayerActions.PLANT.ordinal() + 1)
                         player.plantSeed(landMatrix);
                         // if the user decided to use tool
@@ -81,8 +85,26 @@ public class Driver
                         player.useTool(landMatrix);
                         // if the user decided to harvest
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.HARVEST.ordinal() + 1)
-                        // TODO code for harvesting
-                        ;
+                        for (int y = 0; y < ySize; y++)
+                            for (int x = 0; x < xSize; x++)
+                            {
+                                Seed seed = landMatrix[y][x].getCurrentSeed();
+                                int produced;
+                                double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
+                                if (seed.getHrvstDays() == seed.getAgeInDays())
+                                {
+                                    produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
+                                    int i = seed.getBaseSellPrice() + player.getFarmerType().getBonusCoin();
+                                    harvestTotal = produced * 0.2 * (i);
+                                    waterBonus = harvestTotal * 0.2 *(landMatrix[y][x].getAmtWater() - 1);
+                                    fertilizerBonus = harvestTotal * 0.5 * landMatrix[y][x].getAmtFertilizer();
+                                    finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
+                                    System.out.println(finalHarvestPrice);
+                                    player.setObjCoin(finalHarvestPrice);
+
+                                    landMatrix[y][x].resetValues();
+                                }
+                            }
                         // if the user decided to proceed to next day
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.NEXT_DAY.ordinal() + 1) {
                         game.advanceTime(landMatrix);
@@ -92,6 +114,7 @@ public class Driver
                             for (int x = 0; x < xSize; x++)
                             {
                                 if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getReqWater()
+                                        && landMatrix[y][x].getAmtFertilizer() >= landMatrix[y][x].getCurrentSeed().getFertilizerNeeds()
                                         && landMatrix[y][x].getCurrentSeed().getAgeInDays() > 0)
                                         || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
                                     landMatrix[y][x].setWithered();

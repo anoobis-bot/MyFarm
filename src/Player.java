@@ -82,24 +82,25 @@ public class Player {
 
             case "Watering Can":
                 if(Plowed){
-                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand();
-
-                    if (seed.getWaterBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater())
+                    if (seed.getWaterBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() + 1)
                     {
                         if (hasSeed)
+                        {
                             farmerExp += 0.5;
-                        System.out.println("Successfully Watered");
+                            landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand();
+                            System.out.println("Successfully Watered");
+                        }
                     } else
                         System.out.println("Can't use watering can");
-                }else System.out.println("Can't use on land without seed");
+                } else System.out.println("Can't use on land without seed");
                 break;
 
             case "Fertilizer":
                 if(hasSeed){
-                    landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand();
-
-                    if ((seed.getFertilizerBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer()) && objCoin > 10){
+                    if ((seed.getFertilizerBonus() >= landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer())
+                            && objCoin > 10){
                         farmerExp += 4;
+                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand();
                         objCoin -= 10;
                         System.out.println("Successfully Fertilized");
                     }else
@@ -126,7 +127,6 @@ public class Player {
 
     /*
         @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
-        @return true if a plant is planted. False if a seed is not planted
      */
     public void plantSeed(Land[][] landMatrix)
     {
@@ -146,9 +146,14 @@ public class Player {
             }
         }
     }
+    public void setObjCoin(double value)
+    {
+        this.objCoin += value;
+    }
+
     /*
-    * This method resets all variables in the class
-    * */
+      This method resets all variables in the class
+    */
     public void resetValue()
     {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
