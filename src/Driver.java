@@ -21,7 +21,7 @@ public class Driver
             int userInput;
 
             GameEnvironment game = new GameEnvironment(1, 1);
-            Player player = new Player(201, 0);
+            Player player = new Player(301, 0);
             Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
 
             Display display = new Display(player, landMatrix, game);
@@ -96,14 +96,12 @@ public class Driver
                                 if (landMatrix[y][x].getCurrentSeed()!=null)
                                 {
                                     if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
-                                            && landMatrix[y][x].getCurrentSeed().getAgeInDays() > 0)
+                                            && landMatrix[y][x].getCurrentSeed().getAgeInDays() == landMatrix[y][x].getCurrentSeed().getHrvstDays())
                                             || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
                                         landMatrix[y][x].setWithered();
 
                                     if (landMatrix[y][x].isWithered())
                                         wthrdCnt++;
-
-                                    landMatrix[y][x].newDayReset();
                                 }
                             }
                     }

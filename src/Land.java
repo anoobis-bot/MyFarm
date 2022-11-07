@@ -73,12 +73,6 @@ public class Land
     {
         this.amtFertilizer++;
     }
-    public void newDayReset()
-    {
-        this.amtWater = 0;
-        this.amtFertilizer = 0;
-    }
-
     // Plow land
     public void plowLand()
     {
