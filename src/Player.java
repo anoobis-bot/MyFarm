@@ -159,7 +159,7 @@ public class Player {
             waterBonus = harvestTotal * 0.2 *(landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() - 1);
             fertilizerBonus = harvestTotal * 0.5 * landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer();
             finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
-            System.out.println(finalHarvestPrice + "\n" + produced);
+            System.out.println(finalHarvestPrice + "Products Produced: " + produced);
             objCoin += finalHarvestPrice;
 
             landMatrix[point.getYCoordinate()][point.getXCoordinate()].resetValues();
@@ -167,6 +167,29 @@ public class Player {
             System.out.println("Cannot Harvest");
     }
 
+    public void setFarmerType(int option)
+    {
+        switch (option){
+            case 1:
+                this.farmerType = new FarmerType(FarmerTypeAttributes.REGISTERED_FARMER);
+                break;
+            case 2:
+                if (objCoin >= 300){
+                    this.farmerType = new FarmerType(FarmerTypeAttributes.DISTINGUISHED_FARMER);
+                }
+                else System.out.println("Incorrect input!");
+                break;
+            case 3:
+                if (objCoin >= 400){
+                    this.farmerType = new FarmerType(FarmerTypeAttributes.LEGENDARY_FARMER);
+                }
+                else System.out.println("Incorrect input!");
+                break;
+            default:
+                System.out.println("Not in options");
+        }
+        objCoin -= farmerType.getRegistrationFee();
+    }
     /*
       This method resets all variables in the class
     */

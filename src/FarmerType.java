@@ -8,8 +8,8 @@ import Constants.FarmerTypeAttributes;
 
 public class FarmerType
 {
-    private String nameType;
-    private int bonusCoin, seedReductionCost, bonusLimitIncrease, bonusFertilizeIncrease;
+    private final String nameType;
+    private final int bonusCoin, seedReductionCost, bonusLimitIncrease, bonusFertilizeIncrease, registrationFee;
 
     /*
         These value are based on the constant enum values from FarmerTypeAttributes
@@ -22,6 +22,7 @@ public class FarmerType
         this.seedReductionCost = farmerAttributes.seedReductionCost;
         this.bonusLimitIncrease = farmerAttributes.bonusLimitIncrease;
         this.bonusFertilizeIncrease = farmerAttributes.bonusFertilizeIncrease;
+        this.registrationFee = farmerAttributes.registrationFee;
     }
 
     // Getters
@@ -32,16 +33,19 @@ public class FarmerType
     public int getBonusCoin() {
         return bonusCoin;
     }
+    public int getRegistrationFee() {
+        return registrationFee;
+    }
 
     public int getSeedReductionCost() {
         return seedReductionCost;
-    }
+    } //MCO2
 
     public int getBonusLimitIncrease() {
         return bonusLimitIncrease;
-    }
+    } //MCO2
 
     public int getBonusFertilizeIncrease() {
         return bonusFertilizeIncrease;
-    }
+    } //MCO2
 }

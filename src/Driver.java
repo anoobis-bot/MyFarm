@@ -21,7 +21,7 @@ public class Driver
             int userInput;
 
             GameEnvironment game = new GameEnvironment(1, 1);
-            Player player = new Player(100, 0);
+            Player player = new Player(201, 0);
             Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
 
             Display display = new Display(player, landMatrix, game);
@@ -93,8 +93,7 @@ public class Driver
                         for (int y = 0; y < ySize; y++)
                             for (int x = 0; x < xSize; x++)
                             {
-                                if (((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
-                                        || landMatrix[y][x].getAmtFertilizer() < landMatrix[y][x].getCurrentSeed().getFertilizerNeeds())
+                                if ((landMatrix[y][x].getAmtWater() < landMatrix[y][x].getCurrentSeed().getWaterNeeds()
                                         && landMatrix[y][x].getCurrentSeed().getAgeInDays() > 0)
                                         || landMatrix[y][x].getCurrentSeed().getAgeInDays() > landMatrix[y][x].getCurrentSeed().getHrvstDays())
                                     landMatrix[y][x].setWithered();
@@ -107,6 +106,17 @@ public class Driver
                     }
                     // if the user decided to upgrade status
                     else if (userInput == toolPopulation + seedPopulation + PlayerActions.UPGRADE_STATUS.ordinal() + 1) {
+                        Scanner sc = new Scanner(System.in);
+                        if (player.getObjCoin() >= 200){
+                            System.out .println("Type: [1] to register farmer");
+                            if (player.getObjCoin() >= 300){
+                                System.out .print(" [2] to register as Distinguished farmer");
+                                if (player.getObjCoin() >= 400)
+                                    System.out .print(" [3] to register as Legendary farmer");
+                            }
+                               player.setFarmerType(sc.nextInt());
+                        } else
+                            System.out.println("Not Enough Object Coins to register.");
 
                     }
                 }
