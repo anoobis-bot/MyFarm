@@ -200,7 +200,7 @@ public class Player {
             waterBonus = harvestTotal * 0.2 *(landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtWater() - 1);
             fertilizerBonus = harvestTotal * 0.5 * landMatrix[point.getYCoordinate()][point.getXCoordinate()].getAmtFertilizer();
             finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
-            System.out.println(finalHarvestPrice + "Products Produced: " + produced);
+            System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " + produced);
             objCoin += finalHarvestPrice;
 
             landMatrix[point.getYCoordinate()][point.getXCoordinate()].resetValues();
