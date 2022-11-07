@@ -89,11 +89,11 @@ public class Land
     public void resetValues()
     {
         this.crop.deleteSeed();
-
         this.amtWater = 0;
         this.amtFertilizer = 0;
         this.isPlowed = false;
         this.hasRocks = false;
         this.isWithered = false;
+        this.crop = null;
     }
 }

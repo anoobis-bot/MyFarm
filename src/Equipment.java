@@ -48,9 +48,6 @@ public class Equipment
     {
         if (this.requiredRocksClear && hasRocks)
             return false;
-        else if (this.requiredPlowed && !(isPlowed))
-            return false;
-
-        return true;
+        else return !this.requiredPlowed || isPlowed;
     }
 }
