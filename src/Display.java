@@ -123,6 +123,7 @@ public class Display
             System.out.print(currAction.actionName);
             System.out.print(" ");
         }
+        System.out.print("[0] Quit Planting");
 
         System.out.print("\n----------------------------------------------------------------\n");
 

@@ -60,7 +60,8 @@ public class Driver
                 // Option to close the program
                 else if (userInput == 0)
                 {
-                    System.out.println("Program closed");
+                    System.out.println("\nForfeited planting");
+                    close = true;
                     break;
                 }
                 // if the user's input are the number range for tools
@@ -114,19 +115,22 @@ public class Driver
             }while (player.getObjCoin() > 0 || wthrdCnt >= 1);
             System.out.println("Game Over!");
 
-            /* This asks the player for restart option or quit game */
-            System.out.println("\nrestart game? [y/n]");
-            Scanner s = new Scanner(System.in);
-            switch (s.next().charAt(0))
+            if (!close)
             {
-                case 'Y', 'y' -> {
-                    for (int y = 0; y < ySize; y++)
-                        for (int x = 0; x < xSize; x++)
-                            landMatrix[y][x].resetValues();
-                    player.resetPlayer();
+                /* This asks the player for restart option or quit game */
+                System.out.println("\nrestart game? [y/n]");
+                Scanner s = new Scanner(System.in);
+                switch (s.next().charAt(0))
+                {
+                    case 'Y', 'y' -> {
+                        for (int y = 0; y < ySize; y++)
+                            for (int x = 0; x < xSize; x++)
+                                landMatrix[y][x].resetValues();
+                        player.resetPlayer();
+                    }
+                    case 'N', 'n' -> close = true;
+                    default -> System.out.println("wrong input");
                 }
-                case 'N', 'n' -> close = true;
-                default -> System.out.println("wrong input");
             }
         }while (!close);
     }
