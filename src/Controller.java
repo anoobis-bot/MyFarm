@@ -25,6 +25,7 @@ public class Controller implements ActionListener {
 
     private JButton[][] landMatrixBtns;
     private JButton[] seedBtns, toolBtns;
+    private JLabel dayLabel, farmerTypeLabel, coinLabel;
 
     ToolAttributes[] toolsInfo = ToolAttributes.values();
     SeedAttributes[] seedsInfo = SeedAttributes.values();
@@ -95,6 +96,16 @@ public class Controller implements ActionListener {
 
     }
 
+    public void setLabels(JLabel dayLabel, JLabel farmerTypeLabel, JLabel coinLabel)
+    {
+        this.dayLabel = dayLabel;
+        this.farmerTypeLabel = farmerTypeLabel;
+        this.coinLabel = coinLabel;
+
+        this.dayLabel.setText("Day " + game.getCurrentDay());
+        this.farmerTypeLabel.setText(player.getFarmerType().getNameType());
+        this.coinLabel.setText("Coins: " + player.getObjCoin());
+    }
 
 
     public int getWidthLand()

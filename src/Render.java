@@ -21,6 +21,7 @@ public class Render {
     private JPanel landPlot;
     private JPanel toolPlot;
     private JPanel seedPlot;
+    private JPanel infoPlot;
 
 
     // Constant values relating to the GUI
@@ -44,6 +45,9 @@ public class Render {
     private static final int PADDING_LAND = 10;
     private static final int PADDING_TOOL_LEFT = 50;
     private static final int PADDING_SEED_RIGHT = 45;
+    private static final int PADDING_INFO_TOP = 10;
+    private static final int PADDING_INFO_LEFT = PADDING_TOOL_LEFT - 5;
+    private static final int PADDING_INFO_RIGHT = PADDING_SEED_RIGHT -8;
 
 
     // Static values that will be used by the Controller class
@@ -76,6 +80,8 @@ public class Render {
         toolPlot.setLayout(new GridBagLayout());
         seedPlot = new JPanel();
         seedPlot.setLayout(new GridBagLayout());
+        infoPlot = new JPanel();
+        infoPlot.setLayout(new GridBagLayout());
 
         // Instantiating all the components that will be used in the game
         // LAND PLOT
@@ -89,7 +95,7 @@ public class Render {
             }
         }
 
-        // TOOLS
+        // TOOLS PLOT
         ToolAttributes[] toolsInfo = ToolAttributes.values();
         JButton[] toolBtns = new JButton[TOOLS_TOTAL];
         for (int i = 0; i < TOOLS_TOTAL; i++)
@@ -99,7 +105,7 @@ public class Render {
             toolBtns[i].setActionCommand("TOOL" + "," + toolsInfo[i].name());
         }
 
-        // SEEDS
+        // SEEDS PLOT
         SeedAttributes[] seedsInfo = SeedAttributes.values();
         JButton[] seedBtns = new JButton[SEEDS_TOTAL];
         for (int i = 0; i < SEEDS_TOTAL; i++)
@@ -109,8 +115,17 @@ public class Render {
             seedBtns[i].setActionCommand("SEED" + "," + seedsInfo[i].name());
         }
 
-        // Passing the buttons to the controller class for back end
+        // INFO PLOT
+        // Values initialized in the Controller setLabel since this class
+        // has no access to player and game object
+        JLabel dayLabel = new JLabel();
+        JLabel farmerTypeLabel = new JLabel();
+        JLabel coinLabel = new JLabel();
+
+
+        // Passing the buttons and labels to the controller class for back end
         controller.setButtons(landMatrixBtns, seedBtns, toolBtns);
+        controller.setLabels(dayLabel, farmerTypeLabel, coinLabel);
 
 
         // The code below contains all that is necessary to design and set up the back end of the code
@@ -195,10 +210,36 @@ public class Render {
         }
 
 
+        // Configuring the properties of the info labels
+        GridBagConstraints labelProperty = new GridBagConstraints();
+        labelProperty.gridy = 0;
+        labelProperty.weightx = 0.5;
+
+        // DAY
+        labelProperty.gridx = 0;
+        labelProperty.anchor = GridBagConstraints.LINE_START;
+        labelProperty.insets = new Insets(PADDING_INFO_TOP, PADDING_INFO_LEFT, 0, 0);
+        infoPlot.add(dayLabel, labelProperty);
+
+        // FARMER TYPE
+        labelProperty.gridx = 1;
+        labelProperty.anchor = GridBagConstraints.CENTER;
+        labelProperty.insets = new Insets(PADDING_INFO_TOP, 0, 0, 0);
+        infoPlot.add(farmerTypeLabel, labelProperty);
+
+        // DAY
+        labelProperty.gridx = 2;
+        labelProperty.anchor = GridBagConstraints.LINE_END;
+        labelProperty.insets = new Insets(PADDING_INFO_TOP, 0, 0, PADDING_INFO_RIGHT);
+        infoPlot.add(coinLabel, labelProperty);
+
+
+
         // Adding all the sub frames to the mainFrame
         mainFrame.add(landPlot, BorderLayout.CENTER);
         mainFrame.add(toolPlot, BorderLayout.WEST);
         mainFrame.add(seedPlot, BorderLayout.EAST);
+        mainFrame.add(infoPlot, BorderLayout.NORTH);
 
 
         mainFrame.setVisible(true);

@@ -44,7 +44,7 @@ public class Player {
         this.tool.setTool(ToolAttributes.PLOW);
         this.grabSeed(SeedAttributes.TURNIP);
 
-        this.operationType = 0;
+        this.operationType = USE_TOOL;
     }
 
     /*
@@ -67,6 +67,10 @@ public class Player {
     }
     public Equipment getTool() {
         return tool;
+    }
+    public int getOperationTypeType()
+    {
+        return operationType;
     }
 
     /*
@@ -203,25 +207,27 @@ public class Player {
             case 1:
                 if (objCoin >= 200 && farmerLvl >= 5){
                     this.farmerType = new FarmerType(FarmerTypeAttributes.REGISTERED_FARMER);
+                    objCoin -= farmerType.getRegistrationFee();
                 }
                 else System.out.println("Incorrect input!");
                 break;
             case 2:
                 if (objCoin >= 300 && farmerLvl >= 10){
                     this.farmerType = new FarmerType(FarmerTypeAttributes.DISTINGUISHED_FARMER);
+                    objCoin -= farmerType.getRegistrationFee();
                 }
                 else System.out.println("Incorrect input!");
                 break;
             case 3:
                 if (objCoin >= 400 && farmerLvl >= 15){
                     this.farmerType = new FarmerType(FarmerTypeAttributes.LEGENDARY_FARMER);
+                    objCoin -= farmerType.getRegistrationFee();
                 }
                 else System.out.println("Incorrect input!");
                 break;
             default:
                 System.out.println("Not in options");
         }
-        objCoin -= farmerType.getRegistrationFee();
     }
 
     /*
@@ -247,12 +253,13 @@ public class Player {
         point.setXCoordinate(x);
     }
 
-    public int getOperationTypeType()
-    {
-        return operationType;
-    }
     public void setOperationType(int opType)
     {
         this.operationType = opType;
+    }
+
+    public void changeValObjCoin(double value)
+    {
+        objCoin += value;
     }
 }
