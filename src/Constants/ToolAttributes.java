@@ -29,4 +29,9 @@ public enum ToolAttributes
         this.requiredRocksClear = requiredRocksClear;
         this.requiredPlowed = requiredPlowed;
     }
+
+    public char firstLetter()
+    {
+        return name().charAt(0);
+    }
 }

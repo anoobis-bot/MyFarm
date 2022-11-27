@@ -1,4 +1,4 @@
-/*
+package Entities;/*
     This class is the blueprint for the land object in the game.
  */
 

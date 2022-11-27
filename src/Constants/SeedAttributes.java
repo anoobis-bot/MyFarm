@@ -57,4 +57,9 @@ public enum SeedAttributes
         this.baseSellPiece = baseSellPiece;
         this.expYield = expYield;
     }
+
+    public char firstLetter()
+    {
+        return name().charAt(0);
+    }
 }

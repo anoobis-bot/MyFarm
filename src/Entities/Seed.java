@@ -1,4 +1,4 @@
-/*
+package Entities;/*
     This class contains the equipment for the game
  */
 

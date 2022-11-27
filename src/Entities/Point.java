@@ -1,4 +1,4 @@
-/*
+package Entities;/*
     This class is the pointer to which it points which element land the player is pointing to
  */
 

@@ -1,4 +1,4 @@
-/*
+package Entities;/*
     This class contains the Farmer Type for the game
     When the user decides to change tool, a new object is instantiated with it constructor
     That is why it is not necessary to have setter methods

@@ -6,6 +6,9 @@
 import Constants.PlayerActions;
 import Constants.SeedAttributes;
 import Constants.ToolAttributes;
+import Entities.GameEnvironment;
+import Entities.Land;
+import Entities.Player;
 
 public class Display
 {
@@ -67,7 +70,7 @@ public class Display
                 else if (landMatrix[y][x].isPlowed())
                     System.out.print("P");
                 else
-                System.out.print("L");  // Land that has nothing. not plowed, no seeds, no rocks.
+                System.out.print("L");  // Entities.Land that has nothing. not plowed, no seeds, no rocks.
 
                 System.out.print(" ");
             }

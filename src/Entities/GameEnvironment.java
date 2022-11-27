@@ -1,4 +1,4 @@
-/*
+package Entities;/*
     This class contains the game status information
     It has the board size and the current game day
  */

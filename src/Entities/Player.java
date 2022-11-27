@@ -1,4 +1,4 @@
-/*
+package Entities;/*
     This class is the blueprint for the player object in the game.
  */
 
@@ -70,7 +70,7 @@ public class Player {
 
     /*
         Uses the tool assigned to the land specified by the point
-        @param landMatrix a 2D array from the Land class
+        @param landMatrix a 2D array from the Entities.Land class
     */
     public void useTool(Land[][] landMatrix)
     {
@@ -88,7 +88,7 @@ public class Player {
                         this.objCoin -= tool.getUsageCost();
                         this.farmerExp += tool.getExpGain();
 
-                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand(); //plow method from Land class
+                        landMatrix[point.getYCoordinate()][point.getXCoordinate()].plowLand(); //plow method from Entities.Land class
                     } else
                         System.out.println("Can't use plow tool");
                     break;
@@ -100,7 +100,7 @@ public class Player {
                             this.objCoin -= tool.getUsageCost();
                             this.farmerExp += tool.getExpGain();
 
-                            landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand(); //waterLand method from Land class
+                            landMatrix[point.getYCoordinate()][point.getXCoordinate()].waterLand(); //waterLand method from Entities.Land class
                             waterUsed++;
                         }else System.out.println("Limit Reached");
                     } else
@@ -114,7 +114,7 @@ public class Player {
                             this.objCoin -= tool.getUsageCost();
                             this.farmerExp += tool.getExpGain();
 
-                            landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand(); //fertilizeLand method from Land class
+                            landMatrix[point.getYCoordinate()][point.getXCoordinate()].fertilizeLand(); //fertilizeLand method from Entities.Land class
                             fertilizerUsed++;
                         } else
                             System.out.println("Limit Reached");
@@ -128,7 +128,7 @@ public class Player {
         } else System.out.println("Tool cannot be used");
     }
     /*
-        @return Seed. returns the seed object
+        @return Entities.Seed. returns the seed object
      */
     public Seed getSeed(){ return seed; }
     /*
@@ -153,14 +153,14 @@ public class Player {
                 {
                     landMatrix[point.getYCoordinate()][point.getXCoordinate()].setSeed(seed);   // plant the seed
                     this.objCoin -= seed.getSeedCost() + farmerType.getSeedReductionCost();   // subtract the cost
-                } else System.out.println("Land has seed already");
+                } else System.out.println("Entities.Land has seed already");
             } else System.out.println("Not enough object coin to use");
-        }else System.out.println("Land is not yet plowed");
+        }else System.out.println("Entities.Land is not yet plowed");
     }
 
     /*
        harvests the seed specified by the point
-       @param landMatrix a 2D array from the Land class
+       @param landMatrix a 2D array from the Entities.Land class
      */
     public void harvestSeed(Land[][] landMatrix)
     {
