@@ -2,6 +2,7 @@ import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 /*
@@ -38,7 +39,9 @@ public class Render {
 
     // Button Property Constants
     private static final int SIZE_LAND = 45;
+    private static final int SIZE_TOOL = 45;
     private static final int PADDING_LAND = 10;
+    private static final int PADDING_TOOL_LEFT = 50;
 
 
     // Static values that will be used by the Controller class
@@ -58,6 +61,7 @@ public class Render {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        mainFrame.setLocationRelativeTo(null);
         // Initializing subframes
         landPlot = new JPanel();
         landPlot.setLayout(new GridBagLayout());
@@ -104,8 +108,9 @@ public class Render {
         GridBagConstraints seedBtnProperty = new GridBagConstraints();
 
         // LAND
-        landBtnProperty.weightx = 0;
+        landBtnProperty.weightx = 0;    // So that the buttons clump together
         landBtnProperty.weighty = 0;
+        // External padding
         landBtnProperty.insets = new Insets(PADDING_LAND, PADDING_LAND, PADDING_LAND, PADDING_LAND);
         for (int currHeight = 0; currHeight < LAND_HEIGHT; currHeight++)
         {
@@ -133,6 +138,9 @@ public class Render {
         }
 
         // TOOLS
+        toolBtnProperty.gridx = 0;
+        toolBtnProperty.weighty = 0.5;
+        toolBtnProperty.insets = new Insets(0, PADDING_TOOL_LEFT, 0, 0);
         for (int currTool = 0; currTool < TOOLS_TOTAL; currTool++)
         {
             // Set up information about the button to be used by the controller object
@@ -140,13 +148,22 @@ public class Render {
             toolBtns[currTool].setActionCommand(CODE_TOOL + "," + toolsInfo[currTool].name());
 
             // Setting text as the first letter of the tool
+            toolBtns[currTool].setText(String.valueOf(toolsInfo[currTool].firstLetter()));
 
+            // Setting the appropriate sizes of the buttons
+            toolBtns[currTool].setPreferredSize(new Dimension(SIZE_TOOL, SIZE_TOOL));
+
+            // Positioning the buttons
+            toolBtnProperty.gridy = currTool;
+            // Adding it to the panel
+            toolPlot.add(toolBtns[currTool], toolBtnProperty);
         }
 
 
 
         // Adding all the sub frames to the mainFrame
         mainFrame.add(landPlot, BorderLayout.CENTER);
+        mainFrame.add(toolPlot, BorderLayout.WEST);
 
 
         mainFrame.setVisible(true);
