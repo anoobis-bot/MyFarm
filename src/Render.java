@@ -47,12 +47,17 @@ public class Render {
 
 
     // Static values that will be used by the Controller class
-    private static final String CODE_LAND = "LAND";
-    private static final String CODE_TOOL = "TOOL";
-    private static final String CODE_SEED = "SEED";
+    private final String CODE_LAND;
+    private final String CODE_TOOL;
+    private final String CODE_SEED;
 
     public Render(Controller controller)
     {
+        // Setting up variable for the Controller class
+        this.CODE_LAND = controller.getCodeLand();
+        this.CODE_TOOL = controller.getCodeTool();
+        this.CODE_SEED = controller.getCodeSeed();
+
         // Setting up the number of column and rows of the land
         this.LAND_WIDTH = controller.getWidthLand();
         this.LAND_HEIGHT = controller.getHeightLand();
@@ -74,11 +79,14 @@ public class Render {
 
         // Instantiating all the components that will be used in the game
         // LAND PLOT
-        JButton[] landMatrixBtns = new JButton[LAND_AREA];
-        for (int i = 0; i < LAND_AREA; i++)
+        JButton[][] landMatrixBtns = new JButton[LAND_HEIGHT][LAND_WIDTH];
+        for (int currHeight = 0; currHeight < LAND_HEIGHT; currHeight++)
         {
-            // Initializing all land. Labels will be put on button property.
-            landMatrixBtns[i] = new JButton();
+            for (int currWidth = 0; currWidth < LAND_WIDTH; currWidth++)
+            {
+                // Initializing all land. Labels will be put on button property.
+                landMatrixBtns[currHeight][currWidth] = new JButton();
+            }
         }
 
         // TOOLS
@@ -101,6 +109,10 @@ public class Render {
             seedBtns[i].setActionCommand("SEED" + "," + seedsInfo[i].name());
         }
 
+        // Passing the buttons to the controller class for back end
+        controller.setButtons(landMatrixBtns, seedBtns, toolBtns);
+
+
         // The code below contains all that is necessary to design and set up the back end of the code
         // This class contains the GUI code and passes all the computation to the Controller class
 
@@ -119,23 +131,22 @@ public class Render {
             for (int currWidth = 0; currWidth < LAND_WIDTH; currWidth++)
             {
                 // Set up information about the button to be used by the controller object
-                landMatrixBtns[(currHeight * LAND_WIDTH) + currWidth].addActionListener(controller);
-                landMatrixBtns[(currHeight * LAND_WIDTH) + currWidth].setActionCommand(CODE_LAND + "," +
+                landMatrixBtns[currHeight][currWidth].addActionListener(controller);
+                landMatrixBtns[currHeight][currWidth].setActionCommand(CODE_LAND + "," +
                         String.valueOf(currHeight) + ","  +
                         String.valueOf(currWidth));
 
                 // Initializing all land to be normal, L
-                landMatrixBtns[(currHeight * LAND_WIDTH) + currWidth].setText(String.valueOf('L'));
+                landMatrixBtns[currHeight][currWidth].setText(String.valueOf('L'));
 
                 // Setting the appropriate sizes of the buttons
-                landMatrixBtns[(currHeight * LAND_WIDTH) + currWidth].
-                        setPreferredSize(new Dimension(SIZE_LAND, SIZE_LAND));
+                landMatrixBtns[currHeight][currWidth].setPreferredSize(new Dimension(SIZE_LAND, SIZE_LAND));
 
                 // Positioning the buttons
                 landBtnProperty.gridx = currWidth;
                 landBtnProperty.gridy = currHeight;
                 // Adding it to the panel
-                landPlot.add(landMatrixBtns[(currHeight * LAND_WIDTH) + currWidth], landBtnProperty);
+                landPlot.add(landMatrixBtns[currHeight][currWidth], landBtnProperty);
             }
         }
 

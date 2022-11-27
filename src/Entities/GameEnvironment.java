@@ -3,8 +3,7 @@ package Entities;/*
     It has the board size and the current game day
  */
 
-public class GameEnvironment
-{
+public class GameEnvironment {
     private int systemDay;
     private final int xSize, ySize;
 
@@ -12,8 +11,7 @@ public class GameEnvironment
         @param ySize  the y size of the board
         @param xSize  the x size of the board
      */
-    public GameEnvironment(int ySize, int xSize)
-    {
+    public GameEnvironment(int ySize, int xSize) {
         this.xSize = xSize;
         this.ySize = ySize;
         this.systemDay = 1;
@@ -23,8 +21,7 @@ public class GameEnvironment
         Increments systemDay
         @return returns int systemDay
      */
-    public void advanceTime(Land[][] landMatrix)
-    {
+    public void advanceTime(Land[][] landMatrix) {
         this.systemDay++;
         // Checks each land object if it has a seed, then increment its age
         for (int y = 0; y < ySize; y++)
@@ -34,16 +31,15 @@ public class GameEnvironment
     }
 
     // Get methods
-    public int getCurrentDay()
-    {
+    public int getCurrentDay() {
         return this.systemDay;
     }
-    public int getXSize()
-    {
+
+    public int getXSize() {
         return xSize;
     }
-    public int getYSize()
-    {
+
+    public int getYSize() {
         return ySize;
     }
 }

@@ -17,6 +17,11 @@ public class Player {
     private final Equipment tool;
     private Seed seed;
 
+    private int operationType;
+    public final int PLANT = 1;
+    public final int USE_TOOL = 2;
+    public final int HARVEST = 3;
+
     /*
         Initialize the object coin, farmerExp, and farmerLvl
         @param objCoin how much is the starting coins
@@ -38,6 +43,8 @@ public class Player {
         // The default tool is plow and the default seed that the player is holding is turnip
         this.tool.setTool(ToolAttributes.PLOW);
         this.grabSeed(SeedAttributes.TURNIP);
+
+        this.operationType = 0;
     }
 
     /*
@@ -232,5 +239,20 @@ public class Player {
 
         this.tool.setTool(ToolAttributes.PLOW);
         this.grabSeed(SeedAttributes.TURNIP);
+    }
+
+    public void setPoint(int y, int x)
+    {
+        point.setYCoordinate(y);
+        point.setXCoordinate(x);
+    }
+
+    public int getOperationTypeType()
+    {
+        return operationType;
+    }
+    public void setOperationType(int opType)
+    {
+        this.operationType = opType;
     }
 }

@@ -4,7 +4,7 @@ package Entities;/*
 
 public class Point
 {
-    private final int xCoordinate, yCoordinate;
+    private int xCoordinate, yCoordinate;
 
     public Point()
     {
@@ -24,15 +24,12 @@ public class Point
         return yCoordinate;
     }
 
-    /*
-        MCO2 use
 
-    public void moveXCoordinate(int xCoordinate)
+    public void setXCoordinate(int xCoordinate)
     {
         this.xCoordinate = xCoordinate;
     }
-    public void moveYCoordinate(int yCoordinate)
-    {
+    public void setYCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
-    }*/
+    }
 }
