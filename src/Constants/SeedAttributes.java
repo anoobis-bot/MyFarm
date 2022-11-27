@@ -10,8 +10,8 @@ public enum SeedAttributes
     // <SEED_NAME>(seedName, cropType, hrvstDays, waterNeeds, waterBonus, fertilizerNeeds,
     //              fertilizerBonus, producedQtyMin, producedQtyMax, seedCost, baseSellPrice, expYield)
     TURNIP("Turnip", Constants.CropType.ROOT_CROP, 2, 1, 2, 0,
-            1, 1, 2, 5, 6, 5);
-/* FOR MCO2 Purpose
+            1, 1, 2, 5, 6, 5),
+
     CARROT("Carrot", Constants.CropType.ROOT_CROP, 3, 1, 2, 0,
             1, 1, 2, 10, 9, 7.5),
 
@@ -31,7 +31,7 @@ public enum SeedAttributes
             4, 5, 15, 100, 8, 25),
 
     APPLE("Apple", Constants.CropType.FRUIT_TREE, 10, 7, 7, 5,
-            5, 10, 15, 200, 5, 25)*/
+            5, 10, 15, 200, 5, 25);
 
 
     public final String seedName;

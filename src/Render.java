@@ -40,8 +40,10 @@ public class Render {
     // Button Property Constants
     private static final int SIZE_LAND = 45;
     private static final int SIZE_TOOL = 45;
+    private static final int SIZE_SEED = 45;
     private static final int PADDING_LAND = 10;
     private static final int PADDING_TOOL_LEFT = 50;
+    private static final int PADDING_SEED_RIGHT = 45;
 
 
     // Static values that will be used by the Controller class
@@ -91,7 +93,7 @@ public class Render {
 
         // SEEDS
         SeedAttributes[] seedsInfo = SeedAttributes.values();
-        JButton[] seedBtns = new JButton[TOOLS_TOTAL];
+        JButton[] seedBtns = new JButton[SEEDS_TOTAL];
         for (int i = 0; i < SEEDS_TOTAL; i++)
         {
             // creates buttons having a text of the first letter of the tool
@@ -159,11 +161,33 @@ public class Render {
             toolPlot.add(toolBtns[currTool], toolBtnProperty);
         }
 
+        // SEEDS
+        seedBtnProperty.gridx = 0;
+        seedBtnProperty.weighty = 0.5;
+        seedBtnProperty.insets = new Insets(0, 0, 0, PADDING_SEED_RIGHT);
+        for (int currSeed = 0; currSeed < SEEDS_TOTAL; currSeed++)
+        {
+            // Set up information about the button to be used by the controller object
+            seedBtns[currSeed].addActionListener(controller);
+            seedBtns[currSeed].setActionCommand(CODE_SEED + "," + seedsInfo[currSeed].name());
+
+            // Setting text as the first letter of the tool
+            seedBtns[currSeed].setText(String.valueOf(seedsInfo[currSeed].firstLetter()));
+
+            // Setting the appropriate sizes of the buttons
+            seedBtns[currSeed].setPreferredSize(new Dimension(SIZE_SEED, SIZE_SEED));
+
+            // Positioning the buttons
+            seedBtnProperty.gridy = currSeed;
+            // Adding it to the panel
+            seedPlot.add(seedBtns[currSeed], seedBtnProperty);
+        }
 
 
         // Adding all the sub frames to the mainFrame
         mainFrame.add(landPlot, BorderLayout.CENTER);
         mainFrame.add(toolPlot, BorderLayout.WEST);
+        mainFrame.add(seedPlot, BorderLayout.EAST);
 
 
         mainFrame.setVisible(true);
