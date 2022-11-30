@@ -79,7 +79,8 @@ public class Controller implements ActionListener {
         }
         else if (opType.equals(CODE_LAND))
         {
-            player.setPoint(Integer.parseInt(eventInfo.nextToken()), Integer.parseInt(eventInfo.nextToken()));
+            player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
+            player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
             if (player.getOperationTypeType() == player.USE_TOOL)
             {
                 player.useTool(landMatrix);

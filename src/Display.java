@@ -45,8 +45,8 @@ public class Display
         System.out.print("\n");
 
         // gets the current pointer position
-        int xPointer = player.getPoint().getXCoordinate();
-        int yPointer = player.getPoint().getYCoordinate();
+        int xPointer = player.getXPointer();
+        int yPointer = player.getYPointer();
 
         // Prints the land tiles
         for (int y = 0; y < ySize; y++)
