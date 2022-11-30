@@ -180,24 +180,31 @@ public class Player {
     /*
         @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
      */
-    public void plantSeed(Land[][] landMatrix)
+    public boolean plantSeed(Land[][] landMatrix)
     {
-        // if the land is plowed or there are no rocks
-        if (seed.verifyUsage_Lnd(landMatrix[yPointer][xPointer].hasRocks(),
-                                    landMatrix[yPointer][xPointer].isPlowed()))
+        // Guard Clauses
+        // if the land is not plowed or there rocks
+        if (!seed.verifyUsage_Lnd(landMatrix[yPointer][xPointer].isPlowed(),
+                                    landMatrix[yPointer][xPointer].hasRocks()))
         {
-            // if the player has enough money
-            if (seed.verifyUsage_Mny(this.objCoin))
-            {
-                // if the land is not populated with seed
-                if (landMatrix[yPointer][xPointer].getCurrentSeed() == null)
-                {
-                    landMatrix[yPointer][xPointer].setSeed(seed);   // plant the seed
-                    this.objCoin -= seed.getSeedCost() + farmerType.getSeedReductionCost();   // subtract the cost
-                    grabSeed(SeedAttributes.valueOf(seed.getSeedName().toUpperCase()));
-                } else System.out.println("Entities.Land has seed already");
-            } else System.out.println("Not enough object coin to use");
-        }else System.out.println("Entities.Land is not yet plowed");
+            return false;
+        }
+        // if the player has not enough money
+        else if (!seed.verifyUsage_Mny(this.objCoin))
+        {
+            return false;
+        }
+        // if the land populated with seed
+        else if (landMatrix[yPointer][xPointer].getCurrentSeed() != null)
+        {
+            return false;
+        }
+
+        landMatrix[yPointer][xPointer].setSeed(seed);   // plant the seed
+        useObjCoin(- (seed.getSeedCost() + farmerType.getSeedReductionCost()) );    // subtract the cost
+        // instantiate a new seed in player since the seed that the player was holding is in the land object already
+        grabSeed(SeedAttributes.valueOf(seed.getSeedName().toUpperCase()));
+        return true;
     }
     /*
        harvests the seed specified by the point

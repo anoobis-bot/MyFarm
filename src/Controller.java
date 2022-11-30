@@ -91,6 +91,16 @@ public class Controller implements ActionListener {
                 updateLandButton(currButton);
                 updateLabels();
             }
+            else if (player.getOperationTypeType() == player.PLANT)
+            {
+                if (player.plantSeed(landMatrix) == false)
+                {
+                    System.out.println("You cant plant " + player.getSeed().getSeedName() + "!");
+                }
+
+                updateLandButton(currButton);
+                updateLabels();
+            }
         }
     }
 

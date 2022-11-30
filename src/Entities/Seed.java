@@ -89,7 +89,7 @@ public class Seed
     {
         return objCoin >= this.seedCost;
     }
-    public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
+    public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasRocks)
     {
         if (hasRocks)
             return false;
