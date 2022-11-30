@@ -96,10 +96,15 @@ public class Land
         this.hasRocks = false;
     }
 
+    public void shovelLand()
+    {
+        if (!this.hasRocks)
+            resetValues();
+    }
+
     // resets how many times the land has been watered and fertilized to 0
     public void resetValues()
     {
-        this.crop.deleteSeed();
         this.amtWater = 0;
         this.amtFertilizer = 0;
         this.isPlowed = NOT_PLOWED;

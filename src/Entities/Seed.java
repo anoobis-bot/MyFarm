@@ -99,10 +99,4 @@ public class Seed
         return true;
 
     }
-
-    // a method that deletes the seed in this land
-    public void deleteSeed()
-    {
-        this.ageInDays = 0;
-    }
 }

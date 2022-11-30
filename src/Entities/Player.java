@@ -135,7 +135,7 @@ public class Player {
         Uses the tool assigned to the land specified by the point
         @param landMatrix a 2D array from the Entities.Land class
     */
-    public void useTool(Land[][] landMatrix)
+    public boolean useTool(Land[][] landMatrix)
     {
         Land currLand = landMatrix[yPointer][xPointer];
         if(tool.verifyUsage_Mny(this.objCoin) && tool.verifyUsage_Lnd(currLand.isPlowed(),
@@ -147,11 +147,25 @@ public class Player {
             {
                 case PLOW:
                     currLand.plowLand();
-                    useObjCoin( - (this.tool.getUsageCost()) );
                     break;
-
+                case WATERING_CAN:
+                    currLand.waterLand();
+                    break;
+                case FERTILIZER:
+                    currLand.fertilizeLand();
+                    break;
+                case PICKAXE:
+                    currLand.removeRocks();
+                    break;
+                case SHOVEL:
+                    currLand.shovelLand();
+                    break;
             }
-        } else System.out.println("Tool cannot be used");
+            useObjCoin( - (tool.getUsageCost()) );
+            return true;
+        }
+        else
+            return false;
     }
 
 
