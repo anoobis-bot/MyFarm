@@ -89,11 +89,11 @@ public class Seed
     {
         return objCoin >= this.seedCost;
     }
-    public boolean verifyUsage_Lnd(boolean hasRocks, int isPlowed)
+    public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
     {
         if (hasRocks)
             return false;
-        else if (isPlowed == Land.NOT_PLOWED)
+        else if (!isPlowed)
             return false;
 
         return true;

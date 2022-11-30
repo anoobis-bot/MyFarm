@@ -8,26 +8,34 @@ package Constants;
 public enum ToolAttributes
 {
     // <TOOL_NAME>(toolName, costUsage, expUsage, requiredPlowed, requiredRocksClear
-    PLOW("Plow", 0, 0.5, LandPlowed.NOT_REQUIRED, false, false),
-    WATERING_CAN("Watering Can", 0, 0.5, LandPlowed.REQUIRED, true, false),
-    FERTILIZER("Fertilizer", 10, 4, LandPlowed.REQUIRED, true, false),
-    PICKAXE("Pickaxe", 50, 15, LandPlowed.IRRELEVANT, false, true),
-    SHOVEL("Shovel", 7, 2, LandPlowed.IRRELEVANT, true, true);
+    PLOW("Plow", 0, 0.5,
+            false, false, false, false),
+    WATERING_CAN("Watering Can", 0, 0.5,
+            false, true, true, false),
+    FERTILIZER("Fertilizer", 10, 4,
+            false, true, true, false),
+    PICKAXE("Pickaxe", 50, 15,
+            false, false, false, true),
+    SHOVEL("Shovel", 7, 2,
+            true, true, true, true);
 
     public final String toolName;
     public final int costUsage;
     public final double expUsage;
 
-    public final int requiredPlowed;
+    public final boolean noRequirement;
+    public final boolean requiredPlowed;
     public final boolean requiredPlant;
     public final boolean requiredRocks;
 
     ToolAttributes(String toolName, int costUsage, double expUsage,
-                   int requiredPlowed, boolean requiredPlant, boolean requiredRocks)
+                   boolean noRequirement, boolean requiredPlowed, boolean requiredPlant, boolean requiredRocks)
     {
         this.toolName = toolName;
         this.costUsage = costUsage;
         this.expUsage = expUsage;
+
+        this.noRequirement = noRequirement;
         this.requiredPlowed = requiredPlowed;
         this.requiredPlant = requiredPlant;
         this.requiredRocks = requiredRocks;
@@ -36,12 +44,5 @@ public enum ToolAttributes
     public char firstLetter()
     {
         return name().charAt(0);
-    }
-
-    public static class LandPlowed
-    {
-        public static final int REQUIRED = 1;
-        public static final int NOT_REQUIRED = 0;
-        public static final int IRRELEVANT = -1;
     }
 }

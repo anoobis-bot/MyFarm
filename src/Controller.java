@@ -83,8 +83,10 @@ public class Controller implements ActionListener {
             player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
             if (player.getOperationTypeType() == player.USE_TOOL)
             {
-                player.useTool(landMatrix);
-                // TODO fix tool and plant codes
+                if (player.useTool(landMatrix) == false)
+                {
+                    System.out.println("You cant use " + player.getTool().getToolName() + "!");
+                }
             }
         }
     }

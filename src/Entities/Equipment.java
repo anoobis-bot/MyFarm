@@ -8,7 +8,8 @@ public class Equipment
     private String toolName;
     private float usageCost;
     private double expGain;
-    private int requiredPlowed;
+    private boolean noRequirement;
+    private boolean requiredPlowed;
     private boolean requiredPlant;
     private boolean requiredRocks;
 
@@ -21,6 +22,7 @@ public class Equipment
         this.toolName = tool.toolName;
         this.usageCost = tool.costUsage;
         this.expGain = tool.expUsage;
+        this.noRequirement = tool.noRequirement;
         this.requiredPlowed = tool.requiredPlowed;
         this.requiredPlant = tool.requiredPlant;
         this.requiredRocks = tool.requiredRocks;
@@ -40,7 +42,7 @@ public class Equipment
         return expGain;
     }
 
-    public int requiredPlowed() {
+    public boolean requiredPlowed() {
         return requiredPlowed;
     }
 
@@ -53,15 +55,17 @@ public class Equipment
     {
         return objCoin >= this.usageCost;
     }
-    public boolean verifyUsage_Lnd(int isPlowed, boolean hasPlant, boolean hasRocks)
+    public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasPlant, boolean hasRocks)
     {
         // Guard clauses
-        if (this.requiredPlowed != ToolAttributes.LandPlowed.IRRELEVANT)
+        if (this.noRequirement)
         {
-            if (this.requiredPlowed != isPlowed)
-            {
-                return false;
-            }
+            return true;
+        }
+
+        if (this.requiredPlowed != isPlowed)
+        {
+            return false;
         }
         else if (this.requiredPlant != hasPlant)
         {

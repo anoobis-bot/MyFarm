@@ -8,9 +8,7 @@ public class Land
     private int amtWater, amtFertilizer;
     private boolean hasRocks, isWithered;
 
-    private int isPlowed;
-    public static final int PLOWED = 1;
-    public static final int NOT_PLOWED = 0;
+    private boolean isPlowed;
 
     /*
         Initializes all land with 0 water, fertilizer, not plowed, and has no tocks
@@ -19,7 +17,7 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.isPlowed = NOT_PLOWED;
+        this.isPlowed = false;
         this.hasRocks = false;
         this.isWithered = false;
     }
@@ -60,7 +58,7 @@ public class Land
     {
         return amtFertilizer;
     }
-    public int isPlowed()
+    public boolean isPlowed()
     {
         return isPlowed;
     }
@@ -88,7 +86,7 @@ public class Land
     // Plow land
     public void plowLand()
     {
-        this.isPlowed = PLOWED;
+        this.isPlowed = true;
     }
 
     public void removeRocks()
@@ -107,7 +105,7 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.isPlowed = NOT_PLOWED;
+        this.isPlowed = false;
         this.hasRocks = false;
         this.isWithered = false;
         this.crop = null;
