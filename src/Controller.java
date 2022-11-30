@@ -87,6 +87,9 @@ public class Controller implements ActionListener {
                 {
                     System.out.println("You cant use " + player.getTool().getToolName() + "!");
                 }
+
+                updateLandButton(currButton);
+                updateLabels();
             }
         }
     }
@@ -110,6 +113,26 @@ public class Controller implements ActionListener {
         this.coinLabel.setText("Coins: " + player.getObjCoin());
     }
 
+    public void updateLabels()
+    {
+        this.dayLabel.setText("Day " + game.getCurrentDay());
+        this.farmerTypeLabel.setText(player.getFarmerType().getNameType());
+        this.coinLabel.setText("Coins: " + player.getObjCoin());
+    }
+
+    public void updateLandButton(JButton currButton)
+    {
+        Land currLand = landMatrix[player.getYPointer()][player.getXPointer()];
+        if (currLand.hasSeed())
+            currButton.setText(String.valueOf(currLand.getCurrentSeed().getSeedName().charAt(0)));
+            // TODO add withered
+        else if (currLand.isPlowed())
+            currButton.setText("P");
+        else if (currLand.hasRocks())
+            currButton.setText("R");
+        else
+            currButton.setText("L");
+    }
 
     public int getWidthLand()
     {
