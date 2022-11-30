@@ -47,164 +47,26 @@ public class Player {
         this.operationType = USE_TOOL;
     }
 
-    /*
-        Get methods
-    */
+    public double getObjCoin() {
+        return objCoin;
+    }
+    public void useObjCoin(double value)
+    {
+        objCoin += value;
+    }
+
+
     public double getFarmerExp() {
         return farmerExp;
     }
     public int getFarmerLvl() {
         return farmerLvl;
     }
-    public double getObjCoin() {
-        return objCoin;
-    }
-    public int getXPointer() {
-        return xPointer;
-    }
-    public int getYPointer() {
-        return yPointer;
-    }
     public FarmerType getFarmerType() {
         return farmerType;
     }
-    public Equipment getTool() {
-        return tool;
-    }
-    public int getOperationTypeType()
-    {
-        return operationType;
-    }
-
-    /*
-        Changes the tool the player is holding
-        @param tool input from one of the enum field of ToolAttributes
-     */
-    public void changeTool(ToolAttributes tool) { this.tool.setTool(tool); }
-
-    /*
-        Uses the tool assigned to the land specified by the point
-        @param landMatrix a 2D array from the Entities.Land class
-    */
-    public void useTool(Land[][] landMatrix)
-    {
-        if(tool.verifyUsage_Mny(this.objCoin) &&
-                tool.verifyUsage_Lnd(landMatrix[getYPointer()][getYPointer()].hasRocks(),
-                landMatrix[getYPointer()][getXPointer()].isPlowed()))
-        {
-            // Defines which tool will be used
-            switch (tool.getToolName())
-            {
-                case "Plow":
-                    if (tool.isRequiredRocksClear() && landMatrix[getYPointer()][getXPointer()].getCurrentSeed() == null
-                        && !landMatrix[getYPointer()][getXPointer()].isPlowed())
-                    {
-                        this.objCoin -= tool.getUsageCost();
-                        this.farmerExp += tool.getExpGain();
-
-                        landMatrix[getYPointer()][getXPointer()].plowLand(); //plow method from Entities.Land class
-                    } else
-                        System.out.println("Can't use plow tool");
-                    break;
-
-                case "Watering Can":
-                    if (tool.isRequiredPlowed() && landMatrix[getYPointer()][getXPointer()].getCurrentSeed() != null) {
-                        if(waterUsed < seed.getWaterBonus() + farmerType.getBonusWaterLimitIncrease())
-                        {
-                            this.objCoin -= tool.getUsageCost();
-                            this.farmerExp += tool.getExpGain();
-
-                            landMatrix[getYPointer()][getXPointer()].waterLand(); //waterLand method from Entities.Land class
-                            waterUsed++;
-                        }else System.out.println("Limit Reached");
-                    } else
-                        System.out.println("plow land first to use tool");
-                    break;
-
-                case "Fertilizer":
-                    if (tool.isRequiredPlowed() && landMatrix[getYPointer()][getXPointer()].getCurrentSeed() != null) {
-                        if (fertilizerUsed < seed.getFertilizerBonus() + farmerType.getBonusFertilizeIncrease())
-                        {
-                            this.objCoin -= tool.getUsageCost();
-                            this.farmerExp += tool.getExpGain();
-
-                            landMatrix[getYPointer()][getXPointer()].fertilizeLand(); //fertilizeLand method from Entities.Land class
-                            fertilizerUsed++;
-                        } else
-                            System.out.println("Limit Reached");
-                    } else
-                        System.out.println("clear rocks to plow");
-                    break;
-
-                default:
-                    System.out.println("Coming Soon!"); //MCO2
-            }
-        } else System.out.println("Tool cannot be used");
-    }
-    /*
-        @return Entities.Seed. returns the seed object
-     */
-    public Seed getSeed(){ return seed; }
-    /*
-        Changes the seed the player is holding
-        @param seed input from one of the enum field of SeedAttributes
-     */
-    public void grabSeed(SeedAttributes seed){ this.seed = new Seed(seed); }
-    /*
-        @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
-     */
-    public void plantSeed(Land[][] landMatrix)
-    {
-        // if the land is plowed or there are no rocks
-        if (seed.verifyUsage_Lnd(landMatrix[getYPointer()][getXPointer()].hasRocks(),
-                                    landMatrix[getYPointer()][getXPointer()].isPlowed()))
-        {
-            // if the player has enough money
-            if (seed.verifyUsage_Mny(this.objCoin))
-            {
-                // if the land is not populated with seed
-                if (landMatrix[getYPointer()][getXPointer()].getCurrentSeed() == null)
-                {
-                    landMatrix[getYPointer()][getXPointer()].setSeed(seed);   // plant the seed
-                    this.objCoin -= seed.getSeedCost() + farmerType.getSeedReductionCost();   // subtract the cost
-                    grabSeed(SeedAttributes.valueOf(seed.getSeedName().toUpperCase()));
-                } else System.out.println("Entities.Land has seed already");
-            } else System.out.println("Not enough object coin to use");
-        }else System.out.println("Entities.Land is not yet plowed");
-    }
-
-    /*
-       harvests the seed specified by the point
-       @param landMatrix a 2D array from the Entities.Land class
-     */
-    public void harvestSeed(Land[][] landMatrix)
-    {
-        int produced;
-        double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
-
-        if (landMatrix[getYPointer()][getXPointer()].getCurrentSeed().getHrvstDays() == landMatrix[getYPointer()][getXPointer()].getCurrentSeed().getAgeInDays()
-                && landMatrix[getYPointer()][getXPointer()].getAmtWater() >= landMatrix[getYPointer()][getXPointer()].getCurrentSeed().getWaterNeeds()
-                && landMatrix[getYPointer()][getXPointer()].getAmtFertilizer() >= landMatrix[getYPointer()][getXPointer()].getCurrentSeed().getFertilizerNeeds())
-        {
-            produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
-            harvestTotal = produced * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
-            waterBonus = harvestTotal * 0.2 *(landMatrix[getYPointer()][getXPointer()].getAmtWater() - 1);
-            fertilizerBonus = harvestTotal * 0.5 * landMatrix[getYPointer()][getXPointer()].getAmtFertilizer();
-            finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
-            System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " + produced);
-
-            objCoin += finalHarvestPrice + farmerType.getBonusCoin();
-            farmerExp += seed.getExpYield();
-
-            //reset the tile to unplowed
-            landMatrix[getYPointer()][getXPointer()].resetValues();
-        } else
-            System.out.println("Cannot Harvest");
-    }
-    /*
-        set farmer type depends on the conditions
-        @param option - choices input by the user
-    */
+    //    set farmer type depends on the conditions
+    //    @param option - choices input by the user
     public void setFarmerType(int option)
     {
         switch (option){
@@ -234,6 +96,161 @@ public class Player {
         }
     }
 
+
+    public int getXPointer() {
+        return xPointer;
+    }
+    public int getYPointer() {
+        return yPointer;
+    }
+    public void setXPointer(int x)
+    {
+        xPointer = x;
+    }
+    public void setYPointer(int y)
+    {
+        yPointer = y;
+    }
+
+
+    public int getOperationTypeType()
+    {
+        return operationType;
+    }
+    public void setOperationType(int opType)
+    {
+        this.operationType = opType;
+    }
+
+
+    public Equipment getTool() {
+        return tool;
+    }
+    /*
+        Changes the tool the player is holding
+        @param tool input from one of the enum field of ToolAttributes
+     */
+    public void changeTool(ToolAttributes tool) { this.tool.setTool(tool); }
+    /*
+        Uses the tool assigned to the land specified by the point
+        @param landMatrix a 2D array from the Entities.Land class
+    */
+    public void useTool(Land[][] landMatrix)
+    {
+        if(tool.verifyUsage_Mny(this.objCoin) &&
+                tool.verifyUsage_Lnd(landMatrix[yPointer][yPointer].hasRocks(),
+                landMatrix[yPointer][xPointer].isPlowed()))
+        {
+            // Defines which tool will be used
+            switch (tool.getToolName())
+            {
+                case "Plow":
+                    if (tool.isRequiredRocksClear() && landMatrix[yPointer][xPointer].getCurrentSeed() == null
+                        && !landMatrix[yPointer][xPointer].isPlowed())
+                    {
+                        this.objCoin -= tool.getUsageCost();
+                        this.farmerExp += tool.getExpGain();
+
+                        landMatrix[yPointer][xPointer].plowLand(); //plow method from Entities.Land class
+                    } else
+                        System.out.println("Can't use plow tool");
+                    break;
+
+                case "Watering Can":
+                    if (tool.isRequiredPlowed() && landMatrix[yPointer][xPointer].getCurrentSeed() != null) {
+                        if(waterUsed < seed.getWaterBonus() + farmerType.getBonusWaterLimitIncrease())
+                        {
+                            this.objCoin -= tool.getUsageCost();
+                            this.farmerExp += tool.getExpGain();
+
+                            landMatrix[yPointer][xPointer].waterLand(); //waterLand method from Entities.Land class
+                            waterUsed++;
+                        }else System.out.println("Limit Reached");
+                    } else
+                        System.out.println("plow land first to use tool");
+                    break;
+
+                case "Fertilizer":
+                    if (tool.isRequiredPlowed() && landMatrix[yPointer][xPointer].getCurrentSeed() != null) {
+                        if (fertilizerUsed < seed.getFertilizerBonus() + farmerType.getBonusFertilizeIncrease())
+                        {
+                            this.objCoin -= tool.getUsageCost();
+                            this.farmerExp += tool.getExpGain();
+
+                            landMatrix[yPointer][xPointer].fertilizeLand(); //fertilizeLand method from Entities.Land class
+                            fertilizerUsed++;
+                        } else
+                            System.out.println("Limit Reached");
+                    } else
+                        System.out.println("clear rocks to plow");
+                    break;
+
+                default:
+                    System.out.println("Coming Soon!"); //MCO2
+            }
+        } else System.out.println("Tool cannot be used");
+    }
+
+
+
+    //  @return Entities.Seed. returns the seed object
+    public Seed getSeed(){ return seed; }
+    /*
+        Changes the seed the player is holding
+        @param seed input from one of the enum field of SeedAttributes
+     */
+    public void grabSeed(SeedAttributes seed){ this.seed = new Seed(seed); }
+    /*
+        @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
+     */
+    public void plantSeed(Land[][] landMatrix)
+    {
+        // if the land is plowed or there are no rocks
+        if (seed.verifyUsage_Lnd(landMatrix[yPointer][xPointer].hasRocks(),
+                                    landMatrix[yPointer][xPointer].isPlowed()))
+        {
+            // if the player has enough money
+            if (seed.verifyUsage_Mny(this.objCoin))
+            {
+                // if the land is not populated with seed
+                if (landMatrix[yPointer][xPointer].getCurrentSeed() == null)
+                {
+                    landMatrix[yPointer][xPointer].setSeed(seed);   // plant the seed
+                    this.objCoin -= seed.getSeedCost() + farmerType.getSeedReductionCost();   // subtract the cost
+                    grabSeed(SeedAttributes.valueOf(seed.getSeedName().toUpperCase()));
+                } else System.out.println("Entities.Land has seed already");
+            } else System.out.println("Not enough object coin to use");
+        }else System.out.println("Entities.Land is not yet plowed");
+    }
+    /*
+       harvests the seed specified by the point
+       @param landMatrix a 2D array from the Entities.Land class
+     */
+    public void harvestSeed(Land[][] landMatrix)
+    {
+        int produced;
+        double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
+
+        if (landMatrix[yPointer][xPointer].getCurrentSeed().getHrvstDays() == landMatrix[yPointer][xPointer].getCurrentSeed().getAgeInDays()
+                && landMatrix[yPointer][xPointer].getAmtWater() >= landMatrix[yPointer][xPointer].getCurrentSeed().getWaterNeeds()
+                && landMatrix[yPointer][xPointer].getAmtFertilizer() >= landMatrix[yPointer][xPointer].getCurrentSeed().getFertilizerNeeds())
+        {
+            produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
+            harvestTotal = produced * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
+            waterBonus = harvestTotal * 0.2 *(landMatrix[yPointer][xPointer].getAmtWater() - 1);
+            fertilizerBonus = harvestTotal * 0.5 * landMatrix[yPointer][xPointer].getAmtFertilizer();
+            finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
+            System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " + produced);
+
+            objCoin += finalHarvestPrice + farmerType.getBonusCoin();
+            farmerExp += seed.getExpYield();
+
+            //reset the tile to unplowed
+            landMatrix[yPointer][xPointer].resetValues();
+        } else
+            System.out.println("Cannot Harvest");
+    }
+
     /*
       This method resets all variables in the class
     */
@@ -249,24 +266,5 @@ public class Player {
 
         this.tool.setTool(ToolAttributes.PLOW);
         this.grabSeed(SeedAttributes.TURNIP);
-    }
-
-    public void setXPointer(int x)
-    {
-        xPointer = x;
-    }
-    public void setYPointer(int y)
-    {
-        yPointer = y;
-    }
-
-    public void setOperationType(int opType)
-    {
-        this.operationType = opType;
-    }
-
-    public void useObjCoin(double value)
-    {
-        objCoin += value;
     }
 }
