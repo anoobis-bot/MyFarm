@@ -137,56 +137,19 @@ public class Player {
     */
     public void useTool(Land[][] landMatrix)
     {
-        if(tool.verifyUsage_Mny(this.objCoin) &&
-                tool.verifyUsage_Lnd(landMatrix[yPointer][yPointer].hasRocks(),
-                landMatrix[yPointer][xPointer].isPlowed()))
+        Land currLand = landMatrix[yPointer][xPointer];
+        if(tool.verifyUsage_Mny(this.objCoin) && tool.verifyUsage_Lnd(currLand.isPlowed(),
+                                                                        currLand.hasSeed(),
+                                                                        currLand.hasRocks()))
         {
             // Defines which tool will be used
-            switch (tool.getToolName())
+            switch (ToolAttributes.valueOf(tool.getToolName().toUpperCase()))
             {
-                case "Plow":
-                    if (tool.isRequiredRocksClear() && landMatrix[yPointer][xPointer].getCurrentSeed() == null
-                        && !landMatrix[yPointer][xPointer].isPlowed())
-                    {
-                        this.objCoin -= tool.getUsageCost();
-                        this.farmerExp += tool.getExpGain();
-
-                        landMatrix[yPointer][xPointer].plowLand(); //plow method from Entities.Land class
-                    } else
-                        System.out.println("Can't use plow tool");
+                case PLOW:
+                    currLand.plowLand();
+                    useObjCoin( - (this.tool.getUsageCost()) );
                     break;
 
-                case "Watering Can":
-                    if (tool.isRequiredPlowed() && landMatrix[yPointer][xPointer].getCurrentSeed() != null) {
-                        if(waterUsed < seed.getWaterBonus() + farmerType.getBonusWaterLimitIncrease())
-                        {
-                            this.objCoin -= tool.getUsageCost();
-                            this.farmerExp += tool.getExpGain();
-
-                            landMatrix[yPointer][xPointer].waterLand(); //waterLand method from Entities.Land class
-                            waterUsed++;
-                        }else System.out.println("Limit Reached");
-                    } else
-                        System.out.println("plow land first to use tool");
-                    break;
-
-                case "Fertilizer":
-                    if (tool.isRequiredPlowed() && landMatrix[yPointer][xPointer].getCurrentSeed() != null) {
-                        if (fertilizerUsed < seed.getFertilizerBonus() + farmerType.getBonusFertilizeIncrease())
-                        {
-                            this.objCoin -= tool.getUsageCost();
-                            this.farmerExp += tool.getExpGain();
-
-                            landMatrix[yPointer][xPointer].fertilizeLand(); //fertilizeLand method from Entities.Land class
-                            fertilizerUsed++;
-                        } else
-                            System.out.println("Limit Reached");
-                    } else
-                        System.out.println("clear rocks to plow");
-                    break;
-
-                default:
-                    System.out.println("Coming Soon!"); //MCO2
             }
         } else System.out.println("Tool cannot be used");
     }

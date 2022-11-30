@@ -1,4 +1,5 @@
-package Entities;/*
+package Entities;
+/*
     This class contains the equipment for the game
  */
 
@@ -88,9 +89,15 @@ public class Seed
     {
         return objCoin >= this.seedCost;
     }
-    public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
+    public boolean verifyUsage_Lnd(boolean hasRocks, int isPlowed)
     {
-        return !hasRocks && isPlowed;
+        if (hasRocks)
+            return false;
+        else if (isPlowed == Land.NOT_PLOWED)
+            return false;
+
+        return true;
+
     }
 
     // a method that deletes the seed in this land

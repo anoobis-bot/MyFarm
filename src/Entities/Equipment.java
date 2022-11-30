@@ -8,7 +8,9 @@ public class Equipment
     private String toolName;
     private float usageCost;
     private double expGain;
-    private boolean requiredPlowed, requiredRocksClear;
+    private int requiredPlowed;
+    private boolean requiredPlant;
+    private boolean requiredRocks;
 
     /*
         These value are based on the constant enum values from ToolAttributes
@@ -20,7 +22,8 @@ public class Equipment
         this.usageCost = tool.costUsage;
         this.expGain = tool.expUsage;
         this.requiredPlowed = tool.requiredPlowed;
-        this.requiredRocksClear = tool.requiredRocksClear;
+        this.requiredPlant = tool.requiredPlant;
+        this.requiredRocks = tool.requiredRocks;
     }
 
     // getters
@@ -37,12 +40,12 @@ public class Equipment
         return expGain;
     }
 
-    public boolean isRequiredPlowed() {
+    public int requiredPlowed() {
         return requiredPlowed;
     }
 
-    public boolean isRequiredRocksClear() {
-        return requiredRocksClear;
+    public boolean requiredRocks() {
+        return requiredRocks;
     }
 
     // these methods below are the ones to be used if the tool is usable
@@ -50,10 +53,26 @@ public class Equipment
     {
         return objCoin >= this.usageCost;
     }
-    public boolean verifyUsage_Lnd(boolean hasRocks, boolean isPlowed)
+    public boolean verifyUsage_Lnd(int isPlowed, boolean hasPlant, boolean hasRocks)
     {
-        if (this.requiredRocksClear && hasRocks)
+        // Guard clauses
+        if (this.requiredPlowed != ToolAttributes.LandPlowed.IRRELEVANT)
+        {
+            if (this.requiredPlowed != isPlowed)
+            {
+                return false;
+            }
+        }
+        else if (this.requiredPlant != hasPlant)
+        {
             return false;
-        else return !this.requiredPlowed || isPlowed;
+        }
+        else if (this.requiredRocks != hasRocks)
+        {
+            return false;
+        }
+
+
+        return true;
     }
 }

@@ -6,7 +6,11 @@ public class Land
 {
     private Seed crop;
     private int amtWater, amtFertilizer;
-    private boolean isPlowed, hasRocks, isWithered;
+    private boolean hasRocks, isWithered;
+
+    private int isPlowed;
+    public static final int PLOWED = 1;
+    public static final int NOT_PLOWED = 0;
 
     /*
         Initializes all land with 0 water, fertilizer, not plowed, and has no tocks
@@ -15,7 +19,7 @@ public class Land
     {
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.isPlowed = false;
+        this.isPlowed = NOT_PLOWED;
         this.hasRocks = false;
         this.isWithered = false;
     }
@@ -41,6 +45,13 @@ public class Land
     {
         return this.crop;
     }
+    public boolean hasSeed()
+    {
+        if (this.crop == null)
+            return false;
+
+        return true;
+    }
     public int getAmtWater()
     {
         return amtWater;
@@ -49,7 +60,7 @@ public class Land
     {
         return amtFertilizer;
     }
-    public boolean isPlowed()
+    public int isPlowed()
     {
         return isPlowed;
     }
@@ -77,7 +88,12 @@ public class Land
     // Plow land
     public void plowLand()
     {
-        this.isPlowed = true;
+        this.isPlowed = PLOWED;
+    }
+
+    public void removeRocks()
+    {
+        this.hasRocks = false;
     }
 
     // resets how many times the land has been watered and fertilized to 0
@@ -86,7 +102,7 @@ public class Land
         this.crop.deleteSeed();
         this.amtWater = 0;
         this.amtFertilizer = 0;
-        this.isPlowed = false;
+        this.isPlowed = NOT_PLOWED;
         this.hasRocks = false;
         this.isWithered = false;
         this.crop = null;
