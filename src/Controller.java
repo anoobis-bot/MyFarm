@@ -25,6 +25,7 @@ public class Controller implements ActionListener {
 
     private JButton[][] landMatrixBtns;
     private JButton[] seedBtns, toolBtns;
+    private JButton nextDayBtn, upgradeBtn;
     private JLabel dayLabel, farmerTypeLabel, coinLabel;
 
     ToolAttributes[] toolsInfo = ToolAttributes.values();
@@ -104,12 +105,15 @@ public class Controller implements ActionListener {
         }
     }
 
-    public void setButtons(JButton[][] landMatrixBtns, JButton[] seedBtns, JButton[] toolBtns)
+    public void setButtons(JButton[][] landMatrixBtns, JButton[] seedBtns, JButton[] toolBtns,
+                            JButton nextDayBtn, JButton upgradeBtn)
     {
         this.landMatrixBtns = landMatrixBtns;
         this.seedBtns = seedBtns;
         this.toolBtns = toolBtns;
 
+        this.nextDayBtn = nextDayBtn;
+        this.upgradeBtn = upgradeBtn;
     }
 
     public void setLabels(JLabel dayLabel, JLabel farmerTypeLabel, JLabel coinLabel)
