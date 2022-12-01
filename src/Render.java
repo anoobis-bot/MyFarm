@@ -178,6 +178,9 @@ public class Render {
             }
         }
 
+        // This JButton is required for the player class to have a tool/seed to have in hand for
+        // it to be able to interact with the land object.
+        JButton firstGrab = new JButton();
         // TOOLS
         toolBtnProperty.gridx = 0;
         toolBtnProperty.weighty = 0.5;
@@ -198,6 +201,11 @@ public class Render {
             toolBtnProperty.gridy = currTool;
             // Adding it to the panel
             toolPlot.add(toolBtns[currTool], toolBtnProperty);
+
+            // JButton is set to the button that is the PLOW tool. The initial opType is tool use and the tool
+            // is plow tool
+            if (currTool == ToolAttributes.PLOW.ordinal())
+                firstGrab = toolBtns[currTool];
         }
 
         // SEEDS
@@ -221,6 +229,9 @@ public class Render {
             // Adding it to the panel
             seedPlot.add(seedBtns[currSeed], seedBtnProperty);
         }
+        // Does a click to the tool/seed that it was initialized to.
+        firstGrab.doClick();
+
 
         // ADVANCE BUTTONS
         advanceBtnProperty.weighty = 0.5;

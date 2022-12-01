@@ -39,12 +39,6 @@ public class Player {
 
         this.waterUsed = 0;
         this.fertilizerUsed = 0;
-
-        // The default tool is plow and the default seed that the player is holding is turnip
-        this.tool.setTool(ToolAttributes.PLOW);
-        this.grabSeed(SeedAttributes.TURNIP);
-
-        this.operationType = USE_TOOL;
     }
 
     public double getObjCoin() {
