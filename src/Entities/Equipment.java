@@ -5,6 +5,7 @@ import Constants.ToolAttributes;
 
 public class Equipment
 {
+    private String enumName;
     private String toolName;
     private float usageCost;
     private double expGain;
@@ -19,6 +20,8 @@ public class Equipment
     */
     public void setTool(ToolAttributes tool)
     {
+        this.enumName = tool.name();
+
         this.toolName = tool.toolName;
         this.usageCost = tool.costUsage;
         this.expGain = tool.expUsage;
@@ -29,6 +32,10 @@ public class Equipment
     }
 
     // getters
+    public String getEnumName()
+    {
+        return enumName;
+    }
     public String getToolName() {
         return toolName;
     }

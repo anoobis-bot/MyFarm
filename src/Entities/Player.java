@@ -143,17 +143,24 @@ public class Player {
                                                                         currLand.hasRocks()))
         {
             // Defines which tool will be used
-            String currTool = tool.getToolName();
-            if (currTool.equals(ToolAttributes.PLOW.toolName))
-                currLand.plowLand();
-            else if (currTool.equals(ToolAttributes.WATERING_CAN.toolName))
-                currLand.waterLand();
-            else if (currTool.equals(ToolAttributes.FERTILIZER.toolName))
-                currLand.fertilizeLand();
-            else if (currTool.equals(ToolAttributes.PICKAXE.toolName))
-                currLand.removeRocks();
-            else if (currTool.equals(ToolAttributes.SHOVEL.toolName))
-                currLand.shovelLand();
+            switch (ToolAttributes.valueOf(tool.getEnumName()))
+            {
+                case PLOW:
+                    currLand.plowLand();
+                    break;
+                case WATERING_CAN:
+                    currLand.waterLand();
+                    break;
+                case FERTILIZER:
+                    currLand.fertilizeLand();
+                    break;
+                case PICKAXE:
+                    currLand.removeRocks();
+                    break;
+                case SHOVEL:
+                    currLand.shovelLand();
+                    break;
+            }
 
             useObjCoin( - (tool.getUsageCost()) );
             return true;
@@ -197,7 +204,7 @@ public class Player {
         landMatrix[yPointer][xPointer].setSeed(seed);   // plant the seed
         useObjCoin(- (seed.getSeedCost() + farmerType.getSeedReductionCost()) );    // subtract the cost
         // instantiate a new seed in player since the seed that the player was holding is in the land object already
-        grabSeed(SeedAttributes.valueOf(seed.getSeedName().toUpperCase()));
+        grabSeed(SeedAttributes.valueOf(seed.getEnumName()));
         return true;
     }
     /*

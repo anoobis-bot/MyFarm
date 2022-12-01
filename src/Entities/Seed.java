@@ -8,6 +8,7 @@ import Constants.SeedAttributes;
 
 public class Seed
 {
+    private final String enumName;
     private final String seedName;
     private final CropType cropType;
     private final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
@@ -22,6 +23,8 @@ public class Seed
      */
     public Seed(SeedAttributes seed)
     {
+        this.enumName = seed.name();
+
         this.seedName = seed.seedName;
         this.cropType = seed.cropType;
         this.hrvstDays = seed.hrvstDays;
@@ -39,6 +42,11 @@ public class Seed
     }
 
     /* get methods */
+
+    public String getEnumName()
+    {
+        return enumName;
+    }
     public String getSeedName() {
         return seedName;
     }
