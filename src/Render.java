@@ -59,13 +59,17 @@ public class Render {
     private final String CODE_LAND;
     private final String CODE_TOOL;
     private final String CODE_SEED;
+    private final String CODE_UPGRADE;
+    private final String CODE_NEXT_DAY;
 
     public Render(Controller controller)
     {
         // Setting up variable for the Controller class
-        this.CODE_LAND = controller.getCodeLand();
-        this.CODE_TOOL = controller.getCodeTool();
-        this.CODE_SEED = controller.getCodeSeed();
+        this.CODE_LAND = Controller.getCodeLand();
+        this.CODE_TOOL = Controller.getCodeTool();
+        this.CODE_SEED = Controller.getCodeSeed();
+        this.CODE_UPGRADE = Controller.getCodeUpgrade();
+        this.CODE_NEXT_DAY = Controller.getCodeNextDay();
 
         // Setting up the number of column and rows of the land
         this.LAND_WIDTH = controller.getWidthLand();
@@ -236,6 +240,9 @@ public class Render {
         // ADVANCE BUTTONS
         advanceBtnProperty.weighty = 0.5;
         // UPGRADE TYPE
+        // Set up information about the button to be used by the controller object
+        upgradeBtn.addActionListener(controller);
+        upgradeBtn.setActionCommand(CODE_UPGRADE);
         advanceBtnProperty.gridx = 0;
         advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, PADDING_ADVANCE_MIDDLE);
         upgradeBtn.setText("Upgrade Type");
@@ -243,6 +250,9 @@ public class Render {
         advancePlot.add(upgradeBtn, advanceBtnProperty);
 
         // NEXT DAY
+        // Set up information about the button to be used by the controller object
+        nextDayBtn.addActionListener(controller);
+        nextDayBtn.setActionCommand(CODE_NEXT_DAY);
         advanceBtnProperty.gridx = 1;
         advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
         nextDayBtn.setText("Next Day");
@@ -255,7 +265,7 @@ public class Render {
         labelProperty.gridy = 0;
         labelProperty.weightx = 0.5;
 
-        // DAY
+        // CURRENT DAY
         labelProperty.gridx = 0;
         labelProperty.anchor = GridBagConstraints.LINE_START;
         labelProperty.insets = new Insets(PADDING_INFO_TOP, PADDING_INFO_LEFT, 0, 0);

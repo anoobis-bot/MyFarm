@@ -21,6 +21,8 @@ public class Controller implements ActionListener {
     private static final String CODE_LAND = "LAND";
     private static final String CODE_TOOL = "TOOL";
     private static final String CODE_SEED = "SEED";
+    private static final String CODE_UPGRADE = "UPGRADE";
+    private static final String CODE_NEXT_DAY = "NEXT DAY";
 
 
     private JButton[][] landMatrixBtns;
@@ -78,6 +80,7 @@ public class Controller implements ActionListener {
                 player.setOperationType(player.PLANT);
             }
         }
+
         else if (opType.equals(CODE_LAND))
         {
             player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
@@ -88,9 +91,6 @@ public class Controller implements ActionListener {
                 {
                     System.out.println("You cant use " + player.getTool().getToolName() + "!");
                 }
-
-                updateLandButton(currButton);
-                updateLabels();
             }
             else if (player.getOperationTypeType() == player.PLANT)
             {
@@ -98,10 +98,23 @@ public class Controller implements ActionListener {
                 {
                     System.out.println("You cant plant " + player.getSeed().getSeedName() + "!");
                 }
-
-                updateLandButton(currButton);
-                updateLabels();
             }
+
+            updateLandButton(currButton, player.getYPointer(), player.getXPointer());
+            updateLabels();
+        }
+
+        else if (opType.equals(CODE_NEXT_DAY))
+        {
+            game.advanceTime(landMatrix);
+
+            updateAllLandButton();
+            updateLabels();
+        }
+
+        else if (opType.equals(CODE_UPGRADE))
+        {
+
         }
     }
 
@@ -134,9 +147,9 @@ public class Controller implements ActionListener {
         this.coinLabel.setText("Coins: " + player.getObjCoin());
     }
 
-    public void updateLandButton(JButton currButton)
+    public void updateLandButton(JButton currButton, int yPointer, int xPointer)
     {
-        Land currLand = landMatrix[player.getYPointer()][player.getXPointer()];
+        Land currLand = landMatrix[yPointer][xPointer];
         if (currLand.hasSeed())
             currButton.setText(String.valueOf(currLand.getCurrentSeed().getSeedName().charAt(0)));
         // TODO add withered
@@ -146,6 +159,20 @@ public class Controller implements ActionListener {
             currButton.setText("R");
         else
             currButton.setText("L");
+    }
+
+    public void updateAllLandButton()
+    {
+        int landWidth = game.getXSize();
+        int landHeight = game.getYSize();
+
+        for (int currYBtn = 0; currYBtn < landHeight; currYBtn++)
+        {
+            for (int currXBtn = 0; currXBtn < landWidth; currXBtn++)
+            {
+                updateLandButton(landMatrixBtns[currYBtn][currXBtn], currYBtn, currXBtn);
+            }
+        }
     }
 
     public int getWidthLand()
@@ -158,16 +185,25 @@ public class Controller implements ActionListener {
         return game.getYSize();
     }
 
-    public String getCodeLand()
+    public static String getCodeLand()
     {
         return CODE_LAND;
     }
-    public String getCodeTool()
+    public static String getCodeTool()
     {
         return CODE_TOOL;
     }
-    public String getCodeSeed()
+    public static String getCodeSeed()
     {
         return CODE_SEED;
     }
+    public static String getCodeUpgrade()
+    {
+        return CODE_UPGRADE;
+    }
+    public static String getCodeNextDay()
+    {
+        return CODE_NEXT_DAY;
+    }
+
 }
