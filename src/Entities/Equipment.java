@@ -62,7 +62,7 @@ public class Equipment
     {
         return objCoin >= this.usageCost;
     }
-    public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasPlant, boolean hasRocks)
+    public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasPlant, boolean hasRocks, boolean isWithered)
     {
         // Guard clauses
         if (this.noRequirement)
@@ -70,7 +70,11 @@ public class Equipment
             return true;
         }
 
-        if (this.requiredPlowed != isPlowed)
+        if (isWithered)
+        {
+            return false;
+        }
+        else if (this.requiredPlowed != isPlowed)
         {
             return false;
         }

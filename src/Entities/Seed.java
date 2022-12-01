@@ -11,9 +11,9 @@ public class Seed
     private final String enumName;
     private final String seedName;
     private final CropType cropType;
-    private final int hrvstDays, waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
+    private int hrvstDays;
+    private final int waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
             producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
-    private int ageInDays;
     private final double expYield;
 
     /*
@@ -37,8 +37,6 @@ public class Seed
         this.seedCost = seed.seedCost;
         this.baseSellPrice = seed.baseSellPiece;
         this.expYield = seed.expYield;
-
-        this.ageInDays = 0;
     }
 
     /* get methods */
@@ -86,14 +84,11 @@ public class Seed
     {
         return this.cropType.paddingRequired;
     }
-    public int getAgeInDays() {
-        return ageInDays;
-    }
 
-    // Increments seed age
-    public void incrementAgeInDays()
+    public int decrementHrvstDays()
     {
-        this.ageInDays++;
+        this.hrvstDays--;
+        return this.hrvstDays;
     }
 
     // these methods below are the ones to be used if the seed is plant-able
@@ -105,8 +100,12 @@ public class Seed
     {
         Land currLand = landMatrix[yPointer][xPointer];
 
+        if (currLand.isWithered())
+        {
+            return false;
+        }
         // not plowed
-        if (!currLand.isPlowed())
+        else if (!currLand.isPlowed())
         {
             return false;
         }

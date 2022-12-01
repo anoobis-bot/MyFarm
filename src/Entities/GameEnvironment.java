@@ -27,7 +27,10 @@ public class GameEnvironment {
         for (int y = 0; y < ySize; y++)
             for (int x = 0; x < xSize; x++)
                 if (landMatrix[y][x].getCurrentSeed() != null)
-                    landMatrix[y][x].getCurrentSeed().incrementAgeInDays();
+                {
+                    if (landMatrix[y][x].getCurrentSeed().decrementHrvstDays() < 0)
+                        landMatrix[y][x].setWithered();
+                }
     }
 
     // Get methods

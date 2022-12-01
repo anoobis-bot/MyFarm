@@ -150,9 +150,10 @@ public class Controller implements ActionListener {
     public void updateLandButton(JButton currButton, int yPointer, int xPointer)
     {
         Land currLand = landMatrix[yPointer][xPointer];
-        if (currLand.hasSeed())
+        if (currLand.isWithered())
+            currButton.setText("W");
+        else if (currLand.hasSeed())
             currButton.setText(String.valueOf(currLand.getCurrentSeed().getSeedName().charAt(0)));
-        // TODO add withered
         else if (currLand.isPlowed())
             currButton.setText("P");
         else if (currLand.hasRocks())

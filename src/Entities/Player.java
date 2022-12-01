@@ -134,7 +134,8 @@ public class Player {
         Land currLand = landMatrix[yPointer][xPointer];
         if(tool.verifyUsage_Mny(this.objCoin) && tool.verifyUsage_Lnd(currLand.isPlowed(),
                                                                         currLand.hasSeed(),
-                                                                        currLand.hasRocks()))
+                                                                        currLand.hasRocks(),
+                                                                        currLand.isWithered()))
         {
             // Defines which tool will be used
             switch (ToolAttributes.valueOf(tool.getEnumName()))
@@ -202,30 +203,30 @@ public class Player {
        harvests the seed specified by the point
        @param landMatrix a 2D array from the Entities.Land class
      */
-    public void harvestSeed(Land[][] landMatrix)
-    {
-        int produced;
-        double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
-
-        if (landMatrix[yPointer][xPointer].getCurrentSeed().getHrvstDays() == landMatrix[yPointer][xPointer].getCurrentSeed().getAgeInDays()
-                && landMatrix[yPointer][xPointer].getAmtWater() >= landMatrix[yPointer][xPointer].getCurrentSeed().getWaterNeeds()
-                && landMatrix[yPointer][xPointer].getAmtFertilizer() >= landMatrix[yPointer][xPointer].getCurrentSeed().getFertilizerNeeds())
-        {
-            produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
-            harvestTotal = produced * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
-            waterBonus = harvestTotal * 0.2 *(landMatrix[yPointer][xPointer].getAmtWater() - 1);
-            fertilizerBonus = harvestTotal * 0.5 * landMatrix[yPointer][xPointer].getAmtFertilizer();
-            finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
-            System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " + produced);
-
-            objCoin += finalHarvestPrice + farmerType.getBonusCoin();
-            farmerExp += seed.getExpYield();
-
-            //reset the tile to unplowed
-            landMatrix[yPointer][xPointer].resetValues();
-        } else
-            System.out.println("Cannot Harvest");
-    }
+//    public void harvestSeed(Land[][] landMatrix)
+//    {
+//        int produced;
+//        double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
+//
+//        if (landMatrix[yPointer][xPointer].getCurrentSeed().getHrvstDays() == landMatrix[yPointer][xPointer].getCurrentSeed().getAgeInDays()
+//                && landMatrix[yPointer][xPointer].getAmtWater() >= landMatrix[yPointer][xPointer].getCurrentSeed().getWaterNeeds()
+//                && landMatrix[yPointer][xPointer].getAmtFertilizer() >= landMatrix[yPointer][xPointer].getCurrentSeed().getFertilizerNeeds())
+//        {
+//            produced = (int) ( Math.random()*( seed.getProducedQtyMax()-seed.getProducedQtyMin()+1) + seed.getProducedQtyMin());
+//            harvestTotal = produced * (seed.getBaseSellPrice() + getFarmerType().getBonusCoin());
+//            waterBonus = harvestTotal * 0.2 *(landMatrix[yPointer][xPointer].getAmtWater() - 1);
+//            fertilizerBonus = harvestTotal * 0.5 * landMatrix[yPointer][xPointer].getAmtFertilizer();
+//            finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
+//            System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " + produced);
+//
+//            objCoin += finalHarvestPrice + farmerType.getBonusCoin();
+//            farmerExp += seed.getExpYield();
+//
+//            //reset the tile to unplowed
+//            landMatrix[yPointer][xPointer].resetValues();
+//        } else
+//            System.out.println("Cannot Harvest");
+//    }
 
     /*
       This method resets all variables in the class
