@@ -90,6 +90,7 @@ public class Controller implements ActionListener {
                 if (player.useTool(landMatrix) == false)
                 {
                     System.out.println("You cant use " + player.getTool().getToolName() + "!");
+
                 }
             }
             else if (player.getOperationTypeType() == player.PLANT)
