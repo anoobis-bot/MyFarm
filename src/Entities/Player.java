@@ -183,20 +183,17 @@ public class Player {
      */
     public boolean plantSeed(Land[][] landMatrix)
     {
-        // Guard Clauses
-        // if the land is not plowed or there rocks
-        if (!seed.verifyUsage_Lnd(landMatrix[yPointer][xPointer].isPlowed(),
-                                    landMatrix[yPointer][xPointer].hasRocks()))
+        // Guard Clauses. Returns false if the if-else statements failed. Otherwise, if it reaches the bottom, all
+        // verifications are met.
+
+        // Checks all related verification in the land:
+        // Plowed, Rocks, existing seed already, Fruit Tree padding
+        if (!seed.verifyUsage_Lnd(landMatrix, yPointer, xPointer))
         {
             return false;
         }
         // if the player has not enough money
         else if (!seed.verifyUsage_Mny(this.objCoin))
-        {
-            return false;
-        }
-        // if the land populated with seed
-        else if (landMatrix[yPointer][xPointer].getCurrentSeed() != null)
         {
             return false;
         }

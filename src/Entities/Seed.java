@@ -82,6 +82,10 @@ public class Seed
     public double getExpYield() {
         return expYield;
     } //MCO2 use
+    public int getCropPadding()
+    {
+        return this.cropType.paddingRequired;
+    }
     public int getAgeInDays() {
         return ageInDays;
     }
@@ -97,13 +101,61 @@ public class Seed
     {
         return objCoin >= this.seedCost;
     }
-    public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasRocks)
+    public boolean verifyUsage_Lnd(Land[][] landMatrix, int yPointer, int xPointer)
     {
-        if (hasRocks)
-            return false;
-        else if (!isPlowed)
-            return false;
+        Land currLand = landMatrix[yPointer][xPointer];
 
+        // not plowed
+        if (!currLand.isPlowed())
+        {
+            return false;
+        }
+        else if (currLand.hasRocks())
+        {
+            return false;
+        }
+        else if (currLand.hasSeed())
+        {
+            return false;
+        }
+        // checks padding
+        else if (this.cropType.equals(CropType.FRUIT_TREE))
+        {
+            // CORNERS CHECKING
+            // x component
+            if (xPointer - this.getCropPadding() < 0  ||  xPointer + this.getCropPadding() >= 10)   // TODO access landWidth
+            {
+                return false;
+            }
+            // y component
+            else if (yPointer - this.getCropPadding() < 0  ||  yPointer + this.getCropPadding() >= 5) // TODO access landHeight
+            {
+                return false;
+            }
+
+            // CHECKING IF THERE ARE ANY ADJACENT SEEDS
+            // Checks each adjacent box surrounding the [yPoint]pxPoint]
+            int currYSeeker = - this.getCropPadding();
+            int currXSeeker = - this.getCropPadding();
+            int maxYSeek = this.getCropPadding();
+            int maxXSeek = this.getCropPadding();
+            while (currYSeeker <= maxYSeek)
+            {
+                while (currXSeeker <= maxXSeek)
+                {
+                    if (landMatrix[yPointer + currYSeeker][xPointer + currXSeeker].hasSeed())
+                    {
+                        return false;
+                    }
+
+                    currXSeeker++;
+                }
+
+                currYSeeker++;
+            }
+        }
+
+        // if all validations passed, return true
         return true;
 
     }
