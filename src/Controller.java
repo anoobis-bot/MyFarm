@@ -93,7 +93,7 @@ public class Controller implements ActionListener {
             }
             else if (player.getOperationTypeType() == player.PLANT)
             {
-                if (player.plantSeed(landMatrix) == false)
+                if (player.plantSeed(landMatrix, game) == false)
                 {
                     System.out.println("You cant plant " + player.getSeed().getSeedName() + "!");
                 }
@@ -135,7 +135,7 @@ public class Controller implements ActionListener {
         Land currLand = landMatrix[player.getYPointer()][player.getXPointer()];
         if (currLand.hasSeed())
             currButton.setText(String.valueOf(currLand.getCurrentSeed().getSeedName().charAt(0)));
-            // TODO add withered
+        // TODO add withered
         else if (currLand.isPlowed())
             currButton.setText("P");
         else if (currLand.hasRocks())

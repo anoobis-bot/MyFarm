@@ -181,14 +181,14 @@ public class Player {
     /*
         @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
      */
-    public boolean plantSeed(Land[][] landMatrix)
+    public boolean plantSeed(Land[][] landMatrix, GameEnvironment game)
     {
         // Guard Clauses. Returns false if the if-else statements failed. Otherwise, if it reaches the bottom, all
         // verifications are met.
 
         // Checks all related verification in the land:
         // Plowed, Rocks, existing seed already, Fruit Tree padding
-        if (!seed.verifyUsage_Lnd(landMatrix, yPointer, xPointer))
+        if (!seed.verifyUsage_Lnd(landMatrix, game, yPointer, xPointer))
         {
             return false;
         }

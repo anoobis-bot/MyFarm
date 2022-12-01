@@ -101,7 +101,7 @@ public class Seed
     {
         return objCoin >= this.seedCost;
     }
-    public boolean verifyUsage_Lnd(Land[][] landMatrix, int yPointer, int xPointer)
+    public boolean verifyUsage_Lnd(Land[][] landMatrix, GameEnvironment game, int yPointer, int xPointer)
     {
         Land currLand = landMatrix[yPointer][xPointer];
 
@@ -123,12 +123,12 @@ public class Seed
         {
             // CORNERS CHECKING
             // x component
-            if (xPointer - this.getCropPadding() < 0  ||  xPointer + this.getCropPadding() >= 10)   // TODO access landWidth
+            if (xPointer - this.getCropPadding() < 0  ||  xPointer + this.getCropPadding() >= game.getXSize())
             {
                 return false;
             }
             // y component
-            else if (yPointer - this.getCropPadding() < 0  ||  yPointer + this.getCropPadding() >= 5) // TODO access landHeight
+            else if (yPointer - this.getCropPadding() < 0  ||  yPointer + this.getCropPadding() >= game.getYSize())
             {
                 return false;
             }
