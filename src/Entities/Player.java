@@ -143,24 +143,18 @@ public class Player {
                                                                         currLand.hasRocks()))
         {
             // Defines which tool will be used
-            switch (ToolAttributes.valueOf(tool.getToolName().toUpperCase()))
-            {
-                case PLOW:
-                    currLand.plowLand();
-                    break;
-                case WATERING_CAN:
-                    currLand.waterLand();
-                    break;
-                case FERTILIZER:
-                    currLand.fertilizeLand();
-                    break;
-                case PICKAXE:
-                    currLand.removeRocks();
-                    break;
-                case SHOVEL:
-                    currLand.shovelLand();
-                    break;
-            }
+            String currTool = tool.getToolName();
+            if (currTool.equals(ToolAttributes.PLOW.toolName))
+                currLand.plowLand();
+            else if (currTool.equals(ToolAttributes.WATERING_CAN.toolName))
+                currLand.waterLand();
+            else if (currTool.equals(ToolAttributes.FERTILIZER.toolName))
+                currLand.fertilizeLand();
+            else if (currTool.equals(ToolAttributes.PICKAXE.toolName))
+                currLand.removeRocks();
+            else if (currTool.equals(ToolAttributes.SHOVEL.toolName))
+                currLand.shovelLand();
+
             useObjCoin( - (tool.getUsageCost()) );
             return true;
         }
