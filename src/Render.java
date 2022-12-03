@@ -82,6 +82,7 @@ public class Render {
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         mainFrame.setLocationRelativeTo(null);
+
         // Initializing subframes
         landPlot = new JPanel();
         landPlot.setLayout(new GridBagLayout());

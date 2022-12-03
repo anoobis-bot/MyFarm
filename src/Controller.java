@@ -35,7 +35,7 @@ public class Controller implements ActionListener {
     private final int TOOLS_TOTAL = ToolAttributes.values().length;
     private final int SEEDS_TOTAL = SeedAttributes.values().length;
 
-    public Controller(Player player, Land[][] landMatrix,GameEnvironment game)
+    public Controller(Player player, Land[][] landMatrix, GameEnvironment game)
     {
         this.player = player;
         this.landMatrix = landMatrix;
@@ -85,19 +85,24 @@ public class Controller implements ActionListener {
         {
             player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
             player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
+
             if (player.getOperationTypeType() == player.USE_TOOL)
             {
-                if (player.useTool(landMatrix) == false)
+                if (!player.useTool(landMatrix))
                 {
-                    System.out.println("You cant use " + player.getTool().getToolName() + "!");
-
+                    // Displays message box for alerting user in using tool.
+                    JOptionPane.showMessageDialog(null,"You can't use " + player.getTool().getToolName()
+                            + " on this this land\nReason:\n" + player.getReason());
                 }
             }
+
             else if (player.getOperationTypeType() == player.PLANT)
             {
-                if (player.plantSeed(landMatrix, game) == false)
+                if (!player.plantSeed(landMatrix, game))
                 {
-                    System.out.println("You cant plant " + player.getSeed().getSeedName() + "!");
+                    // Displays message box for alerting user in planting crop.
+                    JOptionPane.showMessageDialog(null,"You can't plant " + player.getSeed().getSeedName()
+                            + " on this this land\nReason:\n" + player.getReason());
                 }
             }
 
@@ -181,12 +186,10 @@ public class Controller implements ActionListener {
     {
         return game.getXSize();
     }
-
     public int getHeightLand()
     {
         return game.getYSize();
     }
-
     public static String getCodeLand()
     {
         return CODE_LAND;
@@ -207,5 +210,4 @@ public class Controller implements ActionListener {
     {
         return CODE_NEXT_DAY;
     }
-
 }

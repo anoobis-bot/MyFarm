@@ -11,7 +11,7 @@ public class Land
     private boolean isPlowed;
 
     /*
-        Initializes all land with 0 water, fertilizer, not plowed, and has no tocks
+        Initializes all land with 0 water, fertilizer, not plowed, and has no rocks
      */
     public Land()
     {

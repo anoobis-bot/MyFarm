@@ -17,6 +17,7 @@ public class Player {
     private int yPointer;
     private final Equipment tool;
     private Seed seed;
+    private String reason = null;
 
     private int operationType;
     public final int PLANT = 1;
@@ -48,8 +49,9 @@ public class Player {
     {
         objCoin += value;
     }
-
-
+    public String getReason() {
+        return reason;
+    }
     public double getFarmerExp() {
         return farmerExp;
     }
@@ -90,7 +92,6 @@ public class Player {
         }
     }
 
-
     public int getXPointer() {
         return xPointer;
     }
@@ -106,7 +107,6 @@ public class Player {
         yPointer = y;
     }
 
-
     public int getOperationTypeType()
     {
         return operationType;
@@ -120,6 +120,9 @@ public class Player {
     public Equipment getTool() {
         return tool;
     }
+    public Seed getSeed() {
+        return seed;
+    }
     /*
         Changes the tool the player is holding
         @param tool input from one of the enum field of ToolAttributes
@@ -132,42 +135,43 @@ public class Player {
     public boolean useTool(Land[][] landMatrix)
     {
         Land currLand = landMatrix[yPointer][xPointer];
-        if(tool.verifyUsage_Mny(this.objCoin) && tool.verifyUsage_Lnd(currLand.isPlowed(),
+        if(tool.verifyUsage_Mny(objCoin) && tool.verifyUsage_Lnd(currLand.isPlowed(),
                                                                         currLand.hasSeed(),
                                                                         currLand.hasRocks(),
                                                                         currLand.isWithered()))
         {
             // Defines which tool will be used
-            switch (ToolAttributes.valueOf(tool.getEnumName()))
-            {
-                case PLOW:
-                    currLand.plowLand();
-                    break;
-                case WATERING_CAN:
-                    currLand.waterLand();
-                    break;
-                case FERTILIZER:
-                    currLand.fertilizeLand();
-                    break;
-                case PICKAXE:
-                    currLand.removeRocks();
-                    break;
-                case SHOVEL:
-                    currLand.shovelLand();
-                    break;
+            switch (ToolAttributes.valueOf(tool.getEnumName())) {
+                case PLOW -> currLand.plowLand();
+                case WATERING_CAN -> currLand.waterLand();
+                case FERTILIZER -> currLand.fertilizeLand();
+                case PICKAXE -> currLand.removeRocks();
+                case SHOVEL -> currLand.shovelLand();
             }
 
             useObjCoin( - (tool.getUsageCost()) );
             return true;
         }
-        else
+        else{
+            if(!tool.verifyUsage_Mny(objCoin))
+                reason = "Insufficient Money";
+            else if (!tool.verifyUsage_Lnd(currLand.isPlowed(),
+                    currLand.hasSeed(),
+                    currLand.hasRocks(),
+                    currLand.isWithered())) {
+                // Defines which tool will be used
+                switch (ToolAttributes.valueOf(tool.getEnumName())) {
+                    case PLOW -> reason = "Plow can only be used for unplowed tile without rocks";
+                    case WATERING_CAN -> reason = "Watering can can only be used on a plowed tile with a crop";
+                    case FERTILIZER -> reason = "Fertilizer can only be used on a plowed tile with a crop";
+                    case PICKAXE -> reason = "Pickaxe can only be used on tiles with rocks";
+                    case SHOVEL -> reason = "Shovel is most effective in removing a crop (withered or not)";
+                }
+            }
             return false;
+        }
     }
 
-
-
-    //  @return Entities.Seed. returns the seed object
-    public Seed getSeed(){ return seed; }
     /*
         Changes the seed the player is holding
         @param seed input from one of the enum field of SeedAttributes
@@ -178,18 +182,20 @@ public class Player {
      */
     public boolean plantSeed(Land[][] landMatrix, GameEnvironment game)
     {
-        // Guard Clauses. Returns false if the if-else statements failed. Otherwise, if it reaches the bottom, all
-        // verifications are met.
+        // Guard Clauses. Returns false if the if-else statements failed.
+        // Otherwise, if it reaches the bottom, all verifications are met.
 
         // Checks all related verification in the land:
         // Plowed, Rocks, existing seed already, Fruit Tree padding
         if (!seed.verifyUsage_Lnd(landMatrix, game, yPointer, xPointer))
         {
+            reason = "seed can only be planted on unplowed tile without rocks, seed, and a tile further to sa tree crop.";
             return false;
         }
         // if the player has not enough money
         else if (!seed.verifyUsage_Mny(this.objCoin))
         {
+            reason = "Insufficient Money";
             return false;
         }
 

@@ -14,7 +14,6 @@ public class Driver
         Player player = new Player(100, 0);
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
 
-        //test2
         // initializing land object in each element of landMatrix[][]
         for (int y = 0; y < game.getYSize(); y++)
             for (int x = 0; x < game.getXSize(); x++)
