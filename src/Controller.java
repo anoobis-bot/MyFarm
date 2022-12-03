@@ -21,13 +21,14 @@ public class Controller implements ActionListener {
     private static final String CODE_LAND = "LAND";
     private static final String CODE_TOOL = "TOOL";
     private static final String CODE_SEED = "SEED";
+    private static final String CODE_HARVEST = "HARVEST";
     private static final String CODE_UPGRADE = "UPGRADE";
     private static final String CODE_NEXT_DAY = "NEXT DAY";
 
 
     private JButton[][] landMatrixBtns;
     private JButton[] seedBtns, toolBtns;
-    private JButton nextDayBtn, upgradeBtn;
+    private JButton nextDayBtn, upgradeBtn, harvestBtn;
     private JLabel dayLabel, farmerTypeLabel, coinLabel;
 
     ToolAttributes[] toolsInfo = ToolAttributes.values();
@@ -119,7 +120,7 @@ public class Controller implements ActionListener {
     }
 
     public void setButtons(JButton[][] landMatrixBtns, JButton[] seedBtns, JButton[] toolBtns,
-                            JButton nextDayBtn, JButton upgradeBtn)
+                            JButton nextDayBtn, JButton upgradeBtn, JButton harvestBtn)
     {
         this.landMatrixBtns = landMatrixBtns;
         this.seedBtns = seedBtns;
@@ -127,6 +128,7 @@ public class Controller implements ActionListener {
 
         this.nextDayBtn = nextDayBtn;
         this.upgradeBtn = upgradeBtn;
+        this.harvestBtn = harvestBtn;
     }
 
     public void setLabels(JLabel dayLabel, JLabel farmerTypeLabel, JLabel coinLabel)
@@ -197,6 +199,10 @@ public class Controller implements ActionListener {
     public static String getCodeSeed()
     {
         return CODE_SEED;
+    }
+    public static String getCodeHarvest()
+    {
+        return CODE_HARVEST;
     }
     public static String getCodeUpgrade()
     {

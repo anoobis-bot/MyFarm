@@ -2,7 +2,6 @@ import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 /*
@@ -22,7 +21,7 @@ public class Render {
     private JPanel toolPlot;
     private JPanel seedPlot;
     private JPanel infoPlot;
-    private JPanel advancePlot;
+    private JPanel miscPlot;
 
 
     // Constant values relating to the GUI
@@ -52,13 +51,14 @@ public class Render {
     private static final int PADDING_INFO_LEFT = PADDING_TOOL_LEFT - 5;
     private static final int PADDING_INFO_RIGHT = PADDING_SEED_RIGHT -8;
     private static final int PADDING_ADVANCE_BOTTOM = 15;
-    private static final int PADDING_ADVANCE_MIDDLE = 25;
+    private static final int PADDING_ADVANCE_RIGHT = 25;
 
 
     // Static values that will be used by the Controller class
     private final String CODE_LAND;
     private final String CODE_TOOL;
     private final String CODE_SEED;
+    private final String CODE_HARVEST;
     private final String CODE_UPGRADE;
     private final String CODE_NEXT_DAY;
 
@@ -68,6 +68,7 @@ public class Render {
         this.CODE_LAND = Controller.getCodeLand();
         this.CODE_TOOL = Controller.getCodeTool();
         this.CODE_SEED = Controller.getCodeSeed();
+        this.CODE_HARVEST = Controller.getCodeHarvest();
         this.CODE_UPGRADE = Controller.getCodeUpgrade();
         this.CODE_NEXT_DAY = Controller.getCodeNextDay();
 
@@ -91,8 +92,8 @@ public class Render {
         seedPlot.setLayout(new GridBagLayout());
         infoPlot = new JPanel();
         infoPlot.setLayout(new GridBagLayout());
-        advancePlot = new JPanel();
-        advancePlot.setLayout(new GridBagLayout());
+        miscPlot = new JPanel();
+        miscPlot.setLayout(new GridBagLayout());
 
         // Instantiating all the components that will be used in the game
         // LAND PLOT
@@ -126,6 +127,11 @@ public class Render {
             seedBtns[i].setActionCommand("SEED" + "," + seedsInfo[i].name());
         }
 
+        // MISCELLANEOUS PLOT
+        JButton harvestBtn = new JButton();
+        JButton nextDayBtn = new JButton();
+        JButton upgradeBtn = new JButton();
+
         // INFO PLOT
         // Text values initialized in the Controller setLabel since this class
         // has no access to player and game object
@@ -133,14 +139,10 @@ public class Render {
         JLabel farmerTypeLabel = new JLabel();
         JLabel coinLabel = new JLabel();
 
-        // ADVANCE PLOT
-        JButton nextDayBtn = new JButton();
-        JButton upgradeBtn = new JButton();
-
 
         // Passing the buttons and labels to the controller class for back end
         controller.setButtons(landMatrixBtns, seedBtns, toolBtns,
-                                nextDayBtn, upgradeBtn);
+                                nextDayBtn, upgradeBtn, harvestBtn);
         controller.setLabels(dayLabel, farmerTypeLabel, coinLabel);
 
 
@@ -239,25 +241,34 @@ public class Render {
 
         // ADVANCE BUTTONS
         advanceBtnProperty.weighty = 0.5;
+        //HARVEST
+        harvestBtn.addActionListener(controller);
+        harvestBtn.setActionCommand(CODE_HARVEST);
+        advanceBtnProperty.gridx = 0;
+        advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, PADDING_ADVANCE_RIGHT);
+        harvestBtn.setText("Harvest Mode");
+        harvestBtn.setPreferredSize(new Dimension(HEIGHT_ADVANCE, WIDTH_ADVANCE));
+        miscPlot.add(harvestBtn, advanceBtnProperty);
+
         // UPGRADE TYPE
         // Set up information about the button to be used by the controller object
         upgradeBtn.addActionListener(controller);
         upgradeBtn.setActionCommand(CODE_UPGRADE);
-        advanceBtnProperty.gridx = 0;
-        advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, PADDING_ADVANCE_MIDDLE);
+        advanceBtnProperty.gridx = 1;
+        advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, PADDING_ADVANCE_RIGHT);
         upgradeBtn.setText("Upgrade Type");
         upgradeBtn.setPreferredSize(new Dimension(HEIGHT_ADVANCE, WIDTH_ADVANCE));
-        advancePlot.add(upgradeBtn, advanceBtnProperty);
+        miscPlot.add(upgradeBtn, advanceBtnProperty);
 
         // NEXT DAY
         // Set up information about the button to be used by the controller object
         nextDayBtn.addActionListener(controller);
         nextDayBtn.setActionCommand(CODE_NEXT_DAY);
-        advanceBtnProperty.gridx = 1;
+        advanceBtnProperty.gridx = 2;
         advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
         nextDayBtn.setText("Next Day");
         nextDayBtn.setPreferredSize(new Dimension(HEIGHT_ADVANCE, WIDTH_ADVANCE));
-        advancePlot.add(nextDayBtn, advanceBtnProperty);
+        miscPlot.add(nextDayBtn, advanceBtnProperty);
 
 
         // Configuring the properties of the INFO LABELS
@@ -290,7 +301,7 @@ public class Render {
         mainFrame.add(toolPlot, BorderLayout.WEST);
         mainFrame.add(seedPlot, BorderLayout.EAST);
         mainFrame.add(infoPlot, BorderLayout.NORTH);
-        mainFrame.add(advancePlot, BorderLayout.SOUTH);
+        mainFrame.add(miscPlot, BorderLayout.SOUTH);
 
 
         mainFrame.setVisible(true);
