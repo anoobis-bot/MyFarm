@@ -114,7 +114,6 @@ public class Render {
         {
             // creates buttons having a text of the first letter of the tool
             toolBtns[i] = new JButton(String.valueOf(toolsInfo[i].firstLetter()));
-            toolBtns[i].setActionCommand("TOOL" + "," + toolsInfo[i].name());
         }
 
         // SEEDS PLOT
@@ -124,7 +123,6 @@ public class Render {
         {
             // creates buttons having a text of the first letter of the tool
             seedBtns[i] = new JButton(String.valueOf(seedsInfo[i].firstLetter()));
-            seedBtns[i].setActionCommand("SEED" + "," + seedsInfo[i].name());
         }
 
         // MISCELLANEOUS PLOT
