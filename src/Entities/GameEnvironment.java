@@ -25,12 +25,26 @@ public class GameEnvironment {
         this.systemDay++;
         // Checks each land object if it has a seed, then increment its age
         for (int y = 0; y < ySize; y++)
+        {
             for (int x = 0; x < xSize; x++)
-                if (landMatrix[y][x].getCurrentSeed() != null)
+            {
+                Seed currSeed_Land = landMatrix[y][x].getCurrentSeed();
+                if (currSeed_Land != null)
                 {
-                    if (landMatrix[y][x].getCurrentSeed().decrementHrvstDays() < 0)
+                    currSeed_Land.decrementHrvstDays();
+
+                    if (currSeed_Land.getHrvstDays() == Seed.HARVEST_TIME)
+                    {
+                        if (landMatrix[y][x].validateWaterFertilizer() == false)
+                            landMatrix[y][x].setWithered();
+                    }
+
+                    else if (currSeed_Land.getHrvstDays() < Seed.HARVEST_TIME)
                         landMatrix[y][x].setWithered();
+
                 }
+            }
+        }
     }
 
     // Get methods
