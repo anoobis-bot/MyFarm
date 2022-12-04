@@ -158,6 +158,7 @@ public class Player {
             }
 
             useObjCoin( - (tool.getUsageCost()) );
+            changeFarmerExp(tool.getExpGain());
             return true;
         }
         else
