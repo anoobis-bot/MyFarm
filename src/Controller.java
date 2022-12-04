@@ -7,6 +7,7 @@ import Entities.Land;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 
 /*
@@ -169,7 +170,9 @@ public class Controller implements ActionListener {
         this.dayLabel.setText("Day " + game.getCurrentDay());
         this.farmerTypeLabel.setText(player.getFarmerType().getNameType());
         this.playerLevelLabel.setText("Level: " + player.getPlayerLvl());
-        this.coinLabel.setText("Coins: " + player.getObjCoin());
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        this.coinLabel.setText("Coins: " + df.format(player.getObjCoin()));
     }
 
     public void updateLandButton(JButton currButton, int yPointer, int xPointer)
