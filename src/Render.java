@@ -21,6 +21,7 @@ public class Render {
     private JPanel toolPlot;
     private JPanel seedPlot;
     private JPanel infoPlot;
+    private JPanel farmerInfoPlot;
     private JPanel miscPlot;
 
 
@@ -42,8 +43,8 @@ public class Render {
     private static final int SIZE_LAND = 45;
     private static final int SIZE_TOOL = 45;
     private static final int SIZE_SEED = 45;
-    private static final int HEIGHT_ADVANCE = 150;
-    private static final int WIDTH_ADVANCE = SIZE_TOOL;
+    private static final int HEIGHT_ADVANCE = SIZE_TOOL;
+    private static final int WIDTH_ADVANCE = 150;
     private static final int PADDING_LAND = 10;
     private static final int PADDING_TOOL_LEFT = 50;
     private static final int PADDING_SEED_RIGHT = 45;
@@ -92,6 +93,8 @@ public class Render {
         seedPlot.setLayout(new GridBagLayout());
         infoPlot = new JPanel();
         infoPlot.setLayout(new GridBagLayout());
+            farmerInfoPlot = new JPanel();
+            farmerInfoPlot.setLayout(new GridBagLayout());
         miscPlot = new JPanel();
         miscPlot.setLayout(new GridBagLayout());
 
@@ -135,13 +138,14 @@ public class Render {
         // has no access to player and game object
         JLabel dayLabel = new JLabel();
         JLabel farmerTypeLabel = new JLabel();
+        JLabel playerLevelLabel = new JLabel();
         JLabel coinLabel = new JLabel();
 
 
         // Passing the buttons and labels to the controller class for back end
         controller.setButtons(landMatrixBtns, seedBtns, toolBtns,
                                 nextDayBtn, upgradeBtn, harvestBtn);
-        controller.setLabels(dayLabel, farmerTypeLabel, coinLabel);
+        controller.setLabels(dayLabel, farmerTypeLabel, playerLevelLabel, coinLabel);
 
 
         // The code below contains all that is necessary to design and set up the back end of the code
@@ -245,7 +249,7 @@ public class Render {
         advanceBtnProperty.gridx = 0;
         advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, PADDING_ADVANCE_RIGHT);
         harvestBtn.setText("Harvest Mode");
-        harvestBtn.setPreferredSize(new Dimension(HEIGHT_ADVANCE, WIDTH_ADVANCE));
+        harvestBtn.setPreferredSize(new Dimension(WIDTH_ADVANCE, HEIGHT_ADVANCE));
         miscPlot.add(harvestBtn, advanceBtnProperty);
 
         // UPGRADE TYPE
@@ -255,7 +259,7 @@ public class Render {
         advanceBtnProperty.gridx = 1;
         advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, PADDING_ADVANCE_RIGHT);
         upgradeBtn.setText("Upgrade Type");
-        upgradeBtn.setPreferredSize(new Dimension(HEIGHT_ADVANCE, WIDTH_ADVANCE));
+        upgradeBtn.setPreferredSize(new Dimension(WIDTH_ADVANCE, HEIGHT_ADVANCE));
         miscPlot.add(upgradeBtn, advanceBtnProperty);
 
         // NEXT DAY
@@ -265,7 +269,7 @@ public class Render {
         advanceBtnProperty.gridx = 2;
         advanceBtnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
         nextDayBtn.setText("Next Day");
-        nextDayBtn.setPreferredSize(new Dimension(HEIGHT_ADVANCE, WIDTH_ADVANCE));
+        nextDayBtn.setPreferredSize(new Dimension(WIDTH_ADVANCE, HEIGHT_ADVANCE));
         miscPlot.add(nextDayBtn, advanceBtnProperty);
 
 
@@ -280,11 +284,19 @@ public class Render {
         labelProperty.insets = new Insets(PADDING_INFO_TOP, PADDING_INFO_LEFT, 0, 0);
         infoPlot.add(dayLabel, labelProperty);
 
-        // FARMER TYPE
+        // FARMER TYPE AND LEVEL
         labelProperty.gridx = 1;
         labelProperty.anchor = GridBagConstraints.CENTER;
         labelProperty.insets = new Insets(PADDING_INFO_TOP, 0, 0, 0);
-        infoPlot.add(farmerTypeLabel, labelProperty);
+        // sub layouts
+            GridBagConstraints farmerConstraints = new GridBagConstraints();
+            farmerConstraints.gridx = 0;
+            farmerConstraints.insets = new Insets(0, 0, 0, PADDING_INFO_RIGHT);
+            farmerInfoPlot.add(farmerTypeLabel, farmerConstraints);
+            farmerConstraints.gridx = 1;
+            farmerConstraints.insets = new Insets(0, 0, 0, 0);
+            farmerInfoPlot.add(playerLevelLabel, farmerConstraints);
+        infoPlot.add(farmerInfoPlot, labelProperty);
 
         // DAY
         labelProperty.gridx = 2;

@@ -29,7 +29,7 @@ public class Controller implements ActionListener {
     private JButton[][] landMatrixBtns;
     private JButton[] seedBtns, toolBtns;
     private JButton nextDayBtn, upgradeBtn, harvestBtn;
-    private JLabel dayLabel, farmerTypeLabel, coinLabel;
+    private JLabel dayLabel, farmerTypeLabel, playerLevelLabel, coinLabel;
 
     ToolAttributes[] toolsInfo = ToolAttributes.values();
     SeedAttributes[] seedsInfo = SeedAttributes.values();
@@ -151,14 +151,16 @@ public class Controller implements ActionListener {
         this.harvestBtn = harvestBtn;
     }
 
-    public void setLabels(JLabel dayLabel, JLabel farmerTypeLabel, JLabel coinLabel)
+    public void setLabels(JLabel dayLabel, JLabel farmerTypeLabel, JLabel playerLevelLabel, JLabel coinLabel)
     {
         this.dayLabel = dayLabel;
         this.farmerTypeLabel = farmerTypeLabel;
+        this.playerLevelLabel = playerLevelLabel;
         this.coinLabel = coinLabel;
 
         this.dayLabel.setText("Day " + game.getCurrentDay());
         this.farmerTypeLabel.setText(player.getFarmerType().getNameType());
+        this.playerLevelLabel.setText("Level: " + player.getPlayerLvl());
         this.coinLabel.setText("Coins: " + player.getObjCoin());
     }
 
@@ -166,6 +168,7 @@ public class Controller implements ActionListener {
     {
         this.dayLabel.setText("Day " + game.getCurrentDay());
         this.farmerTypeLabel.setText(player.getFarmerType().getNameType());
+        this.playerLevelLabel.setText("Level: " + player.getPlayerLvl());
         this.coinLabel.setText("Coins: " + player.getObjCoin());
     }
 

@@ -52,6 +52,7 @@ public class Player {
     public void changeFarmerExp(double value)
     {
         playerExp += value;
+        playerLvl = (int) playerExp / 100;
     }
 
     public double getPlayerExp() {
