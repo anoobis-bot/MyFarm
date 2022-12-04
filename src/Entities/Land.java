@@ -50,6 +50,7 @@ public class Land
 
         return true;
     }
+
     public int getAmtWater()
     {
         return amtWater;
@@ -58,6 +59,20 @@ public class Land
     {
         return amtFertilizer;
     }
+    public boolean validateWaterFertilizer()
+    {
+        if (this.amtWater < this.crop.getWaterNeeds())
+        {
+            return false;
+        }
+        else if (this.amtFertilizer < this.crop.getFertilizerNeeds())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public boolean isPlowed()
     {
         return isPlowed;

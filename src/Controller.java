@@ -51,7 +51,7 @@ public class Controller implements ActionListener {
         StringTokenizer eventInfo = new StringTokenizer(event.getActionCommand(), ",");
         String opType = eventInfo.nextToken();
 
-        if (opType.equals(CODE_SEED) || opType.equals(CODE_TOOL))
+        if (opType.equals(CODE_SEED) || opType.equals(CODE_TOOL) || opType.equals(CODE_HARVEST))
         {
             for (int currTool = 0; currTool < TOOLS_TOTAL; currTool++)
             {
@@ -67,6 +67,10 @@ public class Controller implements ActionListener {
                 else
                     seedBtns[currSeed].setBackground(Color.WHITE);
             }
+            if (harvestBtn.getActionCommand().equals(currButton.getActionCommand()))
+                currButton.setBackground(Color.PINK);
+            else
+                harvestBtn.setBackground(Color.WHITE);
 
             if (opType.equals(CODE_TOOL))
             {
@@ -80,24 +84,35 @@ public class Controller implements ActionListener {
                 player.grabSeed(SeedAttributes.valueOf(seedType));
                 player.setOperationType(player.PLANT);
             }
+            else if (opType.equals(CODE_HARVEST))
+            {
+                player.setOperationType(player.HARVEST);
+            }
         }
 
         else if (opType.equals(CODE_LAND))
         {
             player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
             player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
-            if (player.getOperationTypeType() == player.USE_TOOL)
+            if (player.getOperationType() == player.USE_TOOL)
             {
                 if (player.useTool(landMatrix) == false)
                 {
                     System.out.println("You cant use " + player.getTool().getToolName() + "!");
                 }
             }
-            else if (player.getOperationTypeType() == player.PLANT)
+            else if (player.getOperationType() == player.PLANT)
             {
                 if (player.plantSeed(landMatrix, game) == false)
                 {
                     System.out.println("You cant plant " + player.getSeed().getSeedName() + "!");
+                }
+            }
+            else if (player.getOperationType() == player.HARVEST)
+            {
+                if (player.harvestCrop(landMatrix) == false)
+                {
+                    System.out.println("You can't harvest!");
                 }
             }
 

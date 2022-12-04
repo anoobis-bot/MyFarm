@@ -6,14 +6,17 @@ package Entities;
 import Constants.CropType;
 import Constants.SeedAttributes;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Seed
 {
     private final String enumName;
     private final String seedName;
     private final CropType cropType;
     private int hrvstDays;
+    public static final int HARVEST_TIME = 0;
     private final int waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
-            producedQtyMin, producedQtyMax, seedCost, baseSellPrice;
+            producedQtyMin, producedQtyMax, producedQty, seedCost, baseSellPrice;
     private final double expYield;
 
     /*
@@ -34,6 +37,7 @@ public class Seed
         this.fertilizerBonus = seed.fertilizerBonus;
         this.producedQtyMin = seed.producedQtyMin;
         this.producedQtyMax = seed.producedQtyMax;
+        this.producedQty = ThreadLocalRandom.current().nextInt(producedQtyMin, producedQtyMax + 1);
         this.seedCost = seed.seedCost;
         this.baseSellPrice = seed.baseSellPiece;
         this.expYield = seed.expYield;
@@ -50,7 +54,7 @@ public class Seed
     }
     public CropType getCropType() {
         return cropType;
-    } //MCO2 use
+    }
     public int getHrvstDays() {return hrvstDays; }
     public int getWaterNeeds() {
         return waterNeeds;
@@ -70,6 +74,9 @@ public class Seed
     }
     public int getProducedQtyMax() {
         return producedQtyMax;
+    }
+    public int getProducedQty() {
+        return producedQty;
     }
     public int getSeedCost() {
         return seedCost;
