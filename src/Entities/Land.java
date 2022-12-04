@@ -1,4 +1,5 @@
-package Entities;/*
+package Entities;
+/*
     This class is the blueprint for the land object in the game.
  */
 
@@ -87,15 +88,17 @@ public class Land
     }
 
     // Increments on how many times the land has been watered
-    public void waterLand()
+    public void waterLand(int bonusFromFarmer)
     {
-        this.amtWater++;
+        if (this.amtWater < crop.getWaterBonus() + bonusFromFarmer)
+            this.amtWater++;
     }
 
     // Increments on how many times the land has been fertilized
-    public void fertilizeLand()
+    public void fertilizeLand(int bonusFromFarmer)
     {
-        this.amtFertilizer++;
+        if (this.amtFertilizer < crop.getFertilizerBonus() + bonusFromFarmer)
+            this.amtFertilizer++;
     }
 
     // Plow land

@@ -130,7 +130,12 @@ public class Controller implements ActionListener {
 
         else if (opType.equals(CODE_UPGRADE))
         {
+            if (player.upgradeFarmerType() == false)
+            {
+                System.out.println("You can't upgrade!");
+            }
 
+            updateLabels();
         }
     }
 

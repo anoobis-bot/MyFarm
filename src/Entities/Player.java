@@ -8,8 +8,8 @@ import Constants.ToolAttributes;
 import Constants.SeedAttributes;
 
 public class Player {
-    private double farmerExp;
-    private int farmerLvl, waterUsed, fertilizerUsed;
+    private double playerExp;
+    private int playerLvl, waterUsed, fertilizerUsed;
     private double objCoin;
     // The relationship of player with the objects below is composition
     private FarmerType farmerType;
@@ -24,17 +24,17 @@ public class Player {
     public final int HARVEST = 3;
 
     /*
-        Initialize the object coin, farmerExp, and farmerLvl
+        Initialize the object coin, playerExp, and farmerLvl
         @param objCoin how much is the starting coins
-        @param farmerExp how much is the starting experience
+        @param playerExp how much is the starting experience
         @param farmerLvl what is the starting level of the farmer
      */
-    public Player(int objCoin, double farmerExp)
+    public Player(int objCoin, double playerExp)
     {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
         this.objCoin = objCoin;
-        this.farmerExp = farmerExp;
-        this.farmerLvl = (int) (farmerExp / 100);
+        this.playerExp = playerExp;
+        this.playerLvl = (int) (playerExp / 100);
         this.tool = new Equipment();
 
         this.waterUsed = 0;
@@ -51,47 +51,42 @@ public class Player {
 
     public void changeFarmerExp(double value)
     {
-        farmerExp += value;
+        playerExp += value;
     }
 
-    public double getFarmerExp() {
-        return farmerExp;
+    public double getPlayerExp() {
+        return playerExp;
     }
-    public int getFarmerLvl() {
-        return farmerLvl;
+    public int getPlayerLvl() {
+        return playerLvl;
     }
     public FarmerType getFarmerType() {
         return farmerType;
     }
     //    set farmer type depends on the conditions
     //    @param option - choices input by the user
-    public void setFarmerType(int option)
+    public boolean upgradeFarmerType()
     {
-        switch (option){
-            case 1:
-                if (objCoin >= 200 && farmerLvl >= 5){
-                    this.farmerType = new FarmerType(FarmerTypeAttributes.REGISTERED_FARMER);
-                    objCoin -= farmerType.getRegistrationFee();
-                }
-                else System.out.println("Incorrect input!");
-                break;
-            case 2:
-                if (objCoin >= 300 && farmerLvl >= 10){
-                    this.farmerType = new FarmerType(FarmerTypeAttributes.DISTINGUISHED_FARMER);
-                    objCoin -= farmerType.getRegistrationFee();
-                }
-                else System.out.println("Incorrect input!");
-                break;
-            case 3:
-                if (objCoin >= 400 && farmerLvl >= 15){
-                    this.farmerType = new FarmerType(FarmerTypeAttributes.LEGENDARY_FARMER);
-                    objCoin -= farmerType.getRegistrationFee();
-                }
-                else System.out.println("Incorrect input!");
-                break;
-            default:
-                System.out.println("Not in options");
+        int farmerNextLevel = FarmerTypeAttributes.valueOf(farmerType.getEnumName()).ordinal() + 1;
+
+        FarmerTypeAttributes[] upgradeList = FarmerTypeAttributes.values();
+
+        if (farmerNextLevel >= upgradeList.length)
+        {
+            return false;
         }
+        else if (upgradeList[farmerNextLevel].levelRequirement > this.playerLvl)
+        {
+            return false;
+        }
+        else if (upgradeList[farmerNextLevel].registrationFee > this.objCoin)
+        {
+            return false;
+        }
+
+        this.farmerType = new FarmerType(upgradeList[farmerNextLevel]);
+        useObjCoin(- (this.farmerType.getRegistrationFee()));
+        return true;
     }
 
 
@@ -148,10 +143,10 @@ public class Player {
                     currLand.plowLand();
                     break;
                 case WATERING_CAN:
-                    currLand.waterLand();
+                    currLand.waterLand(farmerType.getBonusWaterLimitIncrease());
                     break;
                 case FERTILIZER:
-                    currLand.fertilizeLand();
+                    currLand.fertilizeLand(farmerType.getBonusFertilizeIncrease());
                     break;
                 case PICKAXE:
                     currLand.removeRocks();
@@ -249,8 +244,8 @@ public class Player {
     {
         this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
         this.objCoin = 100;
-        this.farmerExp = 0.0;
-        this.farmerLvl = 0;
+        this.playerExp = 0.0;
+        this.playerLvl = 0;
 
         this.waterUsed = 0;
         this.fertilizerUsed = 0;
