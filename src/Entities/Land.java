@@ -1,4 +1,6 @@
-package Entities;/*
+package Entities;
+import java.util.Random;
+/*
     This class is the blueprint for the land object in the game.
  */
 
@@ -18,8 +20,11 @@ public class Land
         this.amtWater = 0;
         this.amtFertilizer = 0;
         this.isPlowed = false;
-        this.hasRocks = false;
         this.isWithered = false;
+
+        //random distribution of rocks
+        Random random = new Random();
+        this.hasRocks = random.nextBoolean();
     }
 
     /*
@@ -106,8 +111,11 @@ public class Land
         this.amtWater = 0;
         this.amtFertilizer = 0;
         this.isPlowed = false;
-        this.hasRocks = false;
         this.isWithered = false;
         this.crop = null;
+
+        //random distribution of rocks
+        Random random = new Random();
+        this.hasRocks = random.nextBoolean();
     }
 }

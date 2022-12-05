@@ -8,12 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.StringTokenizer;
+//import java.util.Random;
 
 /*
     This class controls all the back end of the GUI
     It handles the communication between the entities and the GUI
  */
-public class Controller implements ActionListener {
+public class Controller extends IntroWindow implements ActionListener {
     private final Player player;
     private final GameEnvironment game;
     private final Land[][] landMatrix;
@@ -23,6 +24,8 @@ public class Controller implements ActionListener {
     private static final String CODE_SEED = "SEED";
     private static final String CODE_UPGRADE = "UPGRADE";
     private static final String CODE_NEXT_DAY = "NEXT DAY";
+    private static final String CODE_PLAY = "PLAY";
+    private static final String CODE_HELP = "HELP";
 
 
     private JButton[][] landMatrixBtns;
@@ -37,6 +40,7 @@ public class Controller implements ActionListener {
 
     public Controller(Player player, Land[][] landMatrix, GameEnvironment game)
     {
+         super();
         this.player = player;
         this.landMatrix = landMatrix;
         this.game = game;
@@ -122,6 +126,18 @@ public class Controller implements ActionListener {
         {
 
         }
+
+        else if (opType.equals(CODE_PLAY))
+        {
+            frame.setVisible(false);
+            frame.dispose();
+            //updateAllLandButton();
+            new Render(this,getGameTitle());
+        }
+        else if (opType.equals(CODE_HELP))
+        {
+            System.out.println("hafaaahi");
+        }
     }
 
     public void setButtons(JButton[][] landMatrixBtns, JButton[] seedBtns, JButton[] toolBtns,
@@ -182,6 +198,7 @@ public class Controller implements ActionListener {
         }
     }
 
+    public Land[][] getLandMatrix(){return this.landMatrix;}
     public int getWidthLand()
     {
         return game.getXSize();
