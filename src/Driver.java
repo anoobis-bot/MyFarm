@@ -20,9 +20,7 @@ public class Driver
                 landMatrix[y][x] = new Land();
 
         Controller controller = new Controller(player, landMatrix, game);
-
-        Render render = new Render(controller);
-
+        new IntroWindow(controller);
 
 //        /* Start of game loop until closed */
 //        boolean close = false;
@@ -163,5 +161,6 @@ public class Driver
 //                }
 //            }
 //        }while (!close);
+
     }
 }

@@ -1,5 +1,6 @@
 import Constants.SeedAttributes;
 import Constants.ToolAttributes;
+import Entities.Land;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +29,6 @@ public class Render {
     // Constant values relating to the GUI
     private static final int FRAME_WIDTH = 1000;
     private static final int FRAME_HEIGHT = 700;
-    private static final String GAME_TITLE = "My Farm";
 
 
     // Constants needed for creating the GUI (e.g. how many land tiles)
@@ -63,7 +63,7 @@ public class Render {
     private final String CODE_UPGRADE;
     private final String CODE_NEXT_DAY;
 
-    public Render(Controller controller)
+    public Render(Controller controller, String GAME_TITLE)
     {
         // Setting up variable for the Controller class
         this.CODE_LAND = Controller.getCodeLand();
@@ -82,8 +82,14 @@ public class Render {
         mainFrame = new JFrame(GAME_TITLE);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BorderLayout());
+        mainFrame.setResizable(false);
         mainFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         mainFrame.setLocationRelativeTo(null);
+
+        //Creating ImageIcon to change Icon of the window
+        ImageIcon image = new ImageIcon("src/Images/Icon1.png");
+        mainFrame.setIconImage(image.getImage());
+
         // Initializing subframes
         landPlot = new JPanel();
         landPlot.setLayout(new GridBagLayout());
@@ -166,14 +172,18 @@ public class Render {
         {
             for (int currWidth = 0; currWidth < LAND_WIDTH; currWidth++)
             {
+                Land[][] land = controller.getLandMatrix();
+
                 // Set up information about the button to be used by the controller object
                 landMatrixBtns[currHeight][currWidth].addActionListener(controller);
                 landMatrixBtns[currHeight][currWidth].setActionCommand(CODE_LAND + "," +
                         String.valueOf(currHeight) + ","  +
                         String.valueOf(currWidth));
 
-                // Initializing all land to be normal, L
-                landMatrixBtns[currHeight][currWidth].setText(String.valueOf('L'));
+                // Initializing lands
+                if (land[currHeight][currWidth].hasRocks())
+                   landMatrixBtns[currHeight][currWidth].setText(String.valueOf('R'));
+                else landMatrixBtns[currHeight][currWidth].setText(String.valueOf('L'));
 
                 // Setting the appropriate sizes of the buttons
                 landMatrixBtns[currHeight][currWidth].setPreferredSize(new Dimension(SIZE_LAND, SIZE_LAND));
