@@ -1,4 +1,4 @@
-import com.intellij.util.ui.JBUI;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +57,7 @@ public class IntroWindow {
         btn_Play.setPreferredSize(new Dimension(WIDTH_ADVANCE,HEIGHT_ADVANCE));
         btnProperty.gridx = 0;
         btnProperty.anchor = GridBagConstraints.CENTER;
-        btnProperty.insets = JBUI.insetsBottom(PADDING_ADVANCE_BOTTOM);
+        btnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
         btnPanel.add(btn_Play, btnProperty);
 
         // help button
@@ -68,7 +68,7 @@ public class IntroWindow {
         btn_Help.setPreferredSize(new Dimension(WIDTH_ADVANCE, HEIGHT_ADVANCE));
         btnProperty.gridx = 1;
         btnProperty.anchor = GridBagConstraints.CENTER;
-        btnProperty.insets = JBUI.insetsBottom(PADDING_ADVANCE_BOTTOM);
+        btnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
         btnPanel.add(btn_Help, btnProperty);
 
         //add content panel to main frame

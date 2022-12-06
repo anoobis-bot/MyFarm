@@ -20,8 +20,9 @@ public class Driver
                 landMatrix[y][x] = new Land();
 
         Controller controller = new Controller(player, landMatrix, game);
-        new IntroWindow(controller);
+//        new IntroWindow(controller);
 
+        new Render(controller, "My Farm");
 //        /* Start of game loop until closed */
 //        boolean close = false;
 //        do
