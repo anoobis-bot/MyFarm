@@ -177,7 +177,7 @@ public class Render {
                         String.valueOf(currHeight) + ","  +
                         String.valueOf(currWidth));
 
-                // Initializing all land
+                // Initializing lands
                 if (land[currHeight][currWidth].hasRocks())
                    landMatrixBtns[currHeight][currWidth].setText(String.valueOf('R'));
                 else landMatrixBtns[currHeight][currWidth].setText(String.valueOf('L'));

@@ -52,7 +52,6 @@ public class Land
     {
         if (this.crop == null)
             return false;
-
         return true;
     }
     public int getAmtWater()

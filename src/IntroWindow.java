@@ -14,7 +14,6 @@ public class IntroWindow {
 
     public IntroWindow(Controller controller)
     {
-
         //Initializing main frame
         frame.setTitle(GAME_TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,7 +25,6 @@ public class IntroWindow {
         int frameY = 480;
         frame.setSize(frameX, frameY);
         frame.setLocationRelativeTo(null);
-        //frame.getContentPane().setBackground(new Color());
 
         //Creating ImageIcon to change Icon of the window
         ImageIcon image = new ImageIcon("src/Images/Icon1.png");

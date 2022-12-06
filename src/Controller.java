@@ -54,90 +54,97 @@ public class Controller extends IntroWindow implements ActionListener {
         StringTokenizer eventInfo = new StringTokenizer(event.getActionCommand(), ",");
         String opType = eventInfo.nextToken();
 
-        if (opType.equals(CODE_SEED) || opType.equals(CODE_TOOL))
-        {
-            for (int currTool = 0; currTool < TOOLS_TOTAL; currTool++)
+        if(chckGameOver())
+            System.out.println("ded");
+        else{
+            if (opType.equals(CODE_SEED) || opType.equals(CODE_TOOL))
             {
-                if (toolBtns[currTool].getActionCommand().equals(currButton.getActionCommand()))
-                    currButton.setBackground(Color.PINK);
-                else
-                    toolBtns[currTool].setBackground(Color.WHITE);
-            }
-            for (int currSeed = 0; currSeed < SEEDS_TOTAL; currSeed++)
-            {
-                if (seedBtns[currSeed].getActionCommand().equals(currButton.getActionCommand()))
-                    currButton.setBackground(Color.PINK);
-                else
-                    seedBtns[currSeed].setBackground(Color.WHITE);
-            }
-
-            if (opType.equals(CODE_TOOL))
-            {
-                String toolType = eventInfo.nextToken();
-                player.changeTool(ToolAttributes.valueOf(toolType));
-                player.setOperationType(player.USE_TOOL);
-            }
-            else if (opType.equals(CODE_SEED))
-            {
-                String seedType = eventInfo.nextToken();
-                player.grabSeed(SeedAttributes.valueOf(seedType));
-                player.setOperationType(player.PLANT);
-            }
-        }
-
-        else if (opType.equals(CODE_LAND))
-        {
-            player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
-            player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
-
-            if (player.getOperationTypeType() == player.USE_TOOL)
-            {
-                if (!player.useTool(landMatrix))
+                for (int currTool = 0; currTool < TOOLS_TOTAL; currTool++)
                 {
-                    // Displays message box for alerting user in using tool.
-                    JOptionPane.showMessageDialog(null,"You can't use " + player.getTool().getToolName()
-                            + " on this this land\nReason:\n" + player.getReason());
+                    if (toolBtns[currTool].getActionCommand().equals(currButton.getActionCommand()))
+                        currButton.setBackground(Color.PINK);
+                    else
+                        toolBtns[currTool].setBackground(Color.WHITE);
+                }
+                for (int currSeed = 0; currSeed < SEEDS_TOTAL; currSeed++)
+                {
+                    if (seedBtns[currSeed].getActionCommand().equals(currButton.getActionCommand()))
+                        currButton.setBackground(Color.PINK);
+                    else
+                        seedBtns[currSeed].setBackground(Color.WHITE);
+                }
+
+                if (opType.equals(CODE_TOOL))
+                {
+                    String toolType = eventInfo.nextToken();
+                    player.changeTool(ToolAttributes.valueOf(toolType));
+                    player.setOperationType(player.USE_TOOL);
+                }
+                else if (opType.equals(CODE_SEED))
+                {
+                    String seedType = eventInfo.nextToken();
+                    player.grabSeed(SeedAttributes.valueOf(seedType));
+                    player.setOperationType(player.PLANT);
                 }
             }
 
-            else if (player.getOperationTypeType() == player.PLANT)
+            else if (opType.equals(CODE_LAND))
             {
-                if (!player.plantSeed(landMatrix, game))
+                player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
+                player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
+
+                if (player.getOperationTypeType() == player.USE_TOOL)
                 {
-                    // Displays message box for alerting user in planting crop.
-                    JOptionPane.showMessageDialog(null,"You can't plant " + player.getSeed().getSeedName()
-                            + " on this this land\nReason:\n" + player.getReason());
+                    if (!player.useTool(landMatrix))
+                    {
+                        // Displays message box for alerting user in using tool.
+                        JOptionPane.showMessageDialog(null,"You can't use " + player.getTool().getToolName()
+                                + " on this this land\nReason:\n" + player.getReason());
+                    }
                 }
+
+                else if (player.getOperationTypeType() == player.PLANT)
+                {
+                    if (!player.plantSeed(landMatrix, game))
+                    {
+                        // Displays message box for alerting user in planting crop.
+                        JOptionPane.showMessageDialog(null,"You can't plant " + player.getSeed().getSeedName()
+                                + " on this this land\nReason:\n" + player.getReason());
+                    }
+                }
+
+                updateLandButton(currButton, player.getYPointer(), player.getXPointer());
+                updateLabels();
             }
 
-            updateLandButton(currButton, player.getYPointer(), player.getXPointer());
-            updateLabels();
+            else if (opType.equals(CODE_NEXT_DAY))
+            {
+
+                game.advanceTime(landMatrix);
+
+                updateAllLandButton();
+                updateLabels();
+            }
+
+            else if (opType.equals(CODE_UPGRADE))
+            {
+
+            }
+
+            else if (opType.equals(CODE_PLAY))
+            {
+                frame.setVisible(false);
+                frame.dispose();
+                //updateAllLandButton();
+                new Render(this,getGameTitle());
+            }
+            else if (opType.equals(CODE_HELP))
+            {
+                System.out.println("hafaaahi");
+            }
         }
 
-        else if (opType.equals(CODE_NEXT_DAY))
-        {
-            game.advanceTime(landMatrix);
 
-            updateAllLandButton();
-            updateLabels();
-        }
-
-        else if (opType.equals(CODE_UPGRADE))
-        {
-
-        }
-
-        else if (opType.equals(CODE_PLAY))
-        {
-            frame.setVisible(false);
-            frame.dispose();
-            //updateAllLandButton();
-            new Render(this,getGameTitle());
-        }
-        else if (opType.equals(CODE_HELP))
-        {
-            System.out.println("hafaaahi");
-        }
     }
 
     public void setButtons(JButton[][] landMatrixBtns, JButton[] seedBtns, JButton[] toolBtns,
@@ -198,6 +205,29 @@ public class Controller extends IntroWindow implements ActionListener {
         }
     }
 
+    // Function that returns true if farm has active plant
+    public boolean checkFarmHasPlant(){
+        int z=0;
+        for (int y = 0; y < game.getYSize(); y++)
+            for (int x = 0; x < game.getXSize(); x++){
+                if(landMatrix[y][x].hasSeed() && !landMatrix[y][x].isWithered()){
+                    z++;
+                }
+            }
+        if(z!=0)
+           return true;
+        else
+            return false;
+    }
+
+    // returns true if the game is over because of the conditions
+    public boolean chckGameOver(){
+        if(!checkFarmHasPlant() && player.getObjCoin() < 5)
+            return true;
+
+        //else if () {
+         else return false;
+    }
     public Land[][] getLandMatrix(){return this.landMatrix;}
     public int getWidthLand()
     {
