@@ -105,10 +105,8 @@ public class Controller implements ActionListener {
                     }
                 } else if (player.getOperationType() == player.HARVEST) {
                     if (!player.harvestCrop(landMatrix)) {
-                        // Displays message box for alerting user in planting crop.
-                        JOptionPane.showMessageDialog(null, "You can't plant " + player.getSeed().getSeedName()
-                                + " on this this land\nReason:\n" + player.getReason());
-                        System.out.println("You can't harvest!");//test
+                        // Displays message box for alerting user in harvesting crop.
+                        JOptionPane.showMessageDialog(null, player.getReason());
                     }
                 }
 

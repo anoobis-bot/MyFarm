@@ -81,6 +81,7 @@ public class Player {
 
         if (farmerNextLevel >= upgradeList.length)
         {
+            reason =
             return false;
         }
         else if (upgradeList[farmerNextLevel].levelRequirement > this.playerLvl)
@@ -260,7 +261,7 @@ public class Player {
             fertilizerReq = currLand.cropFertilizerNeeds() - currLand.getAmtFertilizer();
 
             //set reason (days required, water needs, fertilizer needs)
-            reason = "seed isn't harvestable yet\nDays Required:"
+            reason = "Crop isn't harvestable yet\nDays Required:"
                     + daysReq + "\nWater Need:" + waterReq +
                     "\nFertilizer Need:" + fertilizerReq;
             return false;
