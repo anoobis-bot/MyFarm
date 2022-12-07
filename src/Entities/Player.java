@@ -223,9 +223,12 @@ public class Player {
         double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
 
         Land currLand = landMatrix[yPointer][xPointer];
-        if (!currLand.hasSeed())
-            return false;
 
+        if (!currLand.hasSeed()){
+            // Harvest reason #1
+            reason = "Land doesn't have seed planted";
+            return false;
+        }
         Seed currSeedInLand = currLand.getCurrentSeed();
 
         if (currLand.getCurrentSeed().getHrvstDays() == Seed.HARVEST_TIME
@@ -249,8 +252,19 @@ public class Player {
 
             return true;
         }
-        else
+        else{
+            // Harvest reason #2
+            int daysReq, waterReq, fertilizerReq;
+            daysReq = currLand.getCurrentSeed().getHrvstDays()- Seed.HARVEST_TIME;
+            waterReq = currLand.cropWaterNeeds() - currLand.getAmtWater();
+            fertilizerReq = currLand.cropFertilizerNeeds() - currLand.getAmtFertilizer();
+
+            //set reason (days required, water needs, fertilizer needs)
+            reason = "seed isn't harvestable yet\nDays Required:"
+                    + daysReq + "\nWater Need:" + waterReq +
+                    "\nFertilizer Need:" + fertilizerReq;
             return false;
+        }
     }
 
     /*
