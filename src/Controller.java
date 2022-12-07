@@ -123,14 +123,12 @@ public class Controller implements ActionListener {
             }
 
             else if (opType.equals(CODE_UPGRADE)) {
-                if (player.upgradeFarmerType() == false) {
-                    System.out.println("You can't upgrade!");
+                if (!player.upgradeFarmerType()) {
+                    // Displays message box for alerting user in UPGRADING PLAYER
+                    JOptionPane.showMessageDialog(null, player.getReason());
                 }
-
                 updateLabels();
             }
-
-
         }
     }
 

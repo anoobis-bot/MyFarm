@@ -79,17 +79,23 @@ public class Player {
 
         FarmerTypeAttributes[] upgradeList = FarmerTypeAttributes.values();
 
+        int lvlReason;
         if (farmerNextLevel >= upgradeList.length)
         {
-            reason =
+            //UpgradeFarmer REASON #1
+            reason = "Max Farmer Upgrade Reached ";
             return false;
         }
         else if (upgradeList[farmerNextLevel].levelRequirement > this.playerLvl)
         {
+            //UpgradeFarmer REASON #2
+            reason = "Level not yet reached\nLevel Required: " + upgradeList[farmerNextLevel].levelRequirement;
             return false;
         }
         else if (upgradeList[farmerNextLevel].registrationFee > this.objCoin)
         {
+            //UpgradeFarmer REASON #3
+            reason = "Insufficient Coin\nRegistration Fee: " + upgradeList[farmerNextLevel].registrationFee;
             return false;
         }
 
@@ -261,27 +267,11 @@ public class Player {
             fertilizerReq = currLand.cropFertilizerNeeds() - currLand.getAmtFertilizer();
 
             //set reason (days required, water needs, fertilizer needs)
-            reason = "Crop isn't harvestable yet\nDays Required:"
-                    + daysReq + "\nWater Need:" + waterReq +
+            reason = "Crop isn't harvestable yet" +
+                    "\nDays Required:" + daysReq +
+                    "\nWater Need:" + waterReq +
                     "\nFertilizer Need:" + fertilizerReq;
             return false;
         }
-    }
-
-    /*
-      This method resets all variables in the class
-    */
-    public void resetPlayer()
-    {
-        this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
-        this.objCoin = 100;
-        this.playerExp = 0.0;
-        this.playerLvl = 0;
-
-        this.waterUsed = 0;
-        this.fertilizerUsed = 0;
-
-        this.tool.setTool(ToolAttributes.PLOW);
-        this.grabSeed(SeedAttributes.TURNIP);
     }
 }
