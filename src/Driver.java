@@ -11,8 +11,8 @@ public class Driver
     public static void main(String[] args)
     {
         GameEnvironment game = new GameEnvironment(5, 10); // farm size
-        Player player = new Player(100, 0); // starting money/lvl
-        //Player player = new Player(5000, 1500); // for testing Upgrade Farmer
+        //Player player = new Player(100, 0); // starting money/lvl
+        Player player = new Player(5000, 1500); // for testing Upgrade Farmer
 
         // 2D array of Land(lot) to create whole farm
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];

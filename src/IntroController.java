@@ -9,13 +9,13 @@ public class IntroController {
         introWindow.frame.setVisible(true);
         try{
             for (int i = 0; i <= 100; i++){
-                Thread.sleep(50);
+                //Thread.sleep(50);// loading speed
+                Thread.sleep(10);// for testing
                 introWindow.bar.setValue(i);
                 loadValue = i;
             }
 
             if (loadValue == 100){
-                System.out.println("Loadng Done");
                 introWindow.frame.dispose();
             }
 

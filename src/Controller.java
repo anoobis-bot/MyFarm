@@ -94,13 +94,15 @@ public class Controller implements ActionListener {
                 if (player.getOperationType() == player.USE_TOOL) {
                     if (!player.useTool(landMatrix)) {
                         // Displays message box for alerting user in using tool.
-                        JOptionPane.showMessageDialog(null, "You can't use " + player.getTool().getToolName()
+                        JOptionPane.showMessageDialog(null,
+                                "You can't use " + player.getTool().getToolName()
                                 + " on this this land\nReason:\n" + player.getReason());
                     }
                 } else if (player.getOperationType() == player.PLANT) {
                     if (!player.plantSeed(landMatrix, game)) {
                         // Displays message box for alerting user in planting crop.
-                        JOptionPane.showMessageDialog(null, "You can't plant " + player.getSeed().getSeedName()
+                        JOptionPane.showMessageDialog(null,
+                                "You can't plant " + player.getSeed().getSeedName()
                                 + " on this this land\nReason:\n" + player.getReason());
                     }
                 } else if (player.getOperationType() == player.HARVEST) {
