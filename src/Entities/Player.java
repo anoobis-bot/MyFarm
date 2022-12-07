@@ -310,7 +310,11 @@ public class Player {
             int daysReq, waterReq, fertilizerReq;
             daysReq = currLand.getCurrentSeed().getHrvstDays()- Seed.HARVEST_TIME;
             waterReq = currLand.cropWaterNeeds() - currLand.getAmtWater();
+            if (waterReq < 0)
+                waterReq = 0;
             fertilizerReq = currLand.cropFertilizerNeeds() - currLand.getAmtFertilizer();
+            if (fertilizerReq < 0)
+                fertilizerReq = 0;
 
             //set reason (days required, water needs, fertilizer needs)
             reason = "Crop isn't harvestable yet" +
