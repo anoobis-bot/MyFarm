@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
     It handles the communication between the entities and the GUI
  */
 public class Controller implements ActionListener {
+    Render render;
     private final Player player;
     private final GameEnvironment game;
     private final Land[][] landMatrix;
@@ -37,11 +38,15 @@ public class Controller implements ActionListener {
     private final int TOOLS_TOTAL = ToolAttributes.values().length;
     private final int SEEDS_TOTAL = SeedAttributes.values().length;
 
-    public Controller(Player player, Land[][] landMatrix, GameEnvironment game)
+    public Controller(Player player, Land[][] landMatrix, GameEnvironment game, String GAME_NAME)
     {
         this.player = player;
         this.landMatrix = landMatrix;
         this.game = game;
+
+        // creates the main frame
+        this.render = new Render(this, GAME_NAME);
+        render.mainFrame.setVisible(true);
     }
 
     @Override
@@ -51,9 +56,10 @@ public class Controller implements ActionListener {
         StringTokenizer eventInfo = new StringTokenizer(event.getActionCommand(), ",");
         String opType = eventInfo.nextToken();
 
-        if (chckGameOver())
-            System.out.println("ded");
-
+        if (chckGameOver()){
+            render.mainFrame.dispose(); // closes Main Window
+            new GameOverController(); // opens Game Over Window
+        }
         else
         {
             if (opType.equals(CODE_SEED) || opType.equals(CODE_TOOL) || opType.equals(CODE_HARVEST)) {

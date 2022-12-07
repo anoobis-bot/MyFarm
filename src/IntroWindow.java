@@ -2,25 +2,33 @@ import javax.swing.*;
 import java.awt.*;
 
 public class IntroWindow {
-    //IntroController introController = new IntroController();
-    public JFrame frame = new JFrame();
-    public JProgressBar bar = new JProgressBar();
+    //set as public for backend controls by IntroController
+    public JFrame introFrame;
+    //set as public for backend controls by IntroController
+    public JProgressBar bar;
+    //set as public for backend controls by IntroController
+    public JLabel lblLoad;
     private static final int frameX = 420;//frame width;
     private static final int frameY = 480;//frame Height;
 
     public IntroWindow(String GAME_TITLE)
     {
-        //Initializing main frame
-        frame.setTitle(GAME_TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.setResizable(false);
-        frame.setSize(frameX, frameY);
-        frame.setLocationRelativeTo(null);
+        introFrame = new JFrame();
+        lblLoad = new JLabel();
+        bar = new JProgressBar();
+
+        //Initializing Intro Frame
+        introFrame.setTitle(GAME_TITLE);
+        introFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        introFrame.setLayout(new BorderLayout());
+        introFrame.setResizable(false);
+        introFrame.setSize(frameX, frameY);
+        introFrame.setLocationRelativeTo(null);
 
         //Creating ImageIcon to change Icon of the window
         ImageIcon image = new ImageIcon("src/Images/Icon1.png");
-        frame.setIconImage(image.getImage());
+        introFrame.setIconImage(image.getImage());
+
         //modified image for displaying on IntroWindow's frame
         Image frameicon = image.getImage().getScaledInstance(frameX -200, frameY -250, Image.SCALE_SMOOTH);
 
@@ -30,29 +38,31 @@ public class IntroWindow {
         JPanel barPanel = new JPanel();
         barPanel.setLayout(new GridBagLayout());
 
-        //icon
+        // Main Icon at the center
         JLabel iconlbl = new JLabel();
         iconlbl.setIcon(new ImageIcon(frameicon));
         iconlbl.setHorizontalAlignment(JLabel.CENTER);
         iconPanel.add(iconlbl);
 
-        // Button properties configurations
+        // properties configurations
         GridBagConstraints btnProperty = new GridBagConstraints();
-        btnProperty.gridy = 0;
         btnProperty.weightx = 0.5;
 
-        // Progress bar (Loading Bar)
-        btnProperty.gridy = 2;
-        bar.setValue(0);
-        //bar.setSize(frameX,15);
-        bar.setPreferredSize(new Dimension(frameX-14, 25));
-        barPanel.add(bar);
+        // Label of progress bar
+        lblLoad.setText("Loading...");
+        btnProperty.gridy = 0;
+        barPanel.add(lblLoad,btnProperty);
 
+        // Progress bar (Loading Bar)
+        btnProperty.gridy = 1;
+        bar.setValue(0);
+        bar.setPreferredSize(new Dimension(frameX-14, 25));
+        barPanel.add(bar,btnProperty);
 
         //add content panel to main frame
-        frame.add(iconPanel, BorderLayout.CENTER);
-        frame.add(barPanel, BorderLayout.SOUTH);
+        introFrame.add(iconPanel, BorderLayout.CENTER);
+        introFrame.add(barPanel, BorderLayout.SOUTH);
 
-        //frame.setVisible(true);
+        //frame.setVisible(true); for testing SEPARATELY
     }
 }

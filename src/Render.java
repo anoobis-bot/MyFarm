@@ -18,7 +18,7 @@ public class Render {
         While the NORTH and SOUTH contains player information and advancing to the next day.
         Each section of the Layout is a nested GridBagLayout
      */
-    private JFrame mainFrame;
+    public JFrame mainFrame; // set as Public to Control in Controller Class
     private JPanel landPlot;
     private JPanel toolPlot;
     private JPanel seedPlot;
@@ -326,8 +326,6 @@ public class Render {
         mainFrame.add(seedPlot, BorderLayout.EAST);
         mainFrame.add(infoPlot, BorderLayout.NORTH);
         mainFrame.add(miscPlot, BorderLayout.SOUTH);
-
-
-        mainFrame.setVisible(true);
+        //mainFrame.setVisible(true);//Controller can set it only
     }
 }

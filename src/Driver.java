@@ -11,8 +11,8 @@ public class Driver
     public static void main(String[] args)
     {
         GameEnvironment game = new GameEnvironment(5, 10); // farm size
-        //Player player = new Player(100, 0); // starting money/lvl
-        Player player = new Player(5000, 1500); // for testing Upgrade Farmer
+        Player player = new Player(100, 0); // starting money/lvl
+        //Player player = new Player(5000, 1500); // for testing Upgrade Farmer
 
         // 2D array of Land(lot) to create whole farm
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
@@ -24,10 +24,13 @@ public class Driver
                 landMatrix[y][x] = new Land();
 
         // Backend of the GUI
-        Controller controller = new Controller(player, landMatrix, game);
+        //Controller controller = // for testing
+        new Controller(player, landMatrix, game, GAME_NAME);
         //new IntroWindow(); // for testing
         //new IntroController(); //for testing
-        new Render(controller, GAME_NAME);
+        //new GameOverWindow(); //for testing
+        //new GameOverController(); //for testing
+        //new Render(controller, GAME_NAME);
 //        /* Start of game loop until closed */
 //        boolean close = false;
 //        do

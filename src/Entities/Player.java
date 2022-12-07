@@ -16,7 +16,7 @@ public class Player {
     private FarmerType farmerType;
     private int xPointer;
     private int yPointer;
-    private final Equipment tool;
+    private Equipment tool;
     private Seed seed;
     private String reason;
 
@@ -319,5 +319,16 @@ public class Player {
                     "\nFertilizer Need:" + fertilizerReq;
             return false;
         }
+    }
+    public void restartPlayer(int objCoin, double playerExp)
+    {
+        this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
+        this.objCoin = objCoin;
+        this.playerExp = playerExp;
+        this.playerLvl = (int) (playerExp / 100);
+        this.tool = new Equipment();
+
+        this.waterUsed = 0;
+        this.fertilizerUsed = 0;
     }
 }
