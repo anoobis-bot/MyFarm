@@ -1,6 +1,7 @@
 import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 import Entities.Land;
+import jnr.ffi.annotations.In;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,6 +78,9 @@ public class Render {
         this.LAND_WIDTH = controller.getWidthLand();
         this.LAND_HEIGHT = controller.getHeightLand();
         this.LAND_AREA = LAND_WIDTH * LAND_HEIGHT;
+
+        // INTRO WINDOW
+        new IntroController(GAME_TITLE);
 
         // Initializing main frame
         mainFrame = new JFrame(GAME_TITLE);

@@ -13,6 +13,7 @@ public class Driver
         GameEnvironment game = new GameEnvironment(5, 10);
         Player player = new Player(100, 0);
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
+        String GAME_NAME = "My Farm";
 
         // initializing land object in each element of landMatrix[][]
         for (int y = 0; y < game.getYSize(); y++)
@@ -20,9 +21,10 @@ public class Driver
                 landMatrix[y][x] = new Land();
 
         Controller controller = new Controller(player, landMatrix, game);
-//        new IntroWindow(controller);
+        //new IntroWindow(); //test
+        //new IntroController(); //test
 
-        new Render(controller, "My Farm");
+        new Render(controller, GAME_NAME);
 //        /* Start of game loop until closed */
 //        boolean close = false;
 //        do

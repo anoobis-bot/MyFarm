@@ -1,28 +1,20 @@
-
-
 import javax.swing.*;
 import java.awt.*;
 
 public class IntroWindow {
-    private static final String GAME_TITLE = "My Farm";
+    //IntroController introController = new IntroController();
     public JFrame frame = new JFrame();
-    private static final int PADDING_ADVANCE_BOTTOM = 50,
-                            HEIGHT_ADVANCE = 45,
-                            WIDTH_ADVANCE = 150;
+    public JProgressBar bar = new JProgressBar();
+    private static final int frameX = 420;//frame width;
+    private static final int frameY = 480;//frame Height;
 
-    public IntroWindow() {}
-
-    public IntroWindow(Controller controller)
+    public IntroWindow(String GAME_TITLE)
     {
         //Initializing main frame
         frame.setTitle(GAME_TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.setResizable(false);
-        //frame width;
-        int frameX = 420;
-        //frame height;
-        int frameY = 480;
         frame.setSize(frameX, frameY);
         frame.setLocationRelativeTo(null);
 
@@ -35,8 +27,8 @@ public class IntroWindow {
         //Initializing subframes
         JPanel iconPanel = new JPanel();
         iconPanel.setLayout(new GridBagLayout());
-        JPanel btnPanel = new JPanel();
-        btnPanel.setLayout(new GridBagLayout());
+        JPanel barPanel = new JPanel();
+        barPanel.setLayout(new GridBagLayout());
 
         //icon
         JLabel iconlbl = new JLabel();
@@ -49,34 +41,18 @@ public class IntroWindow {
         btnProperty.gridy = 0;
         btnProperty.weightx = 0.5;
 
-        // play button
-        JButton btn_Play = new JButton();
-        btn_Play.setText("PLAY");
-        btn_Play.addActionListener(controller);
+        // Progress bar (Loading Bar)
+        btnProperty.gridy = 2;
+        bar.setValue(0);
+        //bar.setSize(frameX,15);
+        bar.setPreferredSize(new Dimension(frameX-14, 25));
+        barPanel.add(bar);
 
-        btn_Play.setPreferredSize(new Dimension(WIDTH_ADVANCE,HEIGHT_ADVANCE));
-        btnProperty.gridx = 0;
-        btnProperty.anchor = GridBagConstraints.CENTER;
-        btnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
-        btnPanel.add(btn_Play, btnProperty);
-
-        // help button
-        JButton btn_Help = new JButton();
-        btn_Help.setText("HELP");
-        btn_Help.addActionListener(controller);
-
-        btn_Help.setPreferredSize(new Dimension(WIDTH_ADVANCE, HEIGHT_ADVANCE));
-        btnProperty.gridx = 1;
-        btnProperty.anchor = GridBagConstraints.CENTER;
-        btnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
-        btnPanel.add(btn_Help, btnProperty);
 
         //add content panel to main frame
         frame.add(iconPanel, BorderLayout.CENTER);
-        frame.add(btnPanel, BorderLayout.SOUTH);
+        frame.add(barPanel, BorderLayout.SOUTH);
 
-        frame.setVisible(true);
+        //frame.setVisible(true);
     }
-
-    public String getGameTitle(){return GAME_TITLE;}
 }
