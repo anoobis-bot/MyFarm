@@ -1,6 +1,8 @@
-package Entities;/*
+/*
     This class contains the equipment for the game
  */
+
+package Entities;
 import Constants.ToolAttributes;
 
 public class Equipment
@@ -31,7 +33,7 @@ public class Equipment
         this.requiredRocks = tool.requiredRocks;
     }
 
-    // getters
+    // Getters being used in the game
     public String getEnumName()
     {
         return enumName;
@@ -57,23 +59,36 @@ public class Equipment
         return requiredRocks;
     }
 
-    // these methods below are the ones to be used if the tool is usable
+    /*
+     * This method verifies whether the player has enough coins to use a particular tool
+     * @param objCoin The amount of coin that the palyer has
+     */
     public boolean verifyUsage_Mny(double objCoin)
     {
         return objCoin >= this.usageCost;
     }
+    /*
+     * This method verifies whether the player clan plant a seed on a specific land based on the seed's land requirements
+     * @param isPlowed isPlowed field of the land tile
+     * @param hasPlant hasPlant field of the land tile
+     * @param hasRocks hasRocks field of the land tile
+     * @param isWithered isWithered field of the land tile
+     */
     public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasPlant, boolean hasRocks, boolean isWithered)
     {
         // Guard clauses
+        // Immediately returns true if there are no requirements for using the tool (shovel)
         if (this.noRequirement)
         {
             return true;
         }
 
+        // If the land is withered, no other tools can be used
         if (isWithered)
         {
             return false;
         }
+        // These checks if the land condition matches the conditional use of the current tool
         else if (this.requiredPlowed != isPlowed)
         {
             return false;
@@ -87,7 +102,7 @@ public class Equipment
             return false;
         }
 
-
+        // Returns true if it passes all verification
         return true;
     }
 }

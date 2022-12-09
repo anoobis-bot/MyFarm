@@ -1,6 +1,8 @@
-package Entities;/*
+/*
     This class is the blueprint for the player object in the game.
  */
+
+package Entities;
 
 import Constants.CropType;
 import Constants.FarmerTypeAttributes;
@@ -71,28 +73,39 @@ public class Player {
     public FarmerType getFarmerType() {
         return farmerType;
     }
-    //    set farmer type depends on the conditions
-    //    @param option - choices input by the user
+
+    /*
+     * set farmer type depends on the conditions
+     * @param option - choices input by the user
+     *
+     * @ return boolean true if the player is able to upgrade the farmer
+     */
     public boolean upgradeFarmerType()
     {
+        // Gets which is the next level to upgrade to
         int farmerNextLevel = FarmerTypeAttributes.valueOf(farmerType.getEnumName()).ordinal() + 1;
 
         FarmerTypeAttributes[] upgradeList = FarmerTypeAttributes.values();
 
+        // if there are no more upgrades / the maximum upgrade is reached, do no upgrade anymore
         if (farmerNextLevel >= upgradeList.length)
         {
             return false;
         }
+        // If the level requirement is not met
         else if (upgradeList[farmerNextLevel].levelRequirement > this.playerLvl)
         {
             return false;
         }
+        // if the player does not have enough coin
         else if (upgradeList[farmerNextLevel].registrationFee > this.objCoin)
         {
             return false;
         }
 
+        // If all verifications passes, upgrade to the next farmer type
         this.farmerType = new FarmerType(upgradeList[farmerNextLevel]);
+        // deduct cost
         useObjCoin(- (this.farmerType.getRegistrationFee()));
         return true;
     }
@@ -139,6 +152,8 @@ public class Player {
     /*
         Uses the tool assigned to the land specified by the point
         @param landMatrix a 2D array from the Entities.Land class
+
+        @ return boolean true if it successfully uses the tool
     */
     public boolean useTool(Land[][] landMatrix)
     {
@@ -148,7 +163,7 @@ public class Player {
                                                                         currLand.hasRocks(),
                                                                         currLand.isWithered()))
         {
-            // Defines which tool will be used
+            // Defines which method will be used based on the current tool of the player
             switch (ToolAttributes.valueOf(tool.getEnumName())) {
                 case PLOW -> currLand.plowLand();
                 case WATERING_CAN -> currLand.waterLand(farmerType.getBonusWaterLimitIncrease());
@@ -157,11 +172,13 @@ public class Player {
                 case SHOVEL -> currLand.shovelLand();
             }
 
+            // subtract cost and get exp
             useObjCoin( - (tool.getUsageCost()) );
             changeFarmerExp(tool.getExpGain());
             return true;
         }
         else{
+            // Sets the reason for failing to use the tool
             if(!tool.verifyUsage_Mny(objCoin))
                 reason = "Insufficient Money";
             else if (!tool.verifyUsage_Lnd(currLand.isPlowed(),
@@ -188,6 +205,9 @@ public class Player {
     public void grabSeed(SeedAttributes seed){ this.seed = new Seed(seed); }
     /*
         @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
+        @param game input the game object. It uses the size of the land for Fruit Tree planting
+
+        @return boolean true if it successfully plants the seed in the land
      */
     public boolean plantSeed(Land[][] landMatrix, GameEnvironment game)
     {
@@ -217,20 +237,27 @@ public class Player {
     /*
        harvests the seed specified by the point
        @param landMatrix a 2D array from the Entities.Land class
+
+       @return boolean true if it has a successful harvest
      */
     public boolean harvestCrop(Land[][] landMatrix)
     {
         double harvestTotal, waterBonus, fertilizerBonus, finalHarvestPrice;
 
         Land currLand = landMatrix[yPointer][xPointer];
+
+        // If the land has no seed, do not harvest
         if (!currLand.hasSeed())
             return false;
 
+        // Shorten syntax
         Seed currSeedInLand = currLand.getCurrentSeed();
 
-        if (currLand.getCurrentSeed().getHrvstDays() == Seed.HARVEST_TIME
+        // If the player is able to harvest
+        if (currSeedInLand.getHrvstDays() == Seed.HARVEST_TIME
                 && currLand.validateWaterFertilizer())
         {
+            // Formula from MP Specs
             harvestTotal = currSeedInLand.getProducedQty() *
                             (currSeedInLand.getBaseSellPrice() + getFarmerType().getBonusCoin());
             waterBonus = harvestTotal * 0.2 * (currLand.getAmtWater() - 1);
@@ -241,6 +268,7 @@ public class Player {
             System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " +
                                 currSeedInLand.getProducedQty());
 
+            // Gain coins and exp
             useObjCoin(finalHarvestPrice + farmerType.getBonusCoin());
             changeFarmerExp(currSeedInLand.getExpYield());
 

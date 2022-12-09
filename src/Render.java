@@ -1,3 +1,12 @@
+/*
+ * file name: Render.java
+ * Developers:  Francis De Leon
+ *              Mark Abergos
+ *
+ * This class contains the graphics code for setting up the GUI of the game. A separate class will be created
+ * for event handling.
+ */
+
 import Constants.SeedAttributes;
 import Constants.ToolAttributes;
 import Entities.Land;
@@ -5,10 +14,7 @@ import Entities.Land;
 import javax.swing.*;
 import java.awt.*;
 
-/*
-    This class contains the graphics code for setting up the GUI of the game. A separate class will be created
-    for event handling.
- */
+
 public class Render {
     /*
         The GUI has a mainFrame that has a BorderLayout.

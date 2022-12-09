@@ -8,6 +8,7 @@ package Constants;
 
 public enum CropType
 {
+    // <CROP_TYPE>(typeName, paddingRequired)
     ROOT_CROP("Root Crop", 0),
     FLOWER("Flower", 0),
     FRUIT_TREE("Fruit Tree", 1);

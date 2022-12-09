@@ -1,11 +1,18 @@
-package Entities;
-import java.util.Random;
 /*
     This class is the blueprint for the land object in the game.
  */
 
+package Entities;
+import java.util.Random;
+
 public class Land
 {
+    /*
+     * The land has an aggregation relationship with the crop
+     * Its fields describe what is the attribute of the land tile: how much water, fertilizer it has
+     * and if it has rocks or a withered crop, or the land is plowed
+     */
+
     private Seed crop;
     private int amtWater, amtFertilizer;
     private boolean hasRocks, isWithered;
@@ -28,7 +35,7 @@ public class Land
     }
 
     /*
-        *plants* the seed into the land via aggregation.
+        plants the seed into the land via aggregation.
         @param seed  put here the seed object from the player.
      */
     public void setSeed(Seed seed)
@@ -41,13 +48,7 @@ public class Land
         this.isWithered = true;
     }
 
-    /*
-        Get methods
-    */
-    public Seed getCurrentSeed()
-    {
-        return this.crop;
-    }
+    // Checks if the land has a crop/seed in it
     public boolean hasSeed()
     {
         if (this.crop == null)
@@ -55,15 +56,7 @@ public class Land
 
         return true;
     }
-
-    public int getAmtWater()
-    {
-        return amtWater;
-    }
-    public int getAmtFertilizer()
-    {
-        return amtFertilizer;
-    }
+    // Validates if the land has the right condition for the crop's water and fertilizer needs
     public boolean validateWaterFertilizer()
     {
         if (this.amtWater < this.crop.getWaterNeeds())
@@ -76,6 +69,23 @@ public class Land
         }
 
         return true;
+    }
+
+    /*
+        Get methods
+    */
+    public Seed getCurrentSeed()
+    {
+        return this.crop;
+    }
+
+    public int getAmtWater()
+    {
+        return amtWater;
+    }
+    public int getAmtFertilizer()
+    {
+        return amtFertilizer;
     }
 
     public boolean isPlowed()
@@ -91,6 +101,10 @@ public class Land
         return isWithered;
     }
 
+
+    /*
+     * The codes below changes the attributes of the land
+     */
     // Increments on how many times the land has been watered
     public void waterLand(int bonusFromFarmer)
     {

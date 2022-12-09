@@ -1,7 +1,8 @@
-package Entities;
 /*
     This class contains the equipment for the game
  */
+
+package Entities;
 
 import Constants.CropType;
 import Constants.SeedAttributes;
@@ -14,6 +15,7 @@ public class Seed
     private final String seedName;
     private final CropType cropType;
     private int hrvstDays;
+    // The hrvstDays decrement requirement to be able to harvest
     public static final int HARVEST_TIME = 0;
     private final int waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
             producedQtyMin, producedQtyMax, producedQty, seedCost, baseSellPrice;
@@ -92,6 +94,10 @@ public class Seed
         return this.cropType.paddingRequired;
     }
 
+    /*
+     * The system for harvesting is decrement. A plant has a specific number of maturity. If reaches the next day
+     * The time it gets to reach to its harvest point is decremented until it reaches 0 (harvest time)
+     */
     public int decrementHrvstDays()
     {
         this.hrvstDays--;
@@ -105,6 +111,7 @@ public class Seed
     }
     public boolean verifyUsage_Lnd(Land[][] landMatrix, GameEnvironment game, int yPointer, int xPointer)
     {
+        // Shorten syntax
         Land currLand = landMatrix[yPointer][xPointer];
 
         if (currLand.isWithered())
@@ -124,7 +131,7 @@ public class Seed
         {
             return false;
         }
-        // checks padding
+        // checks padding for fruit tree requirement
         else if (this.cropType.equals(CropType.FRUIT_TREE))
         {
             // CORNERS CHECKING

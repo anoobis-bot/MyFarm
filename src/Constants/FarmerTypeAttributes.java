@@ -7,6 +7,9 @@ package Constants;
 
 public enum FarmerTypeAttributes
 {
+    // NOTE: The order of the enums matter since ordinal() was used to point to the next farmer type upgrade
+    // <FARMER_TYPE>(nameType, levelRequirement, bonusCoin, seedReductionCost,
+    //                  bonusLimitIncrease, bonusFertilizerIncrease, registrationFee)
     FARMER("Farmer", 0, 0, 0,
             0, 0, 0),
     REGISTERED_FARMER("Registered Farmer", 5, 1, -1,

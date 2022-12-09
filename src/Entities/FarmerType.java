@@ -1,9 +1,11 @@
-package Entities;/*
+/*
     This class contains the Farmer Type for the game
     When the user decides to change tool, a new object is instantiated with it constructor
     That is why it is not necessary to have setter methods
  */
 
+
+package Entities;
 import Constants.FarmerTypeAttributes;
 
 public class FarmerType
@@ -26,7 +28,7 @@ public class FarmerType
         this.registrationFee = farmerAttributes.registrationFee;
     }
 
-    // Getters
+    // Getters for the private fields
     public String getNameType() {
         return nameType;
     }

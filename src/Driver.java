@@ -1,5 +1,9 @@
 /*
-    This java file contains the main method
+ * file name: Driver.java
+ * Developers:  Francis De Leon
+ *              Mark Abergos
+ *
+ * This file contains the Main method.
  */
 
 import Entities.GameEnvironment;
@@ -10,6 +14,7 @@ public class Driver
 {
     public static void main(String[] args)
     {
+        // Instantiates all the entities in the game
         GameEnvironment game = new GameEnvironment(5, 10);
         Player player = new Player(100, 0);
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
@@ -19,6 +24,7 @@ public class Driver
             for (int x = 0; x < game.getXSize(); x++)
                 landMatrix[y][x] = new Land();
 
+        // Instantiating the controller method for the game
         Controller controller = new Controller(player, landMatrix, game);
 //        new IntroWindow(controller);
 

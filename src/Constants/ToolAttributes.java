@@ -7,7 +7,7 @@ package Constants;
 
 public enum ToolAttributes
 {
-    // <TOOL_NAME>(toolName, costUsage, expUsage, requiredPlowed, requiredRocksClear
+    // <TOOL_NAME>(toolName, costUsage, expUsage, noRequirement, requiredPlowed, requiredPlant, requiredRocks)
     PLOW("Plow", 0, 0.5,
             false, false, false, false),
     WATERING_CAN("Watering Can", 0, 0.5,
