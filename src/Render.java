@@ -80,7 +80,7 @@ public class Render {
         this.LAND_AREA = LAND_WIDTH * LAND_HEIGHT;
 
         // INTRO WINDOW
-        new IntroController(GAME_TITLE);
+        //new IntroController(GAME_TITLE);
 
         // Initializing main frame
         mainFrame = new JFrame(GAME_TITLE);

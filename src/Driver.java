@@ -16,7 +16,7 @@ public class Driver
 
         // 2D array of Land(lot) to create whole farm
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
-        String GAME_NAME = "My Farm"; // Game Name
+        String GAME_TITLE = "My Farm"; // Game Name
 
         // initializing land object in each element of landMatrix[][]
         for (int y = 0; y < game.getYSize(); y++)
@@ -25,12 +25,13 @@ public class Driver
 
         // Backend of the GUI
         //Controller controller = // for testing
-        new Controller(player, landMatrix, game, GAME_NAME);
-        //new IntroWindow(); // for testing
+        //new Controller(player, landMatrix, game, GAME_TITLE);
+        new IntroController(player, landMatrix, game, GAME_TITLE); // for testing
         //new IntroController(); //for testing
         //new GameOverWindow(); //for testing
         //new GameOverController(); //for testing
-        //new Render(controller, GAME_NAME);
+        //new Render(controller, GAME_TITLE);
+
 //        /* Start of game loop until closed */
 //        boolean close = false;
 //        do

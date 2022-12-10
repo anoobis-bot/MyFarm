@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 public class GameOverController implements ActionListener {
     private static final String CODE_RESTART = "RESTART";
     private static final String CODE_QUIT = "QUIT";
+    Controller controller;
     GameOverWindow gameOverWindow;
     public GameOverController(){
         // Creates the GUI of game over
@@ -25,9 +26,6 @@ public class GameOverController implements ActionListener {
 
         // Buttons event after actionPerformed
         if (opType.equals(CODE_RESTART)){
-            System.out.println("restart");
-            this.gameOverWindow.gameOverFrame.dispose();
-
             // DOES THE SAME IN CREATING THE GAME IN MAIN
             GameEnvironment game = new GameEnvironment(5, 10); // farm size
             Player player = new Player(100, 0); // starting money/lvl
@@ -41,6 +39,7 @@ public class GameOverController implements ActionListener {
                 for (int x = 0; x < game.getXSize(); x++)
                     landMatrix[y][x] = new Land();
 
+            this.gameOverWindow.gameOverFrame.dispose();
             new Controller(player, landMatrix, game, GAME_NAME);
         }
         else if (opType.equals(CODE_QUIT)){

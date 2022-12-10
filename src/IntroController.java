@@ -1,7 +1,11 @@
+import Entities.GameEnvironment;
+import Entities.Land;
+import Entities.Player;
+
 public class IntroController
 {
 
-    public IntroController(String GAME_TITLE)
+    public IntroController(Player player, Land[][] landMatrix, GameEnvironment game, String GAME_TITLE)
     {
         int loadValue = 0;
         // LOADING SCREEN Window rendering
@@ -12,7 +16,7 @@ public class IntroController
         try{
             for (int i = 0; i <= 100; i++){
                 Thread.sleep(70);// loading speed
-                //Thread.sleep(10);// for testing
+                //Thread.sleep(10);// for speed testing
 
                 // Label updates according to i'th value
                 switch (i){
@@ -28,6 +32,9 @@ public class IntroController
             }
             if (loadValue == 100){
                 introWindow.introFrame.dispose(); //closes Loading window
+                // after loading successfully, the main game starts
+                new Controller(player, landMatrix, game, GAME_TITLE);
+
             }
         } catch (Exception e){
         }

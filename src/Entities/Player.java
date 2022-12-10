@@ -6,6 +6,8 @@ import Constants.CropType;
 import Constants.FarmerTypeAttributes;
 import Constants.ToolAttributes;
 import Constants.SeedAttributes;
+
+import javax.swing.*;
 import java.lang.Math;
 
 public class Player {
@@ -294,8 +296,8 @@ public class Player {
             finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
             if (currSeedInLand.getCropType().equals(CropType.FLOWER))
                 finalHarvestPrice *= 1.1;
-            System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " +
-                                currSeedInLand.getProducedQty());
+            JOptionPane.showMessageDialog(null, "Object Coins earned: " + finalHarvestPrice
+                    + "\nProducts Produced: " + currSeedInLand.getProducedQty());
 
             useObjCoin(finalHarvestPrice + farmerType.getBonusCoin());
             changeFarmerExp(currSeedInLand.getExpYield());
