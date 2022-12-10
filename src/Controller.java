@@ -27,6 +27,7 @@ public class Controller implements ActionListener {
      * The type of relationship that controller has with other entities is aggregation.
      * The controller changes aspects of the player and the land based on the user input
      */
+    Render render;
     private final Player player;
     private final GameEnvironment game;
     private final Land[][] landMatrix;
@@ -64,11 +65,15 @@ public class Controller implements ActionListener {
      * These entities have an aggregation type of relationship with the controller.
      * They are aggregated when the Controller class is instantiated
      */
-    public Controller(Player player, Land[][] landMatrix, GameEnvironment game)
+    public Controller(Player player, Land[][] landMatrix, GameEnvironment game, String GAME_NAME)
     {
         this.player = player;
         this.landMatrix = landMatrix;
         this.game = game;
+
+        // creates the main frame
+        this.render = new Render(this, GAME_NAME);
+        render.mainFrame.setVisible(true);
     }
 
     /*
@@ -91,9 +96,10 @@ public class Controller implements ActionListener {
         String opType = eventInfo.nextToken();
 
         // Every button press checks if the game is already over.
-        if (chckGameOver())
-            System.out.println("ded");
-
+        if (chckGameOver()){
+            render.mainFrame.dispose(); // closes Main Window
+            new GameOverController(); // opens Game Over Window
+        }
         else
         {
             /*
@@ -151,18 +157,21 @@ public class Controller implements ActionListener {
                 if (player.getOperationType() == player.USE_TOOL) {
                     if (!player.useTool(landMatrix)) {
                         // Displays message box for alerting user in using tool.
-                        JOptionPane.showMessageDialog(null, "You can't use " + player.getTool().getToolName()
+                        JOptionPane.showMessageDialog(null,
+                                "You can't use " + player.getTool().getToolName()
                                 + " on this this land\nReason:\n" + player.getReason());
                     }
                 } else if (player.getOperationType() == player.PLANT) {
                     if (!player.plantSeed(landMatrix, game)) {
                         // Displays message box for alerting user in planting crop.
-                        JOptionPane.showMessageDialog(null, "You can't plant " + player.getSeed().getSeedName()
+                        JOptionPane.showMessageDialog(null,
+                                "You can't plant " + player.getSeed().getSeedName()
                                 + " on this this land\nReason:\n" + player.getReason());
                     }
                 } else if (player.getOperationType() == player.HARVEST) {
-                    if (player.harvestCrop(landMatrix) == false) {
-                        System.out.println("You can't harvest!");
+                    if (!player.harvestCrop(landMatrix)) {
+                        // Displays message box for alerting user in harvesting crop.
+                        JOptionPane.showMessageDialog(null, player.getReason());
                     }
                 }
 
@@ -185,15 +194,14 @@ public class Controller implements ActionListener {
             // If the player clicks the upgrade farmer button
             else if (opType.equals(CODE_UPGRADE)) {
                 // This method upgrades the farmer's status. It returns false when proper conditions are not met.
-                if (player.upgradeFarmerType() == false) {
-                    System.out.println("You can't upgrade!");
+                if (!player.upgradeFarmerType()) {
+                    // Displays message box for alerting user in UPGRADING PLAYER
+                    JOptionPane.showMessageDialog(null, player.getReason());
                 }
 
                 // Updates the labels, specifically the display which displays the status of the farmer
                 updateLabels();
             }
-
-
         }
     }
 

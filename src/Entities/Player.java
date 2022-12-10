@@ -8,6 +8,8 @@ import Constants.CropType;
 import Constants.FarmerTypeAttributes;
 import Constants.ToolAttributes;
 import Constants.SeedAttributes;
+
+import javax.swing.*;
 import java.lang.Math;
 
 public class Player {
@@ -90,16 +92,22 @@ public class Player {
         // if there are no more upgrades / the maximum upgrade is reached, do no upgrade anymore
         if (farmerNextLevel >= upgradeList.length)
         {
+            //UpgradeFarmer REASON #1 == Max Upgrade
+            reason = "Max Farmer Upgrade Reached ";
             return false;
         }
         // If the level requirement is not met
         else if (upgradeList[farmerNextLevel].levelRequirement > this.playerLvl)
         {
+            //UpgradeFarmer REASON #2 == Level not Reached
+            reason = "Level not yet reached\nLevel Required: " + upgradeList[farmerNextLevel].levelRequirement;
             return false;
         }
         // if the player does not have enough coin
         else if (upgradeList[farmerNextLevel].registrationFee > this.objCoin)
         {
+            //UpgradeFarmer REASON #3 == Insufficient money
+            reason = "Insufficient Coin\nRegistration Fee: " + upgradeList[farmerNextLevel].registrationFee;
             return false;
         }
 
@@ -178,20 +186,43 @@ public class Player {
             return true;
         }
         else{
-            // Sets the reason for failing to use the tool
+            //Tool REASON #1 == Insufficient money
             if(!tool.verifyUsage_Mny(objCoin))
                 reason = "Insufficient Money";
             else if (!tool.verifyUsage_Lnd(currLand.isPlowed(),
-                    currLand.hasSeed(),
-                    currLand.hasRocks(),
-                    currLand.isWithered())) {
+                                            currLand.hasSeed(),
+                                            currLand.hasRocks(),
+                                            currLand.isWithered()))
+            {
                 // Defines which tool will be used
                 switch (ToolAttributes.valueOf(tool.getEnumName())) {
-                    case PLOW -> reason = "Plow can only be used for unplowed tile without rocks";
-                    case WATERING_CAN -> reason = "Watering can can only be used on a plowed tile with a crop";
-                    case FERTILIZER -> reason = "Fertilizer can only be used on a plowed tile with a crop";
-                    case PICKAXE -> reason = "Pickaxe can only be used on tiles with rocks";
-                    case SHOVEL -> reason = "Shovel is most effective in removing a crop (withered or not)";
+
+                    //Tool REASON #2 == PLOW TOOL
+                    case PLOW:
+                        if (currLand.isPlowed())
+                            reason = "Land is plowed already"; //Tool REASON #2.1 == Land is already plowed
+                        else if (currLand.hasRocks())
+                            reason = "Land has rocks"; //Tool REASON #2.2 == Land has rocks
+                        break;
+
+                    //Tool REASON #3 & #4 == Watering Can & Fertilizer
+                    case WATERING_CAN:
+                    case FERTILIZER:
+                        reason = "Crop not found."; //Tool REASON #3.1 == non planted seed
+                        break;
+
+                    //Tool REASON #5 == Pickaxe
+                    case PICKAXE:
+                        reason = "No rocks here!";
+                        break;
+
+                    //Tool REASON #6 == Pickaxe
+                    case SHOVEL:
+                        if (!currLand.hasSeed())
+                            reason = "Crop not found." +
+                                    "\nUsing this ineffectively costs 7 object coins as well." +
+                                    "\nOnly use this on removing active or withered crops";
+                        break;
                 }
             }
             return false;
@@ -214,16 +245,35 @@ public class Player {
         // Guard Clauses. Returns false if the if-else statements failed.
         // Otherwise, if it reaches the bottom, all verifications are met.
 
+        Land currLand = landMatrix[yPointer][xPointer];
+
         // Checks all related verification in the land:
         // Plowed, Rocks, existing seed already, Fruit Tree padding
         if (!seed.verifyUsage_Lnd(landMatrix, game, yPointer, xPointer))
         {
-            reason = "seed can only be planted on unplowed tile without rocks, seed, and a tile further to sa tree crop.";
+            // PLANTING reason #1 - land has rocks
+            if(currLand.hasRocks())
+                reason = "Land has rocks. Use pickaxe first";
+
+            // PLANTING reason #2 - land isn't plowed
+            else if(!currLand.isPlowed())
+                reason = "Plow Land to plant!. Use plow tool first";
+
+            // PLANTING reason #3 - land already has seed
+            else if (currLand.hasSeed())
+                reason = "A crop has already been planted here";
+
+            // PLANTING reason #4 - fruit tree planting
+            else if (seed.getCropType().typeName=="Fruit Tree"){
+                //if()
+                reason = "Fruit Tree should be planted 1 tile away from any planted crop";
+            }
             return false;
         }
         // if the player has not enough money
         else if (!seed.verifyUsage_Mny(this.objCoin))
         {
+            // PLANTING reason #5
             reason = "Insufficient Money";
             return false;
         }
@@ -247,8 +297,11 @@ public class Player {
         Land currLand = landMatrix[yPointer][xPointer];
 
         // If the land has no seed, do not harvest
-        if (!currLand.hasSeed())
+        if (!currLand.hasSeed()){
+            // Harvest reason #1
+            reason = "Land doesn't have seed planted";
             return false;
+        }
 
         // Shorten syntax
         Seed currSeedInLand = currLand.getCurrentSeed();
@@ -265,8 +318,8 @@ public class Player {
             finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
             if (currSeedInLand.getCropType().equals(CropType.FLOWER))
                 finalHarvestPrice *= 1.1;
-            System.out.println("Revenue: " + finalHarvestPrice + ", Products Produced: " +
-                                currSeedInLand.getProducedQty());
+            JOptionPane.showMessageDialog(null, "Object Coins earned: " + finalHarvestPrice
+                    + "\nProducts Produced: " + currSeedInLand.getProducedQty());
 
             // Gain coins and exp
             useObjCoin(finalHarvestPrice + farmerType.getBonusCoin());
@@ -277,8 +330,24 @@ public class Player {
 
             return true;
         }
-        else
+        else{
+            // Harvest reason #2
+            int daysReq, waterReq, fertilizerReq;
+            daysReq = currLand.getCurrentSeed().getHrvstDays()- Seed.HARVEST_TIME;
+            waterReq = currLand.cropWaterNeeds() - currLand.getAmtWater();
+            if (waterReq < 0)
+                waterReq = 0;
+            fertilizerReq = currLand.cropFertilizerNeeds() - currLand.getAmtFertilizer();
+            if (fertilizerReq < 0)
+                fertilizerReq = 0;
+
+            //set reason (days required, water needs, fertilizer needs)
+            reason = "Crop isn't harvestable yet" +
+                    "\nDays Required:" + daysReq +
+                    "\nWater Need:" + waterReq +
+                    "\nFertilizer Need:" + fertilizerReq;
             return false;
+        }
     }
 
     /*

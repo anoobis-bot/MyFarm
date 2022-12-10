@@ -1,82 +1,68 @@
-
-
 import javax.swing.*;
 import java.awt.*;
 
 public class IntroWindow {
-    private static final String GAME_TITLE = "My Farm";
-    public JFrame frame = new JFrame();
-    private static final int PADDING_ADVANCE_BOTTOM = 50,
-                            HEIGHT_ADVANCE = 45,
-                            WIDTH_ADVANCE = 150;
+    //set as public for backend controls by IntroController
+    public JFrame introFrame;
+    //set as public for backend controls by IntroController
+    public JProgressBar bar;
+    //set as public for backend controls by IntroController
+    public JLabel lblLoad;
+    private static final int frameX = 420;//frame width;
+    private static final int frameY = 480;//frame Height;
 
-    public IntroWindow() {}
-
-    public IntroWindow(Controller controller)
+    public IntroWindow(String GAME_TITLE)
     {
-        //Initializing main frame
-        frame.setTitle(GAME_TITLE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.setResizable(false);
-        //frame width;
-        int frameX = 420;
-        //frame height;
-        int frameY = 480;
-        frame.setSize(frameX, frameY);
-        frame.setLocationRelativeTo(null);
+        introFrame = new JFrame();
+        lblLoad = new JLabel();
+        bar = new JProgressBar();
+
+        //Initializing Intro Frame
+        introFrame.setTitle(GAME_TITLE);
+        introFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        introFrame.setLayout(new BorderLayout());
+        introFrame.setResizable(false);
+        introFrame.setSize(frameX, frameY);
+        introFrame.setLocationRelativeTo(null);
 
         //Creating ImageIcon to change Icon of the window
         ImageIcon image = new ImageIcon("src/Images/Icon1.png");
-        frame.setIconImage(image.getImage());
+        introFrame.setIconImage(image.getImage());
+
         //modified image for displaying on IntroWindow's frame
         Image frameicon = image.getImage().getScaledInstance(frameX -200, frameY -250, Image.SCALE_SMOOTH);
 
         //Initializing subframes
         JPanel iconPanel = new JPanel();
         iconPanel.setLayout(new GridBagLayout());
-        JPanel btnPanel = new JPanel();
-        btnPanel.setLayout(new GridBagLayout());
+        JPanel barPanel = new JPanel();
+        barPanel.setLayout(new GridBagLayout());
 
-        //icon
+        // Main Icon at the center
         JLabel iconlbl = new JLabel();
         iconlbl.setIcon(new ImageIcon(frameicon));
         iconlbl.setHorizontalAlignment(JLabel.CENTER);
         iconPanel.add(iconlbl);
 
-        // Button properties configurations
+        // properties configurations
         GridBagConstraints btnProperty = new GridBagConstraints();
-        btnProperty.gridy = 0;
         btnProperty.weightx = 0.5;
 
-        // play button
-        JButton btn_Play = new JButton();
-        btn_Play.setText("PLAY");
-        btn_Play.addActionListener(controller);
+        // Label of progress bar
+        lblLoad.setText("Loading...");
+        btnProperty.gridy = 0;
+        barPanel.add(lblLoad,btnProperty);
 
-        btn_Play.setPreferredSize(new Dimension(WIDTH_ADVANCE,HEIGHT_ADVANCE));
-        btnProperty.gridx = 0;
-        btnProperty.anchor = GridBagConstraints.CENTER;
-        btnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
-        btnPanel.add(btn_Play, btnProperty);
-
-        // help button
-        JButton btn_Help = new JButton();
-        btn_Help.setText("HELP");
-        btn_Help.addActionListener(controller);
-
-        btn_Help.setPreferredSize(new Dimension(WIDTH_ADVANCE, HEIGHT_ADVANCE));
-        btnProperty.gridx = 1;
-        btnProperty.anchor = GridBagConstraints.CENTER;
-        btnProperty.insets = new Insets(0, 0, PADDING_ADVANCE_BOTTOM, 0);
-        btnPanel.add(btn_Help, btnProperty);
+        // Progress bar (Loading Bar)
+        btnProperty.gridy = 1;
+        bar.setValue(0);
+        bar.setPreferredSize(new Dimension(frameX-14, 25));
+        barPanel.add(bar,btnProperty);
 
         //add content panel to main frame
-        frame.add(iconPanel, BorderLayout.CENTER);
-        frame.add(btnPanel, BorderLayout.SOUTH);
+        introFrame.add(iconPanel, BorderLayout.CENTER);
+        introFrame.add(barPanel, BorderLayout.SOUTH);
 
-        frame.setVisible(true);
+        //frame.setVisible(true); for testing SEPARATELY
     }
-
-    public String getGameTitle(){return GAME_TITLE;}
 }

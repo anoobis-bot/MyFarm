@@ -21,15 +21,20 @@ public class Driver
         Player player = new Player(100, 0);
 
         Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
+        String GAME_TITLE = "My Farm"; // Game Name
+
         // initializing land object in each element of landMatrix[][]
         Loading.loadLand(game, landMatrix);
 
+        // Backend of the GUI
+        //Controller controller = // for testing
+        //new Controller(player, landMatrix, game, GAME_TITLE);
+        new IntroController(player, landMatrix, game, GAME_TITLE); // for testing
+        //new IntroController(); //for testing
+        //new GameOverWindow(); //for testing
+        //new GameOverController(); //for testing
+        //new Render(controller, GAME_TITLE);
 
-        // Instantiating the controller method for the game
-        Controller controller = new Controller(player, landMatrix, game);
-//        new IntroWindow(controller);
-
-        new Render(controller, "My Farm");
 //        /* Start of game loop until closed */
 //        boolean close = false;
 //        do

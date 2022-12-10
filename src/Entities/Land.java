@@ -84,6 +84,17 @@ public class Land
         return amtFertilizer;
     }
 
+    // returns current crop's Water need (Reason Purposes)
+    public int cropWaterNeeds()
+    {
+        return crop.getWaterNeeds();
+    }
+    // returns current crop's Fertilizer need (Reason Purposes)
+    public int cropFertilizerNeeds()
+    {
+        return crop.getFertilizerNeeds();
+    }
+
     public boolean isPlowed()
     {
         return isPlowed;
