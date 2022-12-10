@@ -19,26 +19,33 @@ public class Loading {
             String currLine;
             currLine = reader.readLine();
             int ySize = 0;
-            game.setXSize(currLine.length());
+            try {
+                game.setXSize(currLine.length());
+                while (currLine != null)
+                {
+                    currLine = reader.readLine();
+                    ySize++;
+                }
 
-            while (currLine != null)
-            {
-                currLine = reader.readLine();
-                ySize++;
+                game.setYSize(ySize);
+
+                reader.close();
+
+                if (game.getXSize() == 0 && game.getYSize() == 0)
+                    return false;
+
+                return true;
+            }
+            catch (NullPointerException e){
+                JOptionPane.showMessageDialog(null, "Please do at least a 1x1 input size");
+                return false;
             }
 
-            game.setYSize(ySize);
-
-            reader.close();
-
-            if (game.getXSize() == 0 && game.getYSize() == 0)
-                return false;
-
-            return true;
         }
         catch (IOException e)
         {
-            JOptionPane.showMessageDialog(null, "No file found.");
+            JOptionPane.showMessageDialog(null, "No file found. " +
+                    "\nPlease create a land_config.txt file at sav folder.");
             return false;
         }
 
@@ -72,7 +79,7 @@ public class Loading {
         }
         catch (IOException e)
         {
-            JOptionPane.showMessageDialog(null, "No file found.");
+            JOptionPane.showMessageDialog(null, "No file found. Please create a land_config.txt file at sav folder");
         }
     }
 }

@@ -27,20 +27,19 @@ public class GameOverController implements ActionListener {
         // Buttons event after actionPerformed
         if (opType.equals(CODE_RESTART)){
             // DOES THE SAME IN CREATING THE GAME IN MAIN
-            GameEnvironment game = new GameEnvironment(5, 10); // farm size
-            Player player = new Player(100, 0); // starting money/lvl
+            GameEnvironment game = new GameEnvironment();
+            Loading.loadGameSize(game);
 
-            // 2D array of Land(lot) to create whole farm
+            Player player = new Player(100, 0);
+
             Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
-            String GAME_NAME = "My Farm"; // Game Name
+            String GAME_TITLE = "My Farm"; // Game Name
 
             // initializing land object in each element of landMatrix[][]
-            for (int y = 0; y < game.getYSize(); y++)
-                for (int x = 0; x < game.getXSize(); x++)
-                    landMatrix[y][x] = new Land();
+            Loading.loadLand(game, landMatrix);
 
             this.gameOverWindow.gameOverFrame.dispose();
-            new Controller(player, landMatrix, game, GAME_NAME);
+            new Controller(player, landMatrix, game, GAME_TITLE);
         }
         else if (opType.equals(CODE_QUIT)){
             this.gameOverWindow.gameOverFrame.dispose(); //closes game over window

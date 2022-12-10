@@ -173,11 +173,18 @@ public class Player {
         {
             // Defines which method will be used based on the current tool of the player
             switch (ToolAttributes.valueOf(tool.getEnumName())) {
-                case PLOW -> currLand.plowLand();
-                case WATERING_CAN -> currLand.waterLand(farmerType.getBonusWaterLimitIncrease());
-                case FERTILIZER -> currLand.fertilizeLand(farmerType.getBonusFertilizeIncrease());
-                case PICKAXE -> currLand.removeRocks();
-                case SHOVEL -> currLand.shovelLand();
+                case PLOW: currLand.plowLand(); break;
+                case WATERING_CAN: currLand.waterLand(farmerType.getBonusWaterLimitIncrease()); break;
+                case FERTILIZER: currLand.fertilizeLand(farmerType.getBonusFertilizeIncrease()); break;
+                case PICKAXE: currLand.removeRocks(); break;
+                case SHOVEL:
+                    if (!currLand.hasSeed())
+                        JOptionPane.showMessageDialog(null, "Crop not found." +
+                                "\nUsing this ineffectively costs 7 object coins as well." +
+                                "\nOnly use this on removing active or withered crops");
+                    currLand.shovelLand();
+
+                    break;
             }
 
             // subtract cost and get exp
@@ -214,14 +221,6 @@ public class Player {
                     //Tool REASON #5 == Pickaxe
                     case PICKAXE:
                         reason = "No rocks here!";
-                        break;
-
-                    //Tool REASON #6 == Pickaxe
-                    case SHOVEL:
-                        if (!currLand.hasSeed())
-                            reason = "Crop not found." +
-                                    "\nUsing this ineffectively costs 7 object coins as well." +
-                                    "\nOnly use this on removing active or withered crops";
                         break;
                 }
             }
