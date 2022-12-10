@@ -221,6 +221,9 @@ public class Render {
             if (currTool == ToolAttributes.PLOW.ordinal())
                 firstGrab = toolBtns[currTool];
         }
+        JLabel toolHeader = new JLabel("Tools");
+        toolBtnProperty.gridy++;
+        toolPlot.add(toolHeader, toolBtnProperty);
 
         // SEEDS
         seedBtnProperty.gridx = 0;
@@ -243,6 +246,10 @@ public class Render {
             // Adding it to the panel
             seedPlot.add(seedBtns[currSeed], seedBtnProperty);
         }
+        JLabel seedHeader = new JLabel("Crops");
+        seedBtnProperty.gridy++;
+        seedPlot.add(seedHeader, seedBtnProperty);
+
         // Does a click to the tool/seed that it was initialized to.
         firstGrab.doClick();
 
