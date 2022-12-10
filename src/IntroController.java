@@ -4,7 +4,13 @@ import Entities.Player;
 
 public class IntroController
 {
-
+    /**
+     * This controls the intro of the game (the loading screen) it instantiates the IntroWindow
+     * @param player player instance
+     * @param landMatrix landMatrix instance
+     * @param game game instance
+     * @param GAME_TITLE Title of the game to be displayed
+     */
     public IntroController(Player player, Land[][] landMatrix, GameEnvironment game, String GAME_TITLE)
     {
         int loadValue = 0;

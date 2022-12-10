@@ -7,8 +7,16 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Loading {
+    /**
+     * Signal to stop the while loop readLine() to know when the instructions for the text file is over
+     */
     public static String SIGNAL = "---";
 
+    /**
+     * Getting the size (dimension) of the farm land
+     * @param game game instance
+     * @return true if it was able to open the file
+     */
     public static boolean loadGameSize(GameEnvironment game)
     {
         try
@@ -18,6 +26,7 @@ public class Loading {
 
             String currLine;
             currLine = reader.readLine();
+            // If the input field is empty
             if (currLine == null)
             {
                 JOptionPane.showMessageDialog(null, "Please do at least a 1x1 input size");
@@ -46,6 +55,12 @@ public class Loading {
 
     }
 
+    /**
+     * Instantiates land object inside the landMatrix[][] array. It also sets if the land should have rocks on them
+     * based on the text configuration file
+     * @param game game instance
+     * @param landMatrix landMatrix instance
+     */
     public static void loadLand(GameEnvironment game, Land[][] landMatrix)
     {
         try

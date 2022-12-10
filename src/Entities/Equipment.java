@@ -1,10 +1,9 @@
-/*
-    This class contains the equipment for the game
- */
-
 package Entities;
 import Constants.ToolAttributes;
 
+/**
+    This class contains the equipment for the game
+ */
 public class Equipment
 {
     private String enumName;
@@ -16,9 +15,9 @@ public class Equipment
     private boolean requiredPlant;
     private boolean requiredRocks;
 
-    /*
+    /**
         These value are based on the constant enum values from ToolAttributes
-        @param tool  input an enum field from ToolAttributes
+        @param tool input an enum field from ToolAttributes
     */
     public void setTool(ToolAttributes tool)
     {
@@ -52,7 +51,7 @@ public class Equipment
     }
 
 
-    /*
+    /**
      * This method verifies whether the player has enough coins to use a particular tool
      * @param objCoin The amount of coin that the player has
      */
@@ -60,12 +59,12 @@ public class Equipment
     {
         return objCoin >= this.usageCost;
     }
-    /*
+    /**
      * This method verifies whether the player clan plant a seed on a specific land based on the seed's land requirements
-     * @param isPlowed: isPlowed field of the land tile
-     * @param hasPlant: hasPlant field of the land tile
-     * @param hasRocks: hasRocks field of the land tile
-     * @param isWithered: isWithered field of the land tile
+     * @param isPlowed isPlowed field of the land tile
+     * @param hasPlant hasPlant field of the land tile
+     * @param hasRocks hasRocks field of the land tile
+     * @param isWithered isWithered field of the land tile
      */
     public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasPlant, boolean hasRocks, boolean isWithered)
     {

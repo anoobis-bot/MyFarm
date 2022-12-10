@@ -1,7 +1,7 @@
-/*
- * file name: Controller.java
- * Developers:  Francis De Leon
- *              Mark Abergos
+/**
+ * File Name: Controller.java
+ * @author Francis De Leon
+ * @author Mark Abergos
  */
 
 // Importing user-defined classes
@@ -18,12 +18,12 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 
- /*
+ /**
   * This class serves as the controller for the front end. It handles the communication between
   * the entities and the GUI.
   */
 public class Controller implements ActionListener {
-    /*
+    /**
      * The type of relationship that controller has with other entities is aggregation.
      * The controller changes aspects of the player and the land based on the user input
      */
@@ -32,8 +32,8 @@ public class Controller implements ActionListener {
     private final GameEnvironment game;
     private final Land[][] landMatrix;
 
-    /*
-     * These String codes is the language that the front end and the back end uses to communicate with each other
+    /**
+     * These CODE_NAME codes is the language that the front end and the back end uses to communicate with each other
      * When the user clicks a specific button in a GUI, one of these codes will be delivered to the back-end
      */
     private static final String CODE_LAND = "LAND";
@@ -57,7 +57,7 @@ public class Controller implements ActionListener {
     private final int TOOLS_TOTAL = ToolAttributes.values().length;
     private final int SEEDS_TOTAL = SeedAttributes.values().length;
 
-    /*
+    /**
      * These entities have an aggregation type of relationship with the controller.
      * They are aggregated when the Controller class is instantiated
      */
@@ -72,7 +72,7 @@ public class Controller implements ActionListener {
         render.mainFrame.setVisible(true);
     }
 
-    /*
+    /**
      * This is the prominent method of this class. Every button click in the main game is executed
      * It is divided by if statements.
      * Each clause have their specific function based on the operation type
@@ -205,7 +205,7 @@ public class Controller implements ActionListener {
         }
     }
 
-    /*
+    /**
      * The relationship of this controller class with the buttons and labels is aggregation. The buttons
      * in the Render class are passed into this class for manipulation
      */
@@ -232,7 +232,9 @@ public class Controller implements ActionListener {
         this.coinLabel.setText("Coins: " + player.getObjCoin());
     }
 
-    // Updates the text of the labels situated at the top of the GUI
+     /**
+      * Updates the text of the labels situated at the top of the GUI
+      */
     public void updateLabels()
     {
         this.dayLabel.setText("Day " + game.getCurrentDay());
@@ -243,7 +245,7 @@ public class Controller implements ActionListener {
         this.coinLabel.setText("Coins: " + df.format(player.getObjCoin()));
     }
 
-    /*
+    /**
      * Updates the current land button clicked / current button iteration in updateAllLandButton
      * This method sets the text in the button whether they have a rock, is planted, withered, etc...
      */
@@ -262,7 +264,9 @@ public class Controller implements ActionListener {
             currButton.setText("L");
     }
 
-    // Iterates through all land buttons and updates their texts
+     /**
+      * Iterates through all land buttons and updates their texts
+      */
     public void updateAllLandButton()
     {
         int landWidth = game.getXSize();
@@ -277,7 +281,9 @@ public class Controller implements ActionListener {
         }
     }
 
-    // Function that returns true if land tiles still have active plant
+     /**
+      * @return true if land tiles still have active plant
+      */
     public boolean checkFarmHasPlant(){
         int numPlants = 0;
         for (int y = 0; y < game.getYSize(); y++)
@@ -290,7 +296,9 @@ public class Controller implements ActionListener {
         return numPlants != 0;
     }
 
-    // returns true if the game is over because of the conditions
+     /**
+      * @return true if the game is over because of the conditions
+      */
     public boolean chckGameOver(){
         // if there are no more active plants and player's coin is less than 5, return true
         return (!checkFarmHasPlant() && player.getObjCoin() < 5);

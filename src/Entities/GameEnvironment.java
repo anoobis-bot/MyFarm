@@ -1,26 +1,27 @@
-/*
+package Entities;
+
+/**
     This class contains the game status information
     It has the board size and the current game day
  */
-
-package Entities;
-
 public class GameEnvironment {
-    // Dictates what day the game is currently in
+    /**
+     * Dictates what day the game is currently in
+     */
     private int systemDay;
-    // Size of the land farm (how many tiles are there)
+    /**
+     * Size of the land farm (how many tiles are there)
+     */
     private int xSize, ySize;
 
-    /*
+    /**
         Constructor for the GameEnvironment
-        @param ySize  the y size of the board
-        @param xSize  the x size of the board
      */
     public GameEnvironment() {
         this.systemDay = 1;
     }
 
-    /*
+    /**
         Increments the day and updates the harvest time of the crops of each land tile.
         The time system for harvesting is as follows:
         Harvest time is applicable when the hrvstDays of the crop is equal to 0

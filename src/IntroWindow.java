@@ -2,15 +2,31 @@ import javax.swing.*;
 import java.awt.*;
 
 public class IntroWindow {
-    //set as public for backend controls by IntroController
+    /**
+     * set as public for backend controls by IntroController
+     */
     public JFrame introFrame;
-    //set as public for backend controls by IntroController
+    /**
+     * set as public for backend controls by IntroController
+     */
     public JProgressBar bar;
-    //set as public for backend controls by IntroController
+    /**
+     * set as public for backend controls by IntroController
+     */
     public JLabel lblLoad;
-    private static final int frameX = 420;//frame width;
-    private static final int frameY = 480;//frame Height;
+    /**
+     * frame width;
+     */
+    private static final int frameX = 420;
+    /**
+     * frame height
+     */
+    private static final int frameY = 480;
 
+    /**
+     * Constructor for IntroWindow window
+     * @param GAME_TITLE game title to be displayed
+     */
     public IntroWindow(String GAME_TITLE)
     {
         introFrame = new JFrame();

@@ -1,7 +1,3 @@
-/*
-    This class contains the equipment for the game
- */
-
 package Entities;
 
 import Constants.CropType;
@@ -9,19 +5,24 @@ import Constants.SeedAttributes;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+    This class contains the equipment for the game
+ */
 public class Seed
 {
     private final String enumName;
     private final String seedName;
     private final CropType cropType;
     private int hrvstDays;
-    // The hrvstDays decrement requirement to be able to harvest
+    /**
+     * The hrvstDays decrement. This is the required value of hrvstDays to be able to harvest
+     */
     public static final int HARVEST_TIME = 0;
     private final int waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
             producedQty, seedCost, baseSellPrice;
     private final double expYield;
 
-    /*
+    /**
         When the user decides to change tool, a new object is instantiated with it constructor
         That is why it is not necessary to have setter methods
         @param seed input an enum field from SeedAttributes
@@ -90,7 +91,7 @@ public class Seed
         return this.cropType.paddingRequired;
     }
 
-    /*
+    /**
      * The system for harvesting is decrement. A plant has a specific number of maturity. If reaches the next day
      * The time it gets to reach to its harvest point is decremented until it reaches 0 (harvest time)
      */
@@ -104,6 +105,15 @@ public class Seed
     {
         return objCoin >= this.seedCost;
     }
+
+    /**
+     * Verifies if the land is plant-able or not for the specific land condition
+     * @param landMatrix landMatrix instance
+     * @param game game instance
+     * @param yPointer yPointer of the player
+     * @param xPointer xPointer of the player
+     * @return boolean true if all verifications have passed
+     */
     public boolean verifyUsage_Lnd(Land[][] landMatrix, GameEnvironment game, int yPointer, int xPointer)
     {
         // Shorten syntax

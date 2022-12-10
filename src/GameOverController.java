@@ -6,11 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.StringTokenizer;
 
+/**
+ * This class constructs the Game Over window
+ */
 public class GameOverController implements ActionListener {
     private static final String CODE_RESTART = "RESTART";
     private static final String CODE_QUIT = "QUIT";
     Controller controller;
     GameOverWindow gameOverWindow;
+
+    /**
+     * Instantiates the GameOverWindow
+     */
     public GameOverController(){
         // Creates the GUI of game over
         this.gameOverWindow = new GameOverWindow(this);

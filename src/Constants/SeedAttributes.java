@@ -1,10 +1,9 @@
-/*
+package Constants;
+
+/**
     This enum contains the different seeds in the game. Each field contains the constant values associated with
     the seed
  */
-
-package Constants;
-
 public enum SeedAttributes
 {
     // <SEED_NAME>(seedName, cropType, hrvstDays, waterNeeds, waterBonus, fertilizerNeeds,

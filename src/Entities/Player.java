@@ -1,7 +1,3 @@
-/*
-    This class is the blueprint for the player object in the game.
- */
-
 package Entities;
 
 import Constants.CropType;
@@ -12,6 +8,9 @@ import Constants.SeedAttributes;
 import javax.swing.*;
 import java.util.Objects;
 
+/**
+    This class is the blueprint for the player object in the game.
+ */
 public class Player {
     private double playerExp;
     private int playerLvl;
@@ -29,11 +28,10 @@ public class Player {
     public final int USE_TOOL = 2;
     public final int HARVEST = 3;
 
-    /*
+    /**
         Initialize the object coin, playerExp, and farmerLvl
         @param objCoin how much is the starting coins
         @param playerExp how much is the starting experience
-        @param farmerLvl what is the starting level of the farmer
      */
     public Player(int objCoin, double playerExp)
     {
@@ -44,20 +42,34 @@ public class Player {
         this.tool = new Equipment();
     }
 
+    /**
+     * @return amount of coins the palyer has
+     */
     public double getObjCoin() {
         return objCoin;
     }
+
+    /**
+     * @param value add/subtract to the player's coins
+     */
     public void useObjCoin(double value)
     {
         objCoin += value;
     }
 
+    /**
+     *
+     * @param value add/subtract to the player's Experience points
+     */
     public void changeFarmerExp(double value)
     {
         playerExp += value;
         playerLvl = (int) playerExp / 100;
     }
 
+    /**
+     * @return reason of error
+     */
     public String getReason() {
         return reason;
     }
@@ -69,10 +81,8 @@ public class Player {
         return farmerType;
     }
 
-    /*
-     * set farmer type depends on the conditions
-     * @param option - choices input by the user
-     *
+    /**
+     * Upgrade player's farmer status
      * @ return boolean true if the player is able to upgrade the farmer
      */
     public boolean upgradeFarmerType()
@@ -145,16 +155,16 @@ public class Player {
     public Seed getSeed() {
         return seed;
     }
-    /*
+    /**
         Changes the tool the player is holding
         @param tool input from one of the enum field of ToolAttributes
      */
     public void changeTool(ToolAttributes tool) { this.tool.setTool(tool); }
-    /*
+    /**
         Uses the tool assigned to the land specified by the point
         @param landMatrix a 2D array from the Entities.Land class
 
-        @ return boolean true if it successfully uses the tool
+        @return boolean true if it successfully uses the tool
     */
     public boolean useTool(Land[][] landMatrix)
     {
@@ -221,12 +231,12 @@ public class Player {
         }
     }
 
-    /*
+    /**
         Changes the seed the player is holding
         @param seed input from one of the enum field of SeedAttributes
      */
     public void grabSeed(SeedAttributes seed){ this.seed = new Seed(seed); }
-    /*
+    /**
         @param landMatrix input the landMatrix object. It is to be altered if a seed is planted
         @param game input the game object. It uses the size of the land for Fruit Tree planting
 
@@ -275,7 +285,7 @@ public class Player {
         grabSeed(SeedAttributes.valueOf(seed.getEnumName()));
         return true;
     }
-    /*
+    /**
        harvests the seed specified by the point
        @param landMatrix a 2D array from the Entities.Land class
 

@@ -1,15 +1,14 @@
-/*
- * file name: Driver.java
- * Developers:  Francis De Leon
- *              Mark Abergos
- *
- * This file contains the Main method.
- */
-
 import Entities.GameEnvironment;
 import Entities.Land;
 import Entities.Player;
 
+/**
+ * file name: Driver.java
+ * @author Francis De Leon
+ * @author Mark Abergos
+ *
+ * This file contains the Main method.
+ */
 public class Driver
 {
     public static void main(String[] args)

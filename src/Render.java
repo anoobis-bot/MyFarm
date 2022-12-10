@@ -1,10 +1,7 @@
-/*
+/**
  * file name: Render.java
- * Developers:  Francis De Leon
- *              Mark Abergos
- *
- * This class contains the graphics code for setting up the GUI of the game. A separate class will be created
- * for event handling.
+ * @author Francis De Leon
+ * @author Mark Abergos
  */
 
 import Constants.SeedAttributes;
@@ -14,7 +11,10 @@ import Entities.Land;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * This class contains the graphics code for setting up the GUI of the game. A separate class will be created
+ * for event handling.
+ */
 public class Render {
     /*
         The GUI has a mainFrame that has a BorderLayout.
@@ -23,9 +23,14 @@ public class Render {
         While the NORTH and SOUTH contains player information and advancing to the next day.
         Each section of the Layout is a nested GridBagLayout
      */
-    public JFrame mainFrame; // set as Public to Control in Controller Class
+    /**
+     * set as Public to Control in Controller Class
+     */
+    public JFrame mainFrame;
 
-    // Constant values relating to the GUI
+    /**
+     * Constant values relating to the GUI
+     */
     private static final int FRAME_WIDTH = 1000;
     private static final int FRAME_HEIGHT = 700;
 
@@ -47,6 +52,11 @@ public class Render {
     private static final int PADDING_ADVANCE_BOTTOM = 15;
     private static final int PADDING_ADVANCE_RIGHT = 25;
 
+    /**
+     * This renders the main game. It contains code to initialize the GUI
+     * @param controller controller instance
+     * @param GAME_TITLE String for the game title to be displayed
+     */
     public Render(Controller controller, String GAME_TITLE)
     {
         // Setting up variable for the Controller class

@@ -1,16 +1,29 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class contains the constructor for GameOverWindow
+ */
 public class GameOverWindow {
 
     //set as public for backend controls by GOverController
     public JFrame gameOverFrame = new JFrame();
 
-    private static final int frameX = 420;//frame width;
-    private static final int frameY = 480;//frame Height;
+    /**
+     * frame width
+     */
+    private static final int frameX = 420;
+    /**
+     * frame height
+     */
+    private static final int frameY = 480;
     private static final int PADDING_BTN_BOTTOM = 15;
     private static final int PADDING_BTN_RIGHT = 25;
 
+    /**
+     * Instantiates the GUI for the game over window
+     * @param gameOverController controller object for GameOver
+     */
     public GameOverWindow(GameOverController gameOverController)
     {
         final String CODE_RESTART = GameOverController.getCodeRestart();
