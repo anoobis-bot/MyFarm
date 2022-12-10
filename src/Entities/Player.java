@@ -10,11 +10,11 @@ import Constants.ToolAttributes;
 import Constants.SeedAttributes;
 
 import javax.swing.*;
-import java.lang.Math;
+import java.util.Objects;
 
 public class Player {
     private double playerExp;
-    private int playerLvl, waterUsed, fertilizerUsed;
+    private int playerLvl;
     private double objCoin;
     // The relationship of player with the objects below is composition
     private FarmerType farmerType;
@@ -42,9 +42,6 @@ public class Player {
         this.playerExp = playerExp;
         this.playerLvl = (int) (playerExp / 100);
         this.tool = new Equipment();
-
-        this.waterUsed = 0;
-        this.fertilizerUsed = 0;
     }
 
     public double getObjCoin() {
@@ -59,10 +56,6 @@ public class Player {
     {
         playerExp += value;
         playerLvl = (int) playerExp / 100;
-    }
-
-    public double getPlayerExp() {
-        return playerExp;
     }
 
     public String getReason() {
@@ -173,18 +166,18 @@ public class Player {
         {
             // Defines which method will be used based on the current tool of the player
             switch (ToolAttributes.valueOf(tool.getEnumName())) {
-                case PLOW: currLand.plowLand(); break;
-                case WATERING_CAN: currLand.waterLand(farmerType.getBonusWaterLimitIncrease()); break;
-                case FERTILIZER: currLand.fertilizeLand(farmerType.getBonusFertilizeIncrease()); break;
-                case PICKAXE: currLand.removeRocks(); break;
-                case SHOVEL:
+                case PLOW -> currLand.plowLand();
+                case WATERING_CAN -> currLand.waterLand(farmerType.getBonusWaterLimitIncrease());
+                case FERTILIZER -> currLand.fertilizeLand(farmerType.getBonusFertilizeIncrease());
+                case PICKAXE -> currLand.removeRocks();
+                case SHOVEL -> {
                     if (!currLand.hasSeed())
-                        JOptionPane.showMessageDialog(null, "Crop not found." +
-                                "\nUsing this ineffectively costs 7 object coins as well." +
-                                "\nOnly use this on removing active or withered crops");
+                        JOptionPane.showMessageDialog(null, """
+                                Crop not found.
+                                Using this ineffectively costs 7 object coins as well.
+                                Only use this on removing active or withered crops""");
                     currLand.shovelLand();
-
-                    break;
+                }
             }
 
             // subtract cost and get exp
@@ -263,8 +256,7 @@ public class Player {
                 reason = "A crop has already been planted here";
 
             // PLANTING reason #4 - fruit tree planting
-            else if (seed.getCropType().typeName=="Fruit Tree"){
-                //if()
+            else if (Objects.equals(seed.getCropType().typeName, "Fruit Tree")){
                 reason = "Fruit Tree should be planted 1 tile away from any planted crop";
             }
             return false;
@@ -324,7 +316,7 @@ public class Player {
             useObjCoin(finalHarvestPrice + farmerType.getBonusCoin());
             changeFarmerExp(currSeedInLand.getExpYield());
 
-            //reset the tile to unplowed
+            //reset the tile to un-plowed
             currLand.resetValues();
 
             return true;
@@ -347,22 +339,5 @@ public class Player {
                     "\nFertilizer Need:" + fertilizerReq;
             return false;
         }
-    }
-
-    /*
-      This method resets all variables in the class
-    */
-    public void resetPlayer()
-    {
-        this.farmerType = new FarmerType(FarmerTypeAttributes.FARMER);
-        this.objCoin = 100;
-        this.playerExp = 0.0;
-        this.playerLvl = 0;
-
-        this.waterUsed = 0;
-        this.fertilizerUsed = 0;
-
-        this.tool.setTool(ToolAttributes.PLOW);
-        this.grabSeed(SeedAttributes.TURNIP);
     }
 }

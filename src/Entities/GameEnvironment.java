@@ -43,7 +43,7 @@ public class GameEnvironment {
                     if (currSeed_Land.getHrvstDays() == Seed.HARVEST_TIME)
                     {
                         // If the needs of the plant is not met by the time of harvesting, the plant is to be withered
-                        if (landMatrix[y][x].validateWaterFertilizer() == false)
+                        if (!landMatrix[y][x].validateWaterFertilizer())
                             landMatrix[y][x].setWithered();
                     }
 

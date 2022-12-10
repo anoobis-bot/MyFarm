@@ -10,13 +10,11 @@ public class GameOverWindow {
     private static final int frameY = 480;//frame Height;
     private static final int PADDING_BTN_BOTTOM = 15;
     private static final int PADDING_BTN_RIGHT = 25;
-    private final String CODE_RESTART;
-    private final String CODE_QUIT;
 
     public GameOverWindow(GameOverController gameOverController)
     {
-        this.CODE_RESTART = GameOverController.getCodeRestart();
-        this.CODE_QUIT = GameOverController.getCodeQuit();
+        final String CODE_RESTART = GameOverController.getCodeRestart();
+        final String CODE_QUIT = GameOverController.getCodeQuit();
         //Initializing Game Over Frame
         gameOverFrame.setTitle("Game Over");
         gameOverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +27,7 @@ public class GameOverWindow {
         ImageIcon image = new ImageIcon("src/Images/Icon1.png");
         gameOverFrame.setIconImage(image.getImage());
 
-        //Initializing subframes
+        //Initializing sub-frames
         JPanel gOverPanel = new JPanel();
         gOverPanel.setLayout(new GridBagLayout());
         JPanel btnsPanel = new JPanel();
@@ -45,8 +43,6 @@ public class GameOverWindow {
         ImageIcon image2 = new ImageIcon("src/Images/GameOverIcon.png");
         Image gOverImgIcon = image2.getImage().getScaledInstance(frameX -200, frameY -250, Image.SCALE_SMOOTH);
         iconGameOver.setIcon(new ImageIcon(gOverImgIcon));
-        //iconGameOver.setHorizontalAlignment(JLabel.CENTER);
-        //btnProperty.gridy = 0;
         gOverPanel.add(iconGameOver);
 
 
@@ -64,7 +60,7 @@ public class GameOverWindow {
         JButton btnQuit = new JButton();
         btnQuit.setText("QUIT");
         btnQuit.addActionListener(gameOverController);
-        btnQuit.setActionCommand(CODE_QUIT);;
+        btnQuit.setActionCommand(CODE_QUIT);
         btnProperty.gridx = 1;
         btnProperty.insets = new Insets(0, 0, PADDING_BTN_BOTTOM, PADDING_BTN_RIGHT);
         // btnReplay.setPreferredSize(new Dimension(WIDTH_ADVANCE, HEIGHT_ADVANCE));

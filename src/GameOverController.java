@@ -2,8 +2,6 @@ import Entities.GameEnvironment;
 import Entities.Land;
 import Entities.Player;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.StringTokenizer;
@@ -39,7 +37,7 @@ public class GameOverController implements ActionListener {
             Loading.loadLand(game, landMatrix);
 
             this.gameOverWindow.gameOverFrame.dispose();
-            new Controller(player, landMatrix, game, GAME_TITLE);
+            controller = new Controller(player, landMatrix, game, GAME_TITLE);
         }
         else if (opType.equals(CODE_QUIT)){
             this.gameOverWindow.gameOverFrame.dispose(); //closes game over window

@@ -51,17 +51,10 @@ public class Equipment
         return expGain;
     }
 
-    public boolean requiredPlowed() {
-        return requiredPlowed;
-    }
-
-    public boolean requiredRocks() {
-        return requiredRocks;
-    }
 
     /*
      * This method verifies whether the player has enough coins to use a particular tool
-     * @param objCoin The amount of coin that the palyer has
+     * @param objCoin The amount of coin that the player has
      */
     public boolean verifyUsage_Mny(double objCoin)
     {
@@ -69,10 +62,10 @@ public class Equipment
     }
     /*
      * This method verifies whether the player clan plant a seed on a specific land based on the seed's land requirements
-     * @param isPlowed isPlowed field of the land tile
-     * @param hasPlant hasPlant field of the land tile
-     * @param hasRocks hasRocks field of the land tile
-     * @param isWithered isWithered field of the land tile
+     * @param isPlowed: isPlowed field of the land tile
+     * @param hasPlant: hasPlant field of the land tile
+     * @param hasRocks: hasRocks field of the land tile
+     * @param isWithered: isWithered field of the land tile
      */
     public boolean verifyUsage_Lnd(boolean isPlowed, boolean hasPlant, boolean hasRocks, boolean isWithered)
     {

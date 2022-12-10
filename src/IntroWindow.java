@@ -30,19 +30,19 @@ public class IntroWindow {
         introFrame.setIconImage(image.getImage());
 
         //modified image for displaying on IntroWindow's frame
-        Image frameicon = image.getImage().getScaledInstance(frameX -200, frameY -250, Image.SCALE_SMOOTH);
+        Image frameIcon = image.getImage().getScaledInstance(frameX -200, frameY -250, Image.SCALE_SMOOTH);
 
-        //Initializing subframes
+        //Initializing sub-frames
         JPanel iconPanel = new JPanel();
         iconPanel.setLayout(new GridBagLayout());
         JPanel barPanel = new JPanel();
         barPanel.setLayout(new GridBagLayout());
 
         // Main Icon at the center
-        JLabel iconlbl = new JLabel();
-        iconlbl.setIcon(new ImageIcon(frameicon));
-        iconlbl.setHorizontalAlignment(JLabel.CENTER);
-        iconPanel.add(iconlbl);
+        JLabel iconLbl = new JLabel();
+        iconLbl.setIcon(new ImageIcon(frameIcon));
+        iconLbl.setHorizontalAlignment(JLabel.CENTER);
+        iconPanel.add(iconLbl);
 
         // properties configurations
         GridBagConstraints btnProperty = new GridBagConstraints();

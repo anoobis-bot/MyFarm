@@ -44,20 +44,16 @@ public class Controller implements ActionListener {
     private static final String CODE_NEXT_DAY = "NEXT DAY";
 
     /*
-     * The type of relationship[ that these buttons have with the controller class is aggregation.
+     * The type of relationship that these buttons have with the controller class is aggregation.
      * These buttons are first instantiated in the Render class, which they are then passes to this class
      * for manipulation.
      */
     private JButton[][] landMatrixBtns;
     private JButton[] seedBtns, toolBtns;
-    private JButton nextDayBtn, upgradeBtn, harvestBtn;
+    private JButton harvestBtn;
     private JLabel dayLabel, farmerTypeLabel, playerLevelLabel, coinLabel;
 
-    // Might not be used. Delete at final checking.
-    ToolAttributes[] toolsInfo = ToolAttributes.values();
-    SeedAttributes[] seedsInfo = SeedAttributes.values();
-
-    // These values will be used for iterating through every tools or seeds in the game
+    // These values will be used for iterating through every tool or seeds in the game
     private final int TOOLS_TOTAL = ToolAttributes.values().length;
     private final int SEEDS_TOTAL = SeedAttributes.values().length;
 
@@ -89,7 +85,7 @@ public class Controller implements ActionListener {
         /*
          * Each button has their own message attached to it
          * OPERATION_TYPE,TOOL/SEED/COORDINATES
-         * The line immedietly below this comment gets the operation type the button is
+         * The line immediately below this comment gets the operation type the button is
          *  - Whether they clicked the tool, seed, land, harvest, or next day
          */
         StringTokenizer eventInfo = new StringTokenizer(event.getActionCommand(), ",");
@@ -106,101 +102,105 @@ public class Controller implements ActionListener {
              * There could only one type of operation from the choices:
              * Planting, using tool, or harvesting
              */
-            if (opType.equals(CODE_SEED) || opType.equals(CODE_TOOL) || opType.equals(CODE_HARVEST)) {
-                // This section highlights which operation the user is currently doing, either a specific tool,
-                // specific seed, or harvesting
-                for (int currTool = 0; currTool < TOOLS_TOTAL; currTool++) {
-                    if (toolBtns[currTool].getActionCommand().equals(currButton.getActionCommand()))
+            switch (opType) {
+                case CODE_SEED, CODE_TOOL, CODE_HARVEST -> {
+                    // This section highlights which operation the user is currently doing, either a specific tool,
+                    // specific seed, or harvesting
+                    for (int currTool = 0; currTool < TOOLS_TOTAL; currTool++) {
+                        if (toolBtns[currTool].getActionCommand().equals(currButton.getActionCommand()))
+                            currButton.setBackground(Color.PINK);
+                        else
+                            toolBtns[currTool].setBackground(Color.WHITE);
+                    }
+                    for (int currSeed = 0; currSeed < SEEDS_TOTAL; currSeed++) {
+                        if (seedBtns[currSeed].getActionCommand().equals(currButton.getActionCommand()))
+                            currButton.setBackground(Color.PINK);
+                        else
+                            seedBtns[currSeed].setBackground(Color.WHITE);
+                    }
+                    if (harvestBtn.getActionCommand().equals(currButton.getActionCommand()))
                         currButton.setBackground(Color.PINK);
                     else
-                        toolBtns[currTool].setBackground(Color.WHITE);
-                }
-                for (int currSeed = 0; currSeed < SEEDS_TOTAL; currSeed++) {
-                    if (seedBtns[currSeed].getActionCommand().equals(currButton.getActionCommand()))
-                        currButton.setBackground(Color.PINK);
-                    else
-                        seedBtns[currSeed].setBackground(Color.WHITE);
-                }
-                if (harvestBtn.getActionCommand().equals(currButton.getActionCommand()))
-                    currButton.setBackground(Color.PINK);
-                else
-                    harvestBtn.setBackground(Color.WHITE);
+                        harvestBtn.setBackground(Color.WHITE);
 
-                // This part now executes the back-end codes for the specific type of operation. It signals to the
-                // player class what the operation type the player is in.
-                if (opType.equals(CODE_TOOL)) {
-                    String toolType = eventInfo.nextToken();
-                    player.changeTool(ToolAttributes.valueOf(toolType));
-                    player.setOperationType(player.USE_TOOL);
-                } else if (opType.equals(CODE_SEED)) {
-                    String seedType = eventInfo.nextToken();
-                    player.grabSeed(SeedAttributes.valueOf(seedType));
-                    player.setOperationType(player.PLANT);
-                } else if (opType.equals(CODE_HARVEST)) {
-                    player.setOperationType(player.HARVEST);
-                }
-            }
-
-            // The land is what the tools, seeds, and harvest function will be interacting to
-            // If a land button is clicked, a code will be executed based on the player class' operation type
-            // (which was set using the above code)
-            else if (opType.equals(CODE_LAND)) {
-                // Getting the coordinate of which land button is clicked
-                player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
-                player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
-
-                /*
-                 * the methods useTool, plantSeed and harvestCrop are the methods that execute
-                 * the necessary operations for the back-end. They return false when they were not able to
-                 * execute their operation properly (ex. when one of the condition for planting is not met)
-                 */
-                if (player.getOperationType() == player.USE_TOOL) {
-                    if (!player.useTool(landMatrix)) {
-                        // Displays message box for alerting user in using tool.
-                        JOptionPane.showMessageDialog(null,
-                                "You can't use " + player.getTool().getToolName()
-                                + " on this this land\nReason:\n" + player.getReason());
+                    // This part now executes the back-end codes for the specific type of operation. It signals to the
+                    // player class what the operation type the player is in.
+                    switch (opType) {
+                        case CODE_TOOL -> {
+                            String toolType = eventInfo.nextToken();
+                            player.changeTool(ToolAttributes.valueOf(toolType));
+                            player.setOperationType(player.USE_TOOL);
+                        }
+                        case CODE_SEED -> {
+                            String seedType = eventInfo.nextToken();
+                            player.grabSeed(SeedAttributes.valueOf(seedType));
+                            player.setOperationType(player.PLANT);
+                        }
+                        case CODE_HARVEST -> player.setOperationType(player.HARVEST);
                     }
-                } else if (player.getOperationType() == player.PLANT) {
-                    if (!player.plantSeed(landMatrix, game)) {
-                        // Displays message box for alerting user in planting crop.
-                        JOptionPane.showMessageDialog(null,
-                                "You can't plant " + player.getSeed().getSeedName()
-                                + " on this this land\nReason:\n" + player.getReason());
+                }
+
+                // The land is what the tools, seeds, and harvest function will be interacting to
+                // If a land button is clicked, a code will be executed based on the player class' operation type
+                // (which was set using the above code)
+                case CODE_LAND -> {
+                    // Getting the coordinate of which land button is clicked
+                    player.setYPointer(Integer.parseInt(eventInfo.nextToken()));
+                    player.setXPointer(Integer.parseInt(eventInfo.nextToken()));
+
+                    /*
+                     * the methods useTool, plantSeed and harvestCrop are the methods that execute
+                     * the necessary operations for the back-end. They return false when they were not able to
+                     * execute their operation properly (ex. when one of the condition for planting is not met)
+                     */
+                    if (player.getOperationType() == player.USE_TOOL) {
+                        if (!player.useTool(landMatrix)) {
+                            // Displays message box for alerting user in using tool.
+                            JOptionPane.showMessageDialog(null,
+                                    "You can't use " + player.getTool().getToolName()
+                                            + " on this this land\nReason:\n" + player.getReason());
+                        }
+                    } else if (player.getOperationType() == player.PLANT) {
+                        if (!player.plantSeed(landMatrix, game)) {
+                            // Displays message box for alerting user in planting crop.
+                            JOptionPane.showMessageDialog(null,
+                                    "You can't plant " + player.getSeed().getSeedName()
+                                            + " on this this land\nReason:\n" + player.getReason());
+                        }
+                    } else if (player.getOperationType() == player.HARVEST) {
+                        if (!player.harvestCrop(landMatrix)) {
+                            // Displays message box for alerting user in harvesting crop.
+                            JOptionPane.showMessageDialog(null, player.getReason());
+                        }
                     }
-                } else if (player.getOperationType() == player.HARVEST) {
-                    if (!player.harvestCrop(landMatrix)) {
-                        // Displays message box for alerting user in harvesting crop.
+
+                    // Updates the buttons and the labels GUI due to changes from the operations
+                    updateLandButton(currButton, player.getYPointer(), player.getXPointer());
+                    updateLabels();
+                }
+
+                // If the player clicks the Next day function
+                case CODE_NEXT_DAY -> {
+                    // This method from the game class updates all the land tiles and their seed harvest time.
+                    // This function also sets the tile if it is withered or not
+                    game.advanceTime(landMatrix);
+
+                    // Updates all land buttons and labels
+                    updateAllLandButton();
+                    updateLabels();
+                }
+
+                // If the player clicks the upgrade farmer button
+                case CODE_UPGRADE -> {
+                    // This method upgrades the farmer's status. It returns false when proper conditions are not met.
+                    if (!player.upgradeFarmerType()) {
+                        // Displays message box for alerting user in UPGRADING PLAYER
                         JOptionPane.showMessageDialog(null, player.getReason());
                     }
+
+                    // Updates the labels, specifically the display which displays the status of the farmer
+                    updateLabels();
                 }
-
-                // Updates the buttons and the labels GUI due to changes from the operations
-                updateLandButton(currButton, player.getYPointer(), player.getXPointer());
-                updateLabels();
-            }
-
-            // If the player clicks the Next day function
-            else if (opType.equals(CODE_NEXT_DAY)) {
-                // This method from the game class updates all the land tiles and their seed harvest time.
-                // This function also sets the tile if it is withered or not
-                game.advanceTime(landMatrix);
-
-                // Updates all land buttons and labels
-                updateAllLandButton();
-                updateLabels();
-            }
-
-            // If the player clicks the upgrade farmer button
-            else if (opType.equals(CODE_UPGRADE)) {
-                // This method upgrades the farmer's status. It returns false when proper conditions are not met.
-                if (!player.upgradeFarmerType()) {
-                    // Displays message box for alerting user in UPGRADING PLAYER
-                    JOptionPane.showMessageDialog(null, player.getReason());
-                }
-
-                // Updates the labels, specifically the display which displays the status of the farmer
-                updateLabels();
             }
         }
     }
@@ -210,14 +210,12 @@ public class Controller implements ActionListener {
      * in the Render class are passed into this class for manipulation
      */
     public void setButtons(JButton[][] landMatrixBtns, JButton[] seedBtns, JButton[] toolBtns,
-                            JButton nextDayBtn, JButton upgradeBtn, JButton harvestBtn)
+                            JButton harvestBtn)
     {
         this.landMatrixBtns = landMatrixBtns;
         this.seedBtns = seedBtns;
         this.toolBtns = toolBtns;
 
-        this.nextDayBtn = nextDayBtn;
-        this.upgradeBtn = upgradeBtn;
         this.harvestBtn = harvestBtn;
     }
 
@@ -279,28 +277,23 @@ public class Controller implements ActionListener {
         }
     }
 
-    // Function that returns true if all land tiles have active plant
+    // Function that returns true if land tiles still have active plant
     public boolean checkFarmHasPlant(){
-        int z=0;
+        int numPlants = 0;
         for (int y = 0; y < game.getYSize(); y++)
             for (int x = 0; x < game.getXSize(); x++){
                 if(landMatrix[y][x].hasSeed() && !landMatrix[y][x].isWithered()){
-                    z++;
+                    numPlants++;
                 }
             }
-        if(z!=0)
-           return true;
-        else
-            return false;
+
+        return numPlants != 0;
     }
 
     // returns true if the game is over because of the conditions
     public boolean chckGameOver(){
-        if(!checkFarmHasPlant() && player.getObjCoin() < 5)
-            return true;
-
-        //else if () {
-         else return false;
+        // if there are no more active plants and player's coin is less than 5, return true
+        return (!checkFarmHasPlant() && player.getObjCoin() < 5);
     }
 
     // The methods below are get methods for private fields.

@@ -18,7 +18,7 @@ public class Seed
     // The hrvstDays decrement requirement to be able to harvest
     public static final int HARVEST_TIME = 0;
     private final int waterNeeds, waterBonus, fertilizerNeeds, fertilizerBonus,
-            producedQtyMin, producedQtyMax, producedQty, seedCost, baseSellPrice;
+            producedQty, seedCost, baseSellPrice;
     private final double expYield;
 
     /*
@@ -37,12 +37,14 @@ public class Seed
         this.waterBonus = seed.waterBonus;
         this.fertilizerNeeds = seed.fertilizerNeeds;
         this.fertilizerBonus = seed.fertilizerBonus;
-        this.producedQtyMin = seed.producedQtyMin;
-        this.producedQtyMax = seed.producedQtyMax;
-        this.producedQty = ThreadLocalRandom.current().nextInt(producedQtyMin, producedQtyMax + 1);
         this.seedCost = seed.seedCost;
         this.baseSellPrice = seed.baseSellPiece;
         this.expYield = seed.expYield;
+
+        int producedQtyMin = seed.producedQtyMin;
+        int producedQtyMax = seed.producedQtyMax;
+        // Random value from Min to Max
+        this.producedQty = ThreadLocalRandom.current().nextInt(producedQtyMin, producedQtyMax + 1);
     }
 
     /* get methods */
@@ -71,12 +73,6 @@ public class Seed
     {
         return fertilizerBonus;
     }
-    public int getProducedQtyMin() {
-        return producedQtyMin;
-    }
-    public int getProducedQtyMax() {
-        return producedQtyMax;
-    }
     public int getProducedQty() {
         return producedQty;
     }
@@ -98,10 +94,9 @@ public class Seed
      * The system for harvesting is decrement. A plant has a specific number of maturity. If reaches the next day
      * The time it gets to reach to its harvest point is decremented until it reaches 0 (harvest time)
      */
-    public int decrementHrvstDays()
+    public void decrementHrvstDays()
     {
         this.hrvstDays--;
-        return this.hrvstDays;
     }
 
     // these methods below are the ones to be used if the seed is plant-able

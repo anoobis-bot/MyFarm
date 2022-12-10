@@ -24,23 +24,10 @@ public class Render {
         Each section of the Layout is a nested GridBagLayout
      */
     public JFrame mainFrame; // set as Public to Control in Controller Class
-    private JPanel landPlot;
-    private JPanel toolPlot;
-    private JPanel seedPlot;
-    private JPanel infoPlot;
-    private JPanel farmerInfoPlot;
-    private JPanel miscPlot;
-
 
     // Constant values relating to the GUI
     private static final int FRAME_WIDTH = 1000;
     private static final int FRAME_HEIGHT = 700;
-
-
-    // Constants needed for creating the GUI (e.g. how many land tiles)
-    private final int LAND_WIDTH;
-    private final int LAND_HEIGHT;
-    private final int LAND_AREA;
 
     private static final int TOOLS_TOTAL = ToolAttributes.values().length;
     private static final int SEEDS_TOTAL = SeedAttributes.values().length;
@@ -60,32 +47,22 @@ public class Render {
     private static final int PADDING_ADVANCE_BOTTOM = 15;
     private static final int PADDING_ADVANCE_RIGHT = 25;
 
-
-    // Static values that will be used by the Controller class
-    private final String CODE_LAND;
-    private final String CODE_TOOL;
-    private final String CODE_SEED;
-    private final String CODE_HARVEST;
-    private final String CODE_UPGRADE;
-    private final String CODE_NEXT_DAY;
-
     public Render(Controller controller, String GAME_TITLE)
     {
         // Setting up variable for the Controller class
-        this.CODE_LAND = Controller.getCodeLand();
-        this.CODE_TOOL = Controller.getCodeTool();
-        this.CODE_SEED = Controller.getCodeSeed();
-        this.CODE_HARVEST = Controller.getCodeHarvest();
-        this.CODE_UPGRADE = Controller.getCodeUpgrade();
-        this.CODE_NEXT_DAY = Controller.getCodeNextDay();
+        final String CODE_LAND = Controller.getCodeLand();
+        final String CODE_TOOL = Controller.getCodeTool();
+        final String CODE_SEED = Controller.getCodeSeed();
+        final String CODE_HARVEST = Controller.getCodeHarvest();
+        final String CODE_UPGRADE = Controller.getCodeUpgrade();
+        final String CODE_NEXT_DAY = Controller.getCodeNextDay();
 
-        // Setting up the number of column and rows of the land
-        this.LAND_WIDTH = controller.getWidthLand();
-        this.LAND_HEIGHT = controller.getHeightLand();
-        this.LAND_AREA = LAND_WIDTH * LAND_HEIGHT;
-
-        // INTRO WINDOW
-        //new IntroController(GAME_TITLE);
+        /*
+         * Setting up the number of column and rows of the land
+         * Constants needed for creating the GUI (e.g. how many land tiles)
+         */
+        final int LAND_WIDTH = controller.getWidthLand();
+        final int LAND_HEIGHT = controller.getHeightLand();
 
         // Initializing main frame
         mainFrame = new JFrame(GAME_TITLE);
@@ -99,18 +76,18 @@ public class Render {
         ImageIcon image = new ImageIcon("src/Images/Icon1.png");
         mainFrame.setIconImage(image.getImage());
 
-        // Initializing subframes
-        landPlot = new JPanel();
+        // Initializing sub-frames
+        JPanel landPlot = new JPanel();
         landPlot.setLayout(new GridBagLayout());
-        toolPlot = new JPanel();
+        JPanel toolPlot = new JPanel();
         toolPlot.setLayout(new GridBagLayout());
-        seedPlot = new JPanel();
+        JPanel seedPlot = new JPanel();
         seedPlot.setLayout(new GridBagLayout());
-        infoPlot = new JPanel();
+        JPanel infoPlot = new JPanel();
         infoPlot.setLayout(new GridBagLayout());
-            farmerInfoPlot = new JPanel();
+            JPanel farmerInfoPlot = new JPanel();
             farmerInfoPlot.setLayout(new GridBagLayout());
-        miscPlot = new JPanel();
+        JPanel miscPlot = new JPanel();
         miscPlot.setLayout(new GridBagLayout());
 
         // Instantiating all the components that will be used in the game
@@ -159,7 +136,7 @@ public class Render {
 
         // Passing the buttons and labels to the controller class for back end
         controller.setButtons(landMatrixBtns, seedBtns, toolBtns,
-                                nextDayBtn, upgradeBtn, harvestBtn);
+                                harvestBtn);
         controller.setLabels(dayLabel, farmerTypeLabel, playerLevelLabel, coinLabel);
 
 
@@ -186,8 +163,8 @@ public class Render {
                 // Set up information about the button to be used by the controller object
                 landMatrixBtns[currHeight][currWidth].addActionListener(controller);
                 landMatrixBtns[currHeight][currWidth].setActionCommand(CODE_LAND + "," +
-                        String.valueOf(currHeight) + ","  +
-                        String.valueOf(currWidth));
+                        currHeight + ","  +
+                        currWidth);
 
                 // Initializing lands
                 if (land[currHeight][currWidth].hasRocks())

@@ -3,7 +3,6 @@
  */
 
 package Entities;
-import java.util.Random;
 
 public class Land
 {
@@ -44,13 +43,14 @@ public class Land
         this.isWithered = true;
     }
 
-    // Checks if the land has a crop/seed in it
+    /*
+     * Checks if the land has a crop/seed in it
+     *
+     * @return boolean true if the land is populated with a seed
+     */
     public boolean hasSeed()
     {
-        if (this.crop == null)
-            return false;
-
-        return true;
+        return (this.crop != null);
     }
     // Validates if the land has the right condition for the crop's water and fertilizer needs
     public boolean validateWaterFertilizer()

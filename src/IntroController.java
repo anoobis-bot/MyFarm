@@ -37,6 +37,7 @@ public class IntroController
 
             }
         } catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
         }
     }
 }
