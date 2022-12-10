@@ -9,16 +9,14 @@ public class GameEnvironment {
     // Dictates what day the game is currently in
     private int systemDay;
     // Size of the land farm (how many tiles are there)
-    private final int xSize, ySize;
+    private int xSize, ySize;
 
     /*
         Constructor for the GameEnvironment
         @param ySize  the y size of the board
         @param xSize  the x size of the board
      */
-    public GameEnvironment(int ySize, int xSize) {
-        this.xSize = xSize;
-        this.ySize = ySize;
+    public GameEnvironment() {
         this.systemDay = 1;
     }
 
@@ -55,6 +53,16 @@ public class GameEnvironment {
                 }
             }
         }
+    }
+
+    // Setters
+    public void setXSize(int value)
+    {
+        this.xSize = value;
+    }
+    public void setYSize(int value)
+    {
+        this.ySize = value;
     }
 
     // Get methods

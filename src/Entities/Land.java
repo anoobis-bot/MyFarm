@@ -28,10 +28,6 @@ public class Land
         this.amtFertilizer = 0;
         this.isPlowed = false;
         this.isWithered = false;
-
-        //random distribution of rocks
-        Random random = new Random();
-        this.hasRocks = random.nextBoolean();
     }
 
     /*
@@ -99,6 +95,12 @@ public class Land
     public boolean isWithered()
     {
         return isWithered;
+    }
+
+    // Sets rocks on load
+    public void setHasRocks(boolean value)
+    {
+        this.hasRocks = value;
     }
 
 

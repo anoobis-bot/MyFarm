@@ -1,0 +1,28 @@
+This is the loading file for the land in the game.
+Be sure to have a uniform rectangular/square input.
+These are some examples of correct input:
+    1001    |   10
+    1010    |   01
+
+Enter this input below the "---"
+
+The area of the input defines the land mass of the farm. A 3x3 input will produce 3x3 tiles.
+A 2x3 will produce 2x3 tiles and so on
+
+You can input 1 if you desire the specific tile to have rocks.
+Otherwise, input 0
+
+DO NOT enter uneven input. This will lead to undefined behaviors. Example of uneven input:
+    1001
+    101
+DO NOT add another new line after the "---" Immediately enter you input
+DO NOT modify the line containing "---"
+
+Enjoy!
+
+---
+1101010100
+1001010110
+0011011100
+0101010100
+1101010110

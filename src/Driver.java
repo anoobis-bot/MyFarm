@@ -15,14 +15,15 @@ public class Driver
     public static void main(String[] args)
     {
         // Instantiates all the entities in the game
-        GameEnvironment game = new GameEnvironment(5, 10);
-        Player player = new Player(100, 0);
-        Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
+        GameEnvironment game = new GameEnvironment();
+        Loading.loadGameSize(game);
 
+        Player player = new Player(100, 0);
+
+        Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
         // initializing land object in each element of landMatrix[][]
-        for (int y = 0; y < game.getYSize(); y++)
-            for (int x = 0; x < game.getXSize(); x++)
-                landMatrix[y][x] = new Land();
+        Loading.loadLand(game, landMatrix);
+
 
         // Instantiating the controller method for the game
         Controller controller = new Controller(player, landMatrix, game);
