@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class contains the GUI for setting up the Introduction Window
+ */
 public class IntroWindow {
     /**
      * set as public for backend controls by IntroController

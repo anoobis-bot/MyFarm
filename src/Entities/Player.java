@@ -83,7 +83,7 @@ public class Player {
 
     /**
      * Upgrade player's farmer status
-     * @ return boolean true if the player is able to upgrade the farmer
+     * @return boolean true if the player is able to upgrade the farmer
      */
     public boolean upgradeFarmerType()
     {
@@ -301,6 +301,11 @@ public class Player {
         if (!currLand.hasSeed()){
             // Harvest reason #1
             reason = "Land doesn't have seed planted";
+            return false;
+        }
+        else if (currLand.isWithered())
+        {
+            reason = "The crop has withered!";
             return false;
         }
 

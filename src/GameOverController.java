@@ -35,7 +35,7 @@ public class GameOverController implements ActionListener {
             GameEnvironment game = new GameEnvironment();
             Loading.loadGameSize(game);
 
-            Player player = new Player(100, 0);
+            Player player = new Player(GameEnvironment.STARTING_COIN, GameEnvironment.STARTING_EXP);
 
             Land[][] landMatrix = new Land[game.getYSize()][game.getXSize()];
             String GAME_TITLE = "My Farm"; // Game Name

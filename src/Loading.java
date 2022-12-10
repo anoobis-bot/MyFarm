@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * This class contains the static methods for loading a file and importing its contents
+ */
 public class Loading {
     /**
      * Signal to stop the while loop readLine() to know when the instructions for the text file is over

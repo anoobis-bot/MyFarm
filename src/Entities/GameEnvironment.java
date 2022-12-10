@@ -14,6 +14,9 @@ public class GameEnvironment {
      */
     private int xSize, ySize;
 
+    public static final int STARTING_COIN = 10;
+    public static final int STARTING_EXP = 0;
+
     /**
         Constructor for the GameEnvironment
      */

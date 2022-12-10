@@ -168,7 +168,7 @@ public class Seed
 
                     currXSeeker++;
                 }
-
+                currXSeeker = 0;
                 currYSeeker++;
             }
         }

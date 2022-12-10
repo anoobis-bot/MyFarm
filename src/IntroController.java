@@ -2,6 +2,9 @@ import Entities.GameEnvironment;
 import Entities.Land;
 import Entities.Player;
 
+/**
+ * This class contains the constructor and instantiates the IntroWindow. It controls the components in the IntroWindow
+ */
 public class IntroController
 {
     /**
