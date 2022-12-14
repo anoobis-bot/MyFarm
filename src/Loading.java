@@ -22,6 +22,7 @@ public class Loading {
      */
     public static boolean loadGameSize(GameEnvironment game)
     {
+        int numRocks = 0;
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader("sav\\land_config.txt"));
@@ -40,9 +41,27 @@ public class Loading {
             game.setXSize(currLine.length());
             while (currLine != null)
             {
+                int currLet = 0;
+                while (currLet < game.getXSize())
+                {
+                    if (currLine.charAt(currLet) == '1')
+                        numRocks++;
+
+                    currLet++;
+                }
+
                 currLine = reader.readLine();
                 ySize++;
+
             }
+
+            if (numRocks < 10 || numRocks > 30)
+            {
+                JOptionPane.showMessageDialog(null, "Rocks must be more than 10 " +
+                        "and less than 30");
+                return false;
+            }
+
             game.setYSize(ySize);
             reader.close();
             return true;
